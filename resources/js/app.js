@@ -9,9 +9,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import PrettyCheckbox from 'pretty-checkbox-vue';
+import BootstrapVue from 'bootstrap-vue';
 
-Vue.use(PrettyCheckbox);
+Vue.use(BootstrapVue);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

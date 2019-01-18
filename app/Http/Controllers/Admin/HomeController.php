@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\StoreAdminRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,8 +24,9 @@ class HomeController extends Controller
         return view('admin.edit', compact(['admin', 'pageTitle']));
     }
 
-    public function update(StoreUserRequest $request)
+    public function update(StoreAdminRequest $request)
     {
+    	// return response()->json(dd($request), 404);
         $admin =  Auth::user();
         $admin->name = $request->name;
         $admin->phone = $request->phone;

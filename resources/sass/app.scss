@@ -5,8 +5,9 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// Pretty checkboxes
-@import '~pretty-checkbox/src/pretty-checkbox.scss';
+// BootstrapVue
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
 
 .navbar-laravel {
   background-color: #fff;

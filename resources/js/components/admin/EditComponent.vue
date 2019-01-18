@@ -12,11 +12,11 @@
                             
                         </div>
                     </div>
-                    <!-- <div class="form-group py-4">
-                        {!! Form::label('avatar', 'Выбрать фото администратора:', ['class' => 'text-uppercase font-weight-bold']) !!}
-                        {!! Form::file('avatar', ($errors->has('avatar') ? ['class'=>'form-control is-invalid'] : ['class'=>'form-control'])) !!}
-                        <span class="text-danger">{{ $errors->first('avatar') }}</span>
-                    </div> -->
+                    <div class="form-group py-4">
+                        <label for="avatar" class="text-uppercase font-weight-bold">Вибрати фото адміністратора:</label>
+                        <b-form-file v-model="fields.avatar" :state="Boolean(fields.avatar)" placeholder="Вибрати фото адміністратора"></b-form-file>
+                        <span v-if="errors && errors.avatar" class="text-danger">{{ errors.avatar[0] }}</span>
+                    </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-group">
@@ -36,8 +36,11 @@
                     </div>
                     <div class="form-group">
                         <label for="gender" class="text-uppercase font-weight-bold">Стать:</label><br>
-                        <p-radio name="gender" color="success" v-bind:value="true" v-model="fields.gender">Чоловіча</p-radio>
-                        <p-radio name="gender" color="success" v-bind:value="false" v-model="fields.gender">Жіноча</p-radio>
+                       <!--  <p-radio name="gender" color="success" v-bind:value="1" v-model="fields.gender">Чоловіча</p-radio>
+                        <p-radio name="gender" color="success" v-bind:value="0" v-model="fields.gender">Жіноча</p-radio> -->
+                        <b-form-group class="text-uppercase font-weight-bold" label="Стать:" align-h="center">
+                            <b-form-radio-group buttons button-variant="secondary" v-model="fields.gender" :options="[{ text: 'Чоловіча', value: '1' },{ text: 'Жіноча', value: '0' }]" />
+                        </b-form-group>
                         <span v-if="errors && errors.gender" class="text-danger">{{ errors.gender[0] }}</span>
                     </div>
                     <div class="form-group">

@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Gate;
 
-class StoreUserRequest extends FormRequest
+class StoreAdminRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,6 +20,7 @@ class StoreUserRequest extends FormRequest
         // } else {
         //     return false;
         // }
+
         return Gate::allows('adminBusiness') ? true : false;
     }
 
@@ -33,7 +34,7 @@ class StoreUserRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:191',
             'email' => 'required|email|max:191',
-            'gender' => 'nullable',
+            'gender' => 'nullable|integer|min:0|max:1',
             'current_password' => 'required',
             'password' => 'nullable|min:6|max:191|confirmed',
             'avatar' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif|max:20000',
