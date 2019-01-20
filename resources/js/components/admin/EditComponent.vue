@@ -9,12 +9,11 @@
                         </div>
                         <div v-else>
                             <img class="img-thumbnail img-fluid" src="/img/avatars/default.png" :alt="old_datas.name">
-                            
                         </div>
                     </div>
                     <div class="form-group py-4">
                         <label for="avatar" class="text-uppercase font-weight-bold">Вибрати фото адміністратора:</label>
-                        <b-form-file v-model="fields.avatar" :state="Boolean(fields.avatar)" placeholder="Вибрати фото адміністратора"></b-form-file>
+                        <b-form-file v-model="fields.avatar" :state="Boolean(errors.avatar)?!Boolean(errors.avatar):null" placeholder="Фото"></b-form-file>
                         <span v-if="errors && errors.avatar" class="text-danger">{{ errors.avatar[0] }}</span>
                     </div>
                 </div>
@@ -35,10 +34,7 @@
                         <span v-if="errors && errors.phone" class="text-danger">{{ errors.phone[0] }}</span>
                     </div>
                     <div class="form-group">
-                        <label for="gender" class="text-uppercase font-weight-bold">Стать:</label><br>
-                       <!--  <p-radio name="gender" color="success" v-bind:value="1" v-model="fields.gender">Чоловіча</p-radio>
-                        <p-radio name="gender" color="success" v-bind:value="0" v-model="fields.gender">Жіноча</p-radio> -->
-                        <b-form-group class="text-uppercase font-weight-bold" label="Стать:" align-h="center">
+                        <b-form-group class="text-uppercase font-weight-bold" label="Стать:">
                             <b-form-radio-group buttons button-variant="secondary" v-model="fields.gender" :options="[{ text: 'Чоловіча', value: '1' },{ text: 'Жіноча', value: '0' }]" />
                         </b-form-group>
                         <span v-if="errors && errors.gender" class="text-danger">{{ errors.gender[0] }}</span>

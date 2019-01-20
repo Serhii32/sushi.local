@@ -1836,10 +1836,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['admin', 'route'],
   data: function data() {
@@ -54651,8 +54647,10 @@ var render = function() {
                 _vm._v(" "),
                 _c("b-form-file", {
                   attrs: {
-                    state: Boolean(_vm.fields.avatar),
-                    placeholder: "Вибрати фото адміністратора"
+                    state: Boolean(_vm.errors.avatar)
+                      ? !Boolean(_vm.errors.avatar)
+                      : null,
+                    placeholder: "Фото"
                   },
                   model: {
                     value: _vm.fields.avatar,
@@ -54823,20 +54821,10 @@ var render = function() {
               { staticClass: "form-group" },
               [
                 _c(
-                  "label",
-                  {
-                    staticClass: "text-uppercase font-weight-bold",
-                    attrs: { for: "gender" }
-                  },
-                  [_vm._v("Стать:")]
-                ),
-                _c("br"),
-                _vm._v(" "),
-                _c(
                   "b-form-group",
                   {
                     staticClass: "text-uppercase font-weight-bold",
-                    attrs: { label: "Стать:", "align-h": "center" }
+                    attrs: { label: "Стать:" }
                   },
                   [
                     _c("b-form-radio-group", {
@@ -66511,8 +66499,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

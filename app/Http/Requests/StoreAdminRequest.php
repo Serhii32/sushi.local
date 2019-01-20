@@ -37,7 +37,7 @@ class StoreAdminRequest extends FormRequest
             'gender' => 'nullable|integer|min:0|max:1',
             'current_password' => 'required',
             'password' => 'nullable|min:6|max:191|confirmed',
-            'avatar' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif|max:20000',
+            'avatar' => 'nullable|mimetypes:image/jpeg,image/png,image/jpg,image/gif|max:20000',
         ];
     }
     public function withValidator($validator)
