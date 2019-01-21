@@ -1836,6 +1836,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['admin', 'route'],
   data: function data() {
@@ -1847,13 +1862,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       old_datas: _objectSpread({}, this.admin)
     };
   },
-  mounted: function mounted() {
-    this.update();
-  },
   methods: {
-    update: function update() {
-      console.log(this.route);
-    },
     submit: function submit() {
       var _this = this;
 
@@ -1861,7 +1870,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.loaded = false;
         this.success = false;
         this.errors = {};
-        axios.put(this.route, this.fields).then(function (response) {
+        var formData = new FormData();
+        formData.set('name', this.fields.name);
+        formData.set('email', this.fields.email);
+        formData.set('phone', this.fields.phone);
+        formData.set('gender', this.fields.gender);
+        formData.append('avatar', this.fields.avatar);
+        formData.set('current_password', this.fields.current_password);
+        formData.set('password', this.fields.password);
+        formData.set('password_confirmation', this.fields.password_confirmation);
+        console.log('>> formData >> ', formData);
+        console.log(this.fields);
+        axios.post(this.route, formData, {
+          'Content-Type': 'multipart/form-data'
+        }).then(function (response) {
           _this.loaded = true;
           _this.success = true;
         }).catch(function (error) {
@@ -1871,7 +1893,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             _this.errors = error.response.data.errors || {};
           }
         });
-        this.old_datas = _objectSpread({}, this.fields);
+
+        if (!this.errors) {
+          this.old_datas = _objectSpread({}, this.fields);
+        }
       }
     }
   }
@@ -54601,7 +54626,6 @@ var render = function() {
     "form",
     {
       staticClass: "py-4",
-      attrs: { enctype: "multipart/form-data" },
       on: {
         submit: function($event) {
           $event.preventDefault()
@@ -54662,9 +54686,24 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _vm.errors && _vm.errors.avatar
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.avatar[0]))
-                    ])
+                  ? _c(
+                      "div",
+                      [
+                        _c(
+                          "b-alert",
+                          {
+                            attrs: {
+                              variant: "danger",
+                              dismissible: "",
+                              fade: "",
+                              show: true
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.errors.avatar[0]))]
+                        )
+                      ],
+                      1
+                    )
                   : _vm._e()
               ],
               1
@@ -54714,9 +54753,24 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.errors && _vm.errors.name
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.name[0]))
-                  ])
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.name[0]))]
+                      )
+                    ],
+                    1
+                  )
                 : _vm._e()
             ]),
             _vm._v(" "),
@@ -54762,9 +54816,24 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.errors && _vm.errors.email
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.email[0]))
-                  ])
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.email[0]))]
+                      )
+                    ],
+                    1
+                  )
                 : _vm._e()
             ]),
             _vm._v(" "),
@@ -54810,9 +54879,24 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.errors && _vm.errors.phone
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.phone[0]))
-                  ])
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.phone[0]))]
+                      )
+                    ],
+                    1
+                  )
                 : _vm._e()
             ]),
             _vm._v(" "),
@@ -54828,9 +54912,11 @@ var render = function() {
                   },
                   [
                     _c("b-form-radio-group", {
+                      staticClass: "d-flex",
                       attrs: {
                         buttons: "",
-                        "button-variant": "secondary",
+                        "button-variant": "outline-secondary",
+                        stacked: "",
                         options: [
                           { text: "Чоловіча", value: "1" },
                           { text: "Жіноча", value: "0" }
@@ -54849,9 +54935,24 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _vm.errors && _vm.errors.gender
-                  ? _c("span", { staticClass: "text-danger" }, [
-                      _vm._v(_vm._s(_vm.errors.gender[0]))
-                    ])
+                  ? _c(
+                      "div",
+                      [
+                        _c(
+                          "b-alert",
+                          {
+                            attrs: {
+                              variant: "danger",
+                              dismissible: "",
+                              fade: "",
+                              show: true
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.errors.gender[0]))]
+                        )
+                      ],
+                      1
+                    )
                   : _vm._e()
               ],
               1
@@ -54905,9 +55006,24 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.errors && _vm.errors.current_password
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.current_password[0]))
-                  ])
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.current_password[0]))]
+                      )
+                    ],
+                    1
+                  )
                 : _vm._e()
             ]),
             _vm._v(" "),
@@ -54953,9 +55069,24 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.errors && _vm.errors.password
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.password[0]))
-                  ])
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.password[0]))]
+                      )
+                    ],
+                    1
+                  )
                 : _vm._e()
             ]),
             _vm._v(" "),
@@ -55007,22 +55138,53 @@ var render = function() {
               }),
               _vm._v(" "),
               _vm.errors && _vm.errors.password_confirmation
-                ? _c("span", { staticClass: "text-danger" }, [
-                    _vm._v(_vm._s(_vm.errors.password_confirmation[0]))
-                  ])
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.password_confirmation[0]))]
+                      )
+                    ],
+                    1
+                  )
                 : _vm._e()
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _vm._m(0),
+            _vm._v(" "),
+            _vm.success
+              ? _c(
+                  "div",
+                  [
+                    _c(
+                      "b-alert",
+                      {
+                        staticClass: "text-center",
+                        attrs: {
+                          variant: "success",
+                          dismissible: "",
+                          fade: "",
+                          show: true
+                        }
+                      },
+                      [_vm._v("Дані успішно оновлено")]
+                    )
+                  ],
+                  1
+                )
+              : _vm._e()
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _vm.success
-        ? _c("div", { staticClass: "alert alert-success mt-3" }, [
-            _vm._v("\n        Message sent!\n    ")
-          ])
-        : _vm._e()
+      ])
     ]
   )
 }
@@ -66499,8 +66661,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

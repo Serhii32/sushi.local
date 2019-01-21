@@ -24,7 +24,8 @@ Route::get('/', ['as' => 'page.index', 'uses' => 'PagesController@index']);
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' => 'admin.', 'prefix'=>'admin'], function () {
 	Route::get('home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
 	Route::get('home/edit', ['as' => 'home.edit', 'uses' => 'HomeController@edit']);
-	Route::match(['put', 'patch'], 'home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
+	// Route::match(['put', 'patch'], 'home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
+	Route::post('home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
 });
 
 // Route::group(['namespace' => 'User', 'middleware' => ['auth', 'isUser'], 'as' => 'user.', 'prefix'=>'user'], function () {
@@ -37,3 +38,4 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 
 //Check that manage order can only user that create order by id with policies
+//doesnt work nullable in request    check method put in vue formdata

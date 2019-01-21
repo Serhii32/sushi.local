@@ -26,7 +26,8 @@ class HomeController extends Controller
 
     public function update(StoreAdminRequest $request)
     {
-    	// return response()->json(dd($request), 404);
+    	$response = dd($request->all());
+    	return response()->json($response);
         $admin =  Auth::user();
         $admin->name = $request->name;
         $admin->phone = $request->phone;
@@ -45,7 +46,6 @@ class HomeController extends Controller
         }
         $admin->save();
         return response()->json(null, 200);
-    //     return redirect()->route('admin.home.index')->with(['message' => 'Данные профиля успешно обновлены']);
     }
 
 }

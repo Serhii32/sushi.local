@@ -15,12 +15,6 @@ class StoreAdminRequest extends FormRequest
      */
     public function authorize()
     {
-        // if (Gate::allows('adminBusiness')) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
-
         return Gate::allows('adminBusiness') ? true : false;
     }
 
@@ -31,6 +25,8 @@ class StoreAdminRequest extends FormRequest
      */
     public function rules()
     {
+        $response = dd($this->all());
+        return response()->json($response);
         return [
             'name' => 'required|min:3|max:191',
             'email' => 'required|email|max:191',
