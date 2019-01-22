@@ -1851,6 +1851,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['admin', 'route'],
   data: function data() {
@@ -1871,16 +1874,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.success = false;
         this.errors = {};
         var formData = new FormData();
-        formData.set('name', this.fields.name);
-        formData.set('email', this.fields.email);
-        formData.set('phone', this.fields.phone);
-        formData.set('gender', this.fields.gender);
-        formData.append('avatar', this.fields.avatar);
-        formData.set('current_password', this.fields.current_password);
-        formData.set('password', this.fields.password);
-        formData.set('password_confirmation', this.fields.password_confirmation);
-        console.log('>> formData >> ', formData);
-        console.log(this.fields);
+        formData.set('name', this.fields.name == null ? "" : this.fields.name);
+        formData.set('email', this.fields.email == null ? "" : this.fields.email);
+        formData.set('phone', this.fields.phone == null ? "" : this.fields.phone);
+        formData.set('gender', this.fields.gender == null ? "" : this.fields.gender);
+        formData.append('avatar', this.fields.avatar == null ? "" : this.fields.avatar);
+        formData.set('current_password', this.fields.current_password == null ? "" : this.fields.current_password);
+        formData.set('password', this.fields.password == null ? "" : this.fields.password);
+        formData.set('password_confirmation', this.fields.password_confirmation == null ? "" : this.fields.password_confirmation);
         axios.post(this.route, formData, {
           'Content-Type': 'multipart/form-data'
         }).then(function (response) {
@@ -1893,8 +1894,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             _this.errors = error.response.data.errors || {};
           }
         });
+        console.log(this.success);
 
-        if (!this.errors) {
+        if (!this.success) {
+          console.log(this.fields.avatar);
           this.old_datas = _objectSpread({}, this.fields);
         }
       }
@@ -54642,7 +54645,10 @@ var render = function() {
                 ? _c("div", [
                     _c("img", {
                       staticClass: "img-thumbnail img-fluid",
-                      attrs: { src: "old_datas.avatar", alt: "old_datas.name" }
+                      attrs: {
+                        src: _vm.old_datas.avatar,
+                        alt: _vm.old_datas.name
+                      }
                     })
                   ])
                 : _c("div", [
@@ -54692,6 +54698,7 @@ var render = function() {
                         _c(
                           "b-alert",
                           {
+                            staticClass: "text-center",
                             attrs: {
                               variant: "danger",
                               dismissible: "",
@@ -54759,6 +54766,7 @@ var render = function() {
                       _c(
                         "b-alert",
                         {
+                          staticClass: "text-center",
                           attrs: {
                             variant: "danger",
                             dismissible: "",
@@ -54822,6 +54830,7 @@ var render = function() {
                       _c(
                         "b-alert",
                         {
+                          staticClass: "text-center",
                           attrs: {
                             variant: "danger",
                             dismissible: "",
@@ -54885,6 +54894,7 @@ var render = function() {
                       _c(
                         "b-alert",
                         {
+                          staticClass: "text-center",
                           attrs: {
                             variant: "danger",
                             dismissible: "",
@@ -54941,6 +54951,7 @@ var render = function() {
                         _c(
                           "b-alert",
                           {
+                            staticClass: "text-center",
                             attrs: {
                               variant: "danger",
                               dismissible: "",
@@ -55012,6 +55023,7 @@ var render = function() {
                       _c(
                         "b-alert",
                         {
+                          staticClass: "text-center",
                           attrs: {
                             variant: "danger",
                             dismissible: "",
@@ -55075,6 +55087,7 @@ var render = function() {
                       _c(
                         "b-alert",
                         {
+                          staticClass: "text-center",
                           attrs: {
                             variant: "danger",
                             dismissible: "",
@@ -55112,9 +55125,7 @@ var render = function() {
                 staticClass: "form-control",
                 class: {
                   "is-invalid":
-                    _vm.errors &&
-                    _vm.errors.password_confirmation &&
-                    _vm.errors.password_confirmation[0]
+                    _vm.errors && _vm.errors.password && _vm.errors.password[0]
                 },
                 attrs: {
                   id: "password_confirmation",
@@ -55137,13 +55148,14 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _vm.errors && _vm.errors.password_confirmation
+              _vm.errors && _vm.errors.password
                 ? _c(
                     "div",
                     [
                       _c(
                         "b-alert",
                         {
+                          staticClass: "text-center",
                           attrs: {
                             variant: "danger",
                             dismissible: "",
@@ -55151,7 +55163,7 @@ var render = function() {
                             show: true
                           }
                         },
-                        [_vm._v(_vm._s(_vm.errors.password_confirmation[0]))]
+                        [_vm._v(_vm._s(_vm.errors.password[0]))]
                       )
                     ],
                     1
@@ -55184,7 +55196,13 @@ var render = function() {
               : _vm._e()
           ])
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      !_vm.loaded
+        ? _c("div", [
+            _c("img", { attrs: { src: "/gif/sushi.gif", alt: "Завантаження" } })
+          ])
+        : _vm._e()
     ]
   )
 }

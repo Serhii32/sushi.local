@@ -38,4 +38,5 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 
 //Check that manage order can only user that create order by id with policies
-//doesnt work nullable in request    check method put in vue formdata
+//check method put in vue formdata
+//image preview when uploaded, if errors exist, gif when request processing
