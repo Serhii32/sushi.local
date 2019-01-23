@@ -26,11 +26,12 @@ class HomeController extends Controller
 
     public function update(StoreAdminRequest $request)
     {
-    	$response = dd($request->all());
-    	return response()->json($response);
+    	// $response = dd($request->all());
+    	// return response()->json($response);
         $admin =  Auth::user();
         $admin->name = $request->name;
         $admin->phone = $request->phone;
+        $admin->gender = $request->gender;
         if ($admin->email != $request->email) {
             $admin->email_verified_at = null;
         }
@@ -43,6 +44,11 @@ class HomeController extends Controller
                 Storage::disk('uploaded_img')->delete($admin->avatar);
             }
             $admin->avatar = $request->avatar->store('img/common/avatars/admin', ['disk' => 'uploaded_img']);
+        } else {
+        	if($admin->avatar) {
+                Storage::disk('uploaded_img')->delete($admin->avatar);
+            }
+            $admin->avatar = null;
         }
         $admin->save();
         return response()->json(null, 200);

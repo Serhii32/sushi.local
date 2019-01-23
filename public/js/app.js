@@ -1854,6 +1854,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['admin', 'route'],
   data: function data() {
@@ -1862,8 +1870,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       success: false,
       loaded: true,
       fields: _objectSpread({}, this.admin),
-      old_datas: _objectSpread({}, this.admin)
+      old_datas: {},
+      uploadedImageData: ""
     };
+  },
+  created: function created() {
+    this.fields.avatar = null;
+    this.old_datas.name = this.admin.name;
+    this.old_datas.avatar = this.admin.avatar;
   },
   methods: {
     submit: function submit() {
@@ -1887,6 +1901,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }).then(function (response) {
           _this.loaded = true;
           _this.success = true;
+          _this.old_datas.name = _this.fields.name;
+          _this.old_datas.avatar = null;
         }).catch(function (error) {
           _this.loaded = true;
 
@@ -1894,13 +1910,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             _this.errors = error.response.data.errors || {};
           }
         });
-        console.log(this.success);
-
-        if (!this.success) {
-          console.log(this.fields.avatar);
-          this.old_datas = _objectSpread({}, this.fields);
-        }
       }
+    },
+    previewImage: function previewImage(event) {
+      var _this2 = this;
+
+      var input = event.target;
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          _this2.uploadedImageData = e.target.result;
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    resetImage: function resetImage() {
+      this.uploadedImageData = null;
+      this.fields.avatar = null;
+      this.$refs.fileinput.reset();
     }
   }
 });
@@ -54641,25 +54671,35 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-12 col-md-6" }, [
             _c("div", { staticClass: "text-center" }, [
-              _vm.old_datas.avatar
+              _vm.uploadedImageData
                 ? _c("div", [
                     _c("img", {
                       staticClass: "img-thumbnail img-fluid",
                       attrs: {
-                        src: _vm.old_datas.avatar,
+                        src: _vm.uploadedImageData,
                         alt: _vm.old_datas.name
                       }
                     })
                   ])
-                : _c("div", [
-                    _c("img", {
-                      staticClass: "img-thumbnail img-fluid",
-                      attrs: {
-                        src: "/img/avatars/default.png",
-                        alt: _vm.old_datas.name
-                      }
-                    })
-                  ])
+                : _vm.old_datas.avatar
+                  ? _c("div", [
+                      _c("img", {
+                        staticClass: "img-thumbnail img-fluid",
+                        attrs: {
+                          src: "/" + _vm.old_datas.avatar,
+                          alt: _vm.old_datas.name
+                        }
+                      })
+                    ])
+                  : _c("div", [
+                      _c("img", {
+                        staticClass: "img-thumbnail img-fluid",
+                        attrs: {
+                          src: "/img/avatars/default.png",
+                          alt: _vm.old_datas.name
+                        }
+                      })
+                    ])
             ]),
             _vm._v(" "),
             _c(
@@ -54676,12 +54716,15 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("b-form-file", {
+                  ref: "fileinput",
                   attrs: {
                     state: Boolean(_vm.errors.avatar)
                       ? !Boolean(_vm.errors.avatar)
                       : null,
-                    placeholder: "Фото"
+                    placeholder: "Фото",
+                    accept: "image/*"
                   },
+                  on: { change: _vm.previewImage },
                   model: {
                     value: _vm.fields.avatar,
                     callback: function($$v) {
@@ -54711,7 +54754,17 @@ var render = function() {
                       ],
                       1
                     )
-                  : _vm._e()
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "btn btn-warning w-100 text-uppercase font-weight-bold my-2",
+                    on: { click: _vm.resetImage }
+                  },
+                  [_vm._v("Зкинути зображення")]
+                )
               ],
               1
             )
@@ -55199,9 +55252,31 @@ var render = function() {
       ]),
       _vm._v(" "),
       !_vm.loaded
-        ? _c("div", [
-            _c("img", { attrs: { src: "/gif/sushi.gif", alt: "Завантаження" } })
-          ])
+        ? _c(
+            "div",
+            {
+              staticStyle: {
+                height: "100%",
+                width: "100%",
+                position: "fixed",
+                "z-index": "1",
+                top: "0",
+                "background-color": "rgba(0, 0, 0, 0.2)",
+                left: "0"
+              }
+            },
+            [
+              _c("img", {
+                staticStyle: {
+                  position: "relative",
+                  top: "30%",
+                  left: "50%",
+                  transform: "translateX(-50%)"
+                },
+                attrs: { src: "/gif/sushi.gif", alt: "Завантаження" }
+              })
+            ]
+          )
         : _vm._e()
     ]
   )

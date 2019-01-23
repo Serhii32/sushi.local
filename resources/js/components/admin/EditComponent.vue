@@ -4,20 +4,28 @@
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="text-center">
-                        <div v-if="old_datas.avatar">
-                            <img class="img-thumbnail img-fluid" :src="old_datas.avatar" :alt="old_datas.name">
+                        <div v-if="uploadedImageData">
+                            <img class="img-thumbnail img-fluid" :src="uploadedImageData" :alt="old_datas.name">
+                        </div>
+                        <div v-else-if="old_datas.avatar">
+                            <img class="img-thumbnail img-fluid" :src="'/'+old_datas.avatar" :alt="old_datas.name">
                         </div>
                         <div v-else>
                             <img class="img-thumbnail img-fluid" src="/img/avatars/default.png" :alt="old_datas.name">
                         </div>
                     </div>
+
+
                     <div class="form-group py-4">
                         <label for="avatar" class="text-uppercase font-weight-bold">Вибрати фото адміністратора:</label>
-                        <b-form-file v-model="fields.avatar" :state="Boolean(errors.avatar)?!Boolean(errors.avatar):null" placeholder="Фото"></b-form-file>
+                        <b-form-file v-model="fields.avatar" :state="Boolean(errors.avatar)?!Boolean(errors.avatar):null" placeholder="Фото" @change="previewImage" accept="image/*" ref="fileinput"></b-form-file>
                         <div v-if="errors && errors.avatar">
                             <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.avatar[0] }}</b-alert>
                         </div>
+                        <a class="btn btn-warning w-100 text-uppercase font-weight-bold my-2" @click="resetImage">Зкинути зображення</a>
                     </div>
+
+
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-group">
@@ -79,8 +87,8 @@
                 </div>
             </div>
         </div>
-        <div v-if="!loaded">
-            <img src="/gif/sushi.gif" alt="Завантаження">
+        <div v-if="!loaded" style="height: 100%; width: 100%; position: fixed; z-index: 1; top: 0; background-color: rgba(0, 0, 0, 0.2); left: 0;">
+            <img style="position: relative; top: 30%; left: 50%; transform: translateX(-50%);" src="/gif/sushi.gif" alt="Завантаження">
         </div>
     </form>
 </template>
@@ -97,8 +105,14 @@ export default {
             success: false,
             loaded: true,
             fields: {...this.admin},
-            old_datas: {...this.admin},
+            old_datas: {},
+            uploadedImageData: "",
         }
+    },
+    created(){
+        this.fields.avatar = null;
+        this.old_datas.name = this.admin.name;
+        this.old_datas.avatar = this.admin.avatar;
     },
     methods: {
         submit() {
@@ -119,20 +133,33 @@ export default {
                 axios.post(this.route, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
                     this.loaded = true;
                     this.success = true;
+                    this.old_datas.name = this.fields.name;
+                    this.old_datas.avatar = null;
                 }).catch(error => {
                     this.loaded = true;
                     if (error.response.status === 422) {
                         this.errors = error.response.data.errors || {};
                     }
                 });
-
-                console.log(this.success);
-                if (!this.success) {
-                    console.log(this.fields.avatar);
-                    this.old_datas = {...this.fields};
-                }
             }
         },
+
+        previewImage: function(event) {
+            var input = event.target;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.uploadedImageData = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
+
+        resetImage() {
+            this.uploadedImageData = null;
+            this.fields.avatar = null;
+            this.$refs.fileinput.reset();
+        }
     }
 }
 </script>
