@@ -17,8 +17,6 @@
 
 Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/', ['as' => 'page.index', 'uses' => 'PagesController@index']);
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' => 'admin.', 'prefix'=>'admin'], function () {
@@ -40,3 +38,4 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 //Check that manage order can only user that create order by id with policies
 //check method put in vue formdata
 //ukraine language for errors messages
+

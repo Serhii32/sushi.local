@@ -1871,7 +1871,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loaded: true,
       fields: _objectSpread({}, this.admin),
       old_datas: {},
-      uploadedImageData: ""
+      uploadedImageData: null
     };
   },
   created: function created() {
@@ -1902,7 +1902,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.loaded = true;
           _this.success = true;
           _this.old_datas.name = _this.fields.name;
-          _this.old_datas.avatar = null;
+          _this.old_datas.avatar = response.data.newAvatar;
         }).catch(function (error) {
           _this.loaded = true;
 

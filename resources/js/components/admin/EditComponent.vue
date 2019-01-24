@@ -106,7 +106,7 @@ export default {
             loaded: true,
             fields: {...this.admin},
             old_datas: {},
-            uploadedImageData: "",
+            uploadedImageData: null,
         }
     },
     created(){
@@ -134,7 +134,7 @@ export default {
                     this.loaded = true;
                     this.success = true;
                     this.old_datas.name = this.fields.name;
-                    this.old_datas.avatar = null;
+                    this.old_datas.avatar = response.data.newAvatar;
                 }).catch(error => {
                     this.loaded = true;
                     if (error.response.status === 422) {
