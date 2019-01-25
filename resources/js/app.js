@@ -12,6 +12,15 @@ window.Vue = require('vue');
 import BootstrapVue from 'bootstrap-vue';
 
 Vue.use(BootstrapVue);
+
+import VueSidebarMenu from 'vue-sidebar-menu'
+
+Vue.use(VueSidebarMenu)
+
+import DraggableTree from 'vue-draggable-nested-tree'
+
+Vue.use(DraggableTree)
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -23,7 +32,8 @@ Vue.use(BootstrapVue);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('admin-edit-component', require('./components/admin/EditComponent.vue').default);
+Vue.component('admin-home-edit-component', require('./components/admin/HomeEditComponent.vue').default);
+Vue.component('admin-sidebar-component', require('./components/admin/SidebarComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
