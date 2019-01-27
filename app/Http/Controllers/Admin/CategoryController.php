@@ -17,6 +17,7 @@ class CategoryController extends Controller
         // $parentCategories = ProductsCategory::where('parent_id', '=', 0)->get();
         // $allCategories = ProductsCategory::pluck('title','id')->all();
         // $pageTitle = 'Категорії товарів';
-        return view('admin.categories.index');
+        $categories = Category::all();
+        return view('admin.categories.index', compact(['categories']));
     }
 }

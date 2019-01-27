@@ -25,7 +25,6 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.0.0-rc.11",
-        "vue-draggable-nested-tree": "^2.2.4",
         "vue-sidebar-menu": "^3.3.0"
     }
 }

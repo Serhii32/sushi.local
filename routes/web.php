@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	// Route::match(['put', 'patch'], 'home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
 	Route::post('home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
 	Route::resource('categories', 'CategoryController')->except(['show']);
+	Route::resource('products', 'ProductController')->except(['show']);
 });
 
 // Route::group(['namespace' => 'User', 'middleware' => ['auth', 'isUser'], 'as' => 'user.', 'prefix'=>'user'], function () {
