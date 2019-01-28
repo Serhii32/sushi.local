@@ -13,15 +13,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $pageTitle = 'Страница администратора';
-        return view('admin.index', compact(['pageTitle']));
+        // $pageTitle = 'Страница администратора';
+        return view('admin.index');
     }
 
     public function edit()
     {
-        $admin = Auth::user();
-        $pageTitle = 'Настройки профиля';
-        return view('admin.edit', compact(['admin', 'pageTitle']));
+        $admin = Auth::user()->toJson();;
+        // $pageTitle = 'Настройки профиля';
+        return view('admin.edit', compact(['admin']));
     }
 
     public function update(StoreAdminRequest $request)

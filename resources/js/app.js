@@ -17,6 +17,8 @@ import VueSidebarMenu from 'vue-sidebar-menu';
 
 Vue.use(VueSidebarMenu);
 
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 
 /**
  * The following block of code may be used to automatically register your

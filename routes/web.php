@@ -24,7 +24,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::get('home/edit', ['as' => 'home.edit', 'uses' => 'HomeController@edit']);
 	// Route::match(['put', 'patch'], 'home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
 	Route::post('home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
-	Route::resource('categories', 'CategoryController')->except(['show']);
+
+	Route::get('categories', ['as' => 'categories.index', 'uses' => 'CategoryController@index']);
+	Route::post('categories', ['as' => 'categories.store', 'uses' => 'CategoryController@store']);
 	Route::resource('products', 'ProductController')->except(['show']);
 });
 
@@ -39,5 +41,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 //Check that manage order can only user that create order by id with policies
 //check method put in vue formdata
-//ukraine language for errors messages
 
+
+       // | DELETE    | admin/categories/{category}      | admin.categories.destroy | App\Http\Controllers\Admin\CategoryController@destroy                  | web,auth,isAdmin |
+       // | PUT|PATCH | admin/categories/{category}      | admin.categories.update  | App\Http\Controllers\Admin\CategoryController@update                   | web,auth,isAdmin |
