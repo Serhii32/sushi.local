@@ -14,7 +14,12 @@ class CategoryController extends Controller
     public function index()
     {
         // $pageTitle = 'Категорії товарів';
-        $categories = Category::paginate(12)->toJson();
-        return view('admin.categories.index', compact(['categories']));
+        return view('admin.categories.index');
+    }
+
+    public function getCategories() 
+    {
+    	$categories = Category::paginate(12);
+    	return response()->json($categories);
     }
 }

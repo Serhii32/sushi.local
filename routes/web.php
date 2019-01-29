@@ -27,6 +27,10 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 	Route::get('categories', ['as' => 'categories.index', 'uses' => 'CategoryController@index']);
 	Route::post('categories', ['as' => 'categories.store', 'uses' => 'CategoryController@store']);
+
+	Route::get('categories/getCategories', ['as' => 'categories.getCategories', 'uses' => 'CategoryController@getCategories']);
+
+
 	Route::resource('products', 'ProductController')->except(['show']);
 });
 
