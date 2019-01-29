@@ -13,46 +13,41 @@
         </div>
         <b-pagination v-show="loaded" size="lg" align="center" v-model="currentPage" :total-rows="categories.total" :per-page="categories.per_page" @input="getCategories(currentPage)"></b-pagination>
 
-        <b-modal centered lazy hide-footer size="lg" :title="'Редагувати ' + fields.title" ref="editModal">
+        <b-modal centered lazy hide-footer size="lg" :title="'Редагувати ' + old_datas.title" ref="editModal">
 
             <form @submit.prevent="submit" class="py-4">
                 <div class="container-fluid">
-                    <h3>csdacsaca asdcsccsca csa sacsa csac sa csacascscs ac ac cs sa csdacsaca asdcsccsca csa sacsa csac sa csacascscs ac ac cs sacsdacsaca asdcsccsca csa sacsa csac sa csacascscs ac ac cs</h3>
-                  <!--   <div class="row">
+                    <div class="row">
                         <div class="col-12 col-md-6">
                             <div class="text-center">
                                 <div v-if="uploadedImageData">
-                                    <img class="img-thumbnail img-fluid" :src="uploadedImageData" :alt="old_datas.name">
+                                    <img class="img-thumbnail img-fluid" :src="uploadedImageData" :alt="old_datas.title">
                                 </div>
-                                <div v-else-if="old_datas.avatar">
-                                    <img class="img-thumbnail img-fluid" :src="'/'+old_datas.avatar" :alt="old_datas.name">
+                                <div v-else-if="old_datas.photo">
+                                    <img class="img-thumbnail img-fluid" :src="'/'+old_datas.photo" :alt="old_datas.title">
                                 </div>
                                 <div v-else>
-                                    <img class="img-thumbnail img-fluid" src="/img/avatars/default.png" :alt="old_datas.name">
+                                    <img class="img-thumbnail img-fluid" src="/img/default.png" :alt="old_datas.title">
                                 </div>
                             </div>
-
-
                             <div class="form-group py-4">
-                                <label for="avatar" class="text-uppercase font-weight-bold">Вибрати фото адміністратора:</label>
-                                <b-form-file v-model="fields.avatar" :state="Boolean(errors.avatar)?!Boolean(errors.avatar):null" placeholder="Фото" @change="previewImage" accept="image/*" ref="fileinput"></b-form-file>
-                                <div v-if="errors && errors.avatar">
-                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.avatar[0] }}</b-alert>
+                                <label for="photo" class="text-uppercase font-weight-bold">Вибрати фото категорії:</label>
+                                <b-form-file v-model="fields.photo" :state="Boolean(errors.photo)?!Boolean(errors.photo):null" placeholder="Фото" @change="previewImage" accept="image/*" ref="fileinput"></b-form-file>
+                                <div v-if="errors && errors.photo">
+                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.photo[0] }}</b-alert>
                                 </div>
                                 <a class="btn btn-warning w-100 text-uppercase font-weight-bold my-2" @click="resetImage">Зкинути зображення</a>
                             </div>
-
-
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="name" class="text-uppercase font-weight-bold">Ім'я:</label>
-                                <input id="name" type="text" name="name" placeholder="Ім'я" class="form-control" v-model="fields.name" v-bind:class="{ 'is-invalid': errors && errors.name && errors.name[0] }">
-                                <div v-if="errors && errors.name">
-                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.name[0] }}</b-alert>
+                                <label for="title" class="text-uppercase font-weight-bold">Назва:</label>
+                                <input id="title" type="text" name="title" placeholder="Назва" class="form-control" v-model="fields.title" v-bind:class="{ 'is-invalid': errors && errors.title && errors.title[0] }">
+                                <div v-if="errors && errors.title">
+                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.title[0] }}</b-alert>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="email" class="text-uppercase font-weight-bold">Email:</label>
                                 <input id="email" type="email" name="email" placeholder="Email" class="form-control" v-model="fields.email" v-bind:class="{ 'is-invalid': errors && errors.email && errors.email[0] }">
                                 <div v-if="errors && errors.email">
@@ -94,7 +89,7 @@
                                 <div v-if="errors && errors.password">
                                     <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.password[0] }}</b-alert>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Зберегти</button>
                             </div>
@@ -102,7 +97,10 @@
                                 <b-alert class="text-center" variant="success" dismissible fade :show="true">Дані успішно оновлено</b-alert>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
+
+
+
                 </div>
             </form>
         </b-modal>
@@ -115,11 +113,14 @@
 export default {
     data() {
         return {
+            errors: {},
             categories: {},
             currentPage: 1,
-            // success: false,
+            success: false,
             loaded: true,
-            fields: {}
+            fields: {},
+            old_datas: {},
+            uploadedImageData: null,
         }
     },
     created() {
@@ -129,13 +130,11 @@ export default {
         getCategories(page) {
             if (this.loaded) {
                 this.loaded = false;
-                // this.success = false;
                 if (typeof page === 'undefined') {
                     page = 1;
                 }
                 axios.get('/admin/categories/getCategories?page=' + page).then(response => {
                     this.loaded = true;
-                    // this.success = true;
                     this.categories = response.data;
                 }).catch(error => {
                     this.loaded = true;
@@ -146,7 +145,54 @@ export default {
         showEditModal (item) {
             this.$refs.editModal.show();
             this.fields = item;
+            this.old_datas.title = item.title;
+            this.old_datas.photo = item.photo;
         },
+        submit() {
+            // if (this.loaded) {
+            //     this.loaded = false;
+            //     this.success = false;
+            //     this.errors = {};
+            //     let formData = new FormData();
+            //     formData.set('name', this.fields.name == null?"":this.fields.name);
+            //     formData.set('email', this.fields.email == null?"":this.fields.email);
+            //     formData.set('phone', this.fields.phone == null?"":this.fields.phone);
+            //     formData.set('gender', this.fields.gender == null?"":this.fields.gender);
+            //     formData.append('avatar', this.fields.avatar == null?"":this.fields.avatar);
+            //     formData.set('current_password', this.fields.current_password == null?"":this.fields.current_password);
+            //     formData.set('password', this.fields.password == null?"":this.fields.password);
+            //     formData.set('password_confirmation', this.fields.password_confirmation == null?"":this.fields.password_confirmation);
+
+            //     axios.post(this.route, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
+            //         this.loaded = true;
+            //         this.success = true;
+            //         this.old_datas.name = this.fields.name;
+            //         this.old_datas.avatar = response.data.newAvatar;
+            //     }).catch(error => {
+            //         this.loaded = true;
+            //         if (error.response.status === 422) {
+            //             this.errors = error.response.data.errors || {};
+            //         }
+            //     });
+            // }
+        },
+
+        previewImage: function(event) {
+            var input = event.target;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.uploadedImageData = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
+
+        resetImage() {
+            this.uploadedImageData = null;
+            this.fields.photo = null;
+            this.$refs.fileinput.reset();
+        }
     }
 }
 </script>
