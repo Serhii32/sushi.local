@@ -17,7 +17,6 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('photo')->nullable();
-            $table->integer('parent_id')->default(0);
             $table->string('titleSEO')->nullable();
             $table->text('descriptionSEO')->nullable();
             $table->string('keywordsSEO')->nullable();

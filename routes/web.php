@@ -27,6 +27,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 	Route::get('categories', ['as' => 'categories.index', 'uses' => 'CategoryController@index']);
 	Route::post('categories', ['as' => 'categories.store', 'uses' => 'CategoryController@store']);
+	Route::get('categories/{category}/edit', ['as' => 'categories.edit', 'uses' => 'CategoryController@edit']);
+	Route::post('categories/{category}', ['as' => 'categories.update', 'uses' => 'CategoryController@update']);
 
 	Route::get('categories/getCategories', ['as' => 'categories.getCategories', 'uses' => 'CategoryController@getCategories']);
 
@@ -45,7 +47,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 //Check that manage order can only user that create order by id with policies
 //check method put in vue formdata
+//add attributes type tabs and checkboxes not subcategories
 
 
        // | DELETE    | admin/categories/{category}      | admin.categories.destroy | App\Http\Controllers\Admin\CategoryController@destroy                  | web,auth,isAdmin |
-       // | PUT|PATCH | admin/categories/{category}      | admin.categories.update  | App\Http\Controllers\Admin\CategoryController@update                   | web,auth,isAdmin |

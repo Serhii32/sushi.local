@@ -1,11 +1,12 @@
 <template>
     <div>
+        <b-button variant="success" class="text-uppercase font-weight-bold my-2 w-100">Додати категорію</b-button>
         <div class="row">
             <div class="col-12 col-md-4 mb-4" v-for="category in categories.data" :key="category.id">
                 <b-card bg-variant="light" border-variant="light" class="shadow" align="center" :img-src="category.photo?'/'+category.photo:'/img/default.png'" :img-alt="category.title" img-top>
                     <h3 class="text-uppercase font-weight-bold">{{category.title}}</h3>
                     <div slot="footer">
-                        <b-button variant="warning" class="text-uppercase font-weight-bold my-2 w-100" @click="showEditModal(category)">Редагувати</b-button>
+                        <b-button variant="warning" class="text-uppercase font-weight-bold my-2 w-100" :href="'/admin/categories/' + category.id + '/edit'">Редагувати</b-button>
                         <b-button variant="danger" class="text-uppercase font-weight-bold my-2 w-100">Видалити</b-button>
                     </div>
                 </b-card>
@@ -149,6 +150,7 @@ export default {
             this.old_datas.photo = item.photo;
         },
         submit() {
+            console.log(this.fields)
             // if (this.loaded) {
             //     this.loaded = false;
             //     this.success = false;

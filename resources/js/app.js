@@ -32,6 +32,7 @@ Vue.use(VueSidebarMenu);
 Vue.component('admin-home-edit-component', require('./components/admin/HomeEditComponent.vue').default);
 Vue.component('admin-sidebar-component', require('./components/admin/SidebarComponent.vue').default);
 Vue.component('admin-categories-index-component', require('./components/admin/categories/IndexComponent.vue').default);
+Vue.component('admin-categories-edit-component', require('./components/admin/categories/EditComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

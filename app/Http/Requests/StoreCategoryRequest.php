@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StoreCategoryRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreCategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Gate::allows('adminBusiness') ? true : false;
     }
 
     /**
@@ -24,7 +25,12 @@ class StoreCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|min:3|max:191',
+            'parent_id' => 'integer|nullable',
+            'titleSEO' => 'max:255',
+            'descriptionSEO' => 'max:1000',
+            'keywordsSEO' => 'max:255',
+            'photo' => 'nullable|mimetypes:image/jpeg,image/png,image/jpg,image/gif|max:20000',
         ];
     }
 }
