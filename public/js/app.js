@@ -2318,50 +2318,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       errors: {},
       categories: {},
       currentPage: 1,
-      success: false,
       loaded: true,
       fields: {},
-      old_datas: {},
       uploadedImageData: null
     };
   },
@@ -2388,41 +2352,62 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    showEditModal: function showEditModal(item) {
-      this.$refs.editModal.show();
-      this.fields = item;
-      this.old_datas.title = item.title;
-      this.old_datas.photo = item.photo;
+    showCreateModal: function showCreateModal() {
+      this.$refs.createModal.show();
+    },
+    hideCreateModal: function hideCreateModal() {
+      this.$refs.createModal.hide();
+    },
+    deleteCategory: function deleteCategory(id) {
+      var _this2 = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        axios.delete('/admin/categories/' + id).then(function () {
+          _this2.loaded = true;
+
+          _this2.getCategories(_this2.categories.current_page);
+        }).catch(function (error) {
+          _this2.loaded = true;
+          console.log(error);
+        });
+      }
     },
     submit: function submit() {
-      console.log(this.fields); // if (this.loaded) {
-      //     this.loaded = false;
-      //     this.success = false;
-      //     this.errors = {};
-      //     let formData = new FormData();
-      //     formData.set('name', this.fields.name == null?"":this.fields.name);
-      //     formData.set('email', this.fields.email == null?"":this.fields.email);
-      //     formData.set('phone', this.fields.phone == null?"":this.fields.phone);
-      //     formData.set('gender', this.fields.gender == null?"":this.fields.gender);
-      //     formData.append('avatar', this.fields.avatar == null?"":this.fields.avatar);
-      //     formData.set('current_password', this.fields.current_password == null?"":this.fields.current_password);
-      //     formData.set('password', this.fields.password == null?"":this.fields.password);
-      //     formData.set('password_confirmation', this.fields.password_confirmation == null?"":this.fields.password_confirmation);
-      //     axios.post(this.route, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
-      //         this.loaded = true;
-      //         this.success = true;
-      //         this.old_datas.name = this.fields.name;
-      //         this.old_datas.avatar = response.data.newAvatar;
-      //     }).catch(error => {
-      //         this.loaded = true;
-      //         if (error.response.status === 422) {
-      //             this.errors = error.response.data.errors || {};
-      //         }
-      //     });
-      // }
+      var _this3 = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        this.errors = {};
+        var formData = new FormData();
+        formData.set('title', this.fields.title == null ? "" : this.fields.title);
+        formData.set('titleSEO', this.fields.titleSEO == null ? "" : this.fields.titleSEO);
+        formData.set('descriptionSEO', this.fields.descriptionSEO == null ? "" : this.fields.descriptionSEO);
+        formData.set('keywordsSEO', this.fields.keywordsSEO == null ? "" : this.fields.keywordsSEO);
+        formData.append('photo', this.fields.photo == null ? "" : this.fields.photo);
+        axios.post('/admin/categories', formData, {
+          'Content-Type': 'multipart/form-data'
+        }).then(function (response) {
+          _this3.loaded = true;
+
+          _this3.hideCreateModal();
+
+          _this3.resetImage();
+
+          _this3.fields = {};
+
+          _this3.getCategories(_this3.categories.last_page);
+        }).catch(function (error) {
+          _this3.loaded = true;
+
+          if (error.response.status === 422) {
+            _this3.errors = error.response.data.errors || {};
+          }
+        });
+      }
     },
     previewImage: function previewImage(event) {
-      var _this2 = this;
+      var _this4 = this;
 
       var input = event.target;
 
@@ -2430,7 +2415,7 @@ __webpack_require__.r(__webpack_exports__);
         var reader = new FileReader();
 
         reader.onload = function (e) {
-          _this2.uploadedImageData = e.target.result;
+          _this4.uploadedImageData = e.target.result;
         };
 
         reader.readAsDataURL(input.files[0]);
@@ -56036,7 +56021,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "form-group py-4" },
+              { staticClass: "py-4" },
               [
                 _c(
                   "b-form-group",
@@ -56445,7 +56430,12 @@ var render = function() {
         "b-button",
         {
           staticClass: "text-uppercase font-weight-bold my-2 w-100",
-          attrs: { variant: "success" }
+          attrs: { variant: "success" },
+          on: {
+            click: function($event) {
+              _vm.showCreateModal()
+            }
+          }
         },
         [_vm._v("Додати категорію")]
       ),
@@ -56461,7 +56451,7 @@ var render = function() {
               _c(
                 "b-card",
                 {
-                  staticClass: "shadow",
+                  staticClass: "shadow h-100",
                   attrs: {
                     "bg-variant": "light",
                     "border-variant": "light",
@@ -56500,7 +56490,12 @@ var render = function() {
                         {
                           staticClass:
                             "text-uppercase font-weight-bold my-2 w-100",
-                          attrs: { variant: "danger" }
+                          attrs: { variant: "danger" },
+                          on: {
+                            click: function($event) {
+                              _vm.deleteCategory(category.id)
+                            }
+                          }
                         },
                         [_vm._v("Видалити")]
                       )
@@ -56521,8 +56516,9 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.loaded,
-            expression: "loaded"
+            value:
+              _vm.loaded && _vm.categories.from != _vm.categories.last_page,
+            expression: "loaded && categories.from != categories.last_page"
           }
         ],
         attrs: {
@@ -56548,13 +56544,13 @@ var render = function() {
       _c(
         "b-modal",
         {
-          ref: "editModal",
+          ref: "createModal",
           attrs: {
             centered: "",
             lazy: "",
             "hide-footer": "",
             size: "lg",
-            title: "Редагувати " + _vm.old_datas.title
+            title: "Додати категорію"
           }
         },
         [
@@ -56575,89 +56571,93 @@ var render = function() {
                   _c("div", { staticClass: "col-12 col-md-6" }, [
                     _c("div", { staticClass: "text-center" }, [
                       _vm.uploadedImageData
-                        ? _c("div", [
-                            _c("img", {
-                              staticClass: "img-thumbnail img-fluid",
-                              attrs: {
-                                src: _vm.uploadedImageData,
-                                alt: _vm.old_datas.title
-                              }
-                            })
-                          ])
-                        : _vm.old_datas.photo
-                          ? _c("div", [
-                              _c("img", {
-                                staticClass: "img-thumbnail img-fluid",
+                        ? _c(
+                            "div",
+                            [
+                              _c("b-img", {
                                 attrs: {
-                                  src: "/" + _vm.old_datas.photo,
-                                  alt: _vm.old_datas.title
+                                  thumbnail: "",
+                                  fluid: "",
+                                  src: _vm.uploadedImageData,
+                                  alt: "Завантажене фото"
                                 }
                               })
-                            ])
-                          : _c("div", [
-                              _c("img", {
-                                staticClass: "img-thumbnail img-fluid",
+                            ],
+                            1
+                          )
+                        : _c(
+                            "div",
+                            [
+                              _c("b-img", {
                                 attrs: {
+                                  thumbnail: "",
+                                  fluid: "",
                                   src: "/img/default.png",
-                                  alt: _vm.old_datas.title
+                                  alt: "Фото відсутнє"
                                 }
                               })
-                            ])
+                            ],
+                            1
+                          )
                     ]),
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "form-group py-4" },
+                      { staticClass: "py-4" },
                       [
                         _c(
-                          "label",
+                          "b-form-group",
                           {
-                            staticClass: "text-uppercase font-weight-bold",
-                            attrs: { for: "photo" }
+                            attrs: {
+                              "label-class": "text-uppercase font-weight-bold",
+                              breakpoint: "md",
+                              description: "Виберіть фото категорії",
+                              label: "Фото:",
+                              "label-for": "photo"
+                            }
                           },
-                          [_vm._v("Вибрати фото категорії:")]
-                        ),
-                        _vm._v(" "),
-                        _c("b-form-file", {
-                          ref: "fileinput",
-                          attrs: {
-                            state: Boolean(_vm.errors.photo)
-                              ? !Boolean(_vm.errors.photo)
-                              : null,
-                            placeholder: "Фото",
-                            accept: "image/*"
-                          },
-                          on: { change: _vm.previewImage },
-                          model: {
-                            value: _vm.fields.photo,
-                            callback: function($$v) {
-                              _vm.$set(_vm.fields, "photo", $$v)
-                            },
-                            expression: "fields.photo"
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm.errors && _vm.errors.photo
-                          ? _c(
-                              "div",
-                              [
-                                _c(
-                                  "b-alert",
-                                  {
-                                    staticClass: "text-center",
-                                    attrs: {
-                                      variant: "danger",
-                                      dismissible: "",
-                                      fade: "",
-                                      show: true
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(_vm.errors.photo[0]))]
+                          [
+                            _c("b-form-file", {
+                              ref: "fileinput",
+                              attrs: {
+                                state: Boolean(_vm.errors.photo) ? false : null,
+                                placeholder: "Фото",
+                                accept: "image/*"
+                              },
+                              on: { change: _vm.previewImage },
+                              model: {
+                                value: _vm.fields.photo,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.fields, "photo", $$v)
+                                },
+                                expression: "fields.photo"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors && _vm.errors.photo
+                              ? _c(
+                                  "div",
+                                  [
+                                    _c(
+                                      "b-alert",
+                                      {
+                                        staticClass: "text-center",
+                                        attrs: {
+                                          variant: "danger",
+                                          dismissible: "",
+                                          fade: "",
+                                          show: true
+                                        }
+                                      },
+                                      [_vm._v(_vm._s(_vm.errors.photo[0]))]
+                                    )
+                                  ],
+                                  1
                                 )
-                              ],
-                              1
-                            )
-                          : _vm._e(),
+                              : _vm._e()
+                          ],
+                          1
+                        ),
                         _vm._v(" "),
                         _c(
                           "a",
@@ -56673,107 +56673,267 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-12 col-md-6" }, [
-                    _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "div",
+                    { staticClass: "col-12 col-md-6" },
+                    [
                       _c(
-                        "label",
+                        "b-form-group",
                         {
-                          staticClass: "text-uppercase font-weight-bold",
-                          attrs: { for: "title" }
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description: "Введіть назву категорії",
+                            label: "Назва:",
+                            "label-for": "title"
+                          }
                         },
-                        [_vm._v("Назва:")]
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "title",
+                              name: "title",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.title &&
+                                  _vm.errors.title[0]
+                              )
+                                ? false
+                                : null,
+                              type: "text",
+                              placeholder: "Назва"
+                            },
+                            model: {
+                              value: _vm.fields.title,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "title", $$v)
+                              },
+                              expression: "fields.title"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.title
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.title[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
                       ),
                       _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.fields.title,
-                            expression: "fields.title"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        class: {
-                          "is-invalid":
-                            _vm.errors &&
-                            _vm.errors.title &&
-                            _vm.errors.title[0]
-                        },
-                        attrs: {
-                          id: "title",
-                          type: "text",
-                          name: "title",
-                          placeholder: "Назва"
-                        },
-                        domProps: { value: _vm.fields.title },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.fields, "title", $event.target.value)
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _vm.errors && _vm.errors.title
-                        ? _c(
-                            "div",
-                            [
-                              _c(
-                                "b-alert",
-                                {
-                                  staticClass: "text-center",
-                                  attrs: {
-                                    variant: "danger",
-                                    dismissible: "",
-                                    fade: "",
-                                    show: true
-                                  }
-                                },
-                                [_vm._v(_vm._s(_vm.errors.title[0]))]
-                              )
-                            ],
-                            1
-                          )
-                        : _vm._e()
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
                       _c(
-                        "button",
+                        "b-form-group",
                         {
-                          staticClass:
-                            "btn btn-success w-100 text-uppercase font-weight-bold",
-                          attrs: { type: "submit" }
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description: "Введіть SEO заголовок категорії",
+                            label: "SEO заголовок:",
+                            "label-for": "titleSEO"
+                          }
                         },
-                        [_vm._v("Зберегти")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _vm.success
-                      ? _c(
-                          "div",
-                          [
-                            _c(
-                              "b-alert",
-                              {
-                                staticClass: "text-center",
-                                attrs: {
-                                  variant: "success",
-                                  dismissible: "",
-                                  fade: "",
-                                  show: true
-                                }
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "titleSEO",
+                              name: "titleSEO",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.titleSEO &&
+                                  _vm.errors.titleSEO[0]
+                              )
+                                ? false
+                                : null,
+                              type: "text",
+                              placeholder: "SEO заголовок"
+                            },
+                            model: {
+                              value: _vm.fields.titleSEO,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "titleSEO", $$v)
                               },
-                              [_vm._v("Дані успішно оновлено")]
-                            )
-                          ],
-                          1
-                        )
-                      : _vm._e()
-                  ])
+                              expression: "fields.titleSEO"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.titleSEO
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.titleSEO[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description: "Введіть SEO описання категорії",
+                            label: "SEO описання:",
+                            "label-for": "descriptionSEO"
+                          }
+                        },
+                        [
+                          _c("b-form-textarea", {
+                            attrs: {
+                              id: "descriptionSEO",
+                              name: "descriptionSEO",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.descriptionSEO &&
+                                  _vm.errors.descriptionSEO[0]
+                              )
+                                ? false
+                                : null,
+                              placeholder: "SEO описання"
+                            },
+                            model: {
+                              value: _vm.fields.descriptionSEO,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "descriptionSEO", $$v)
+                              },
+                              expression: "fields.descriptionSEO"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.descriptionSEO
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(_vm.errors.descriptionSEO[0])
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description: "Введіть SEO ключові слова категорії",
+                            label: "SEO ключові слова:",
+                            "label-for": "keywordsSEO"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "keywordsSEO",
+                              name: "keywordsSEO",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.keywordsSEO &&
+                                  _vm.errors.keywordsSEO[0]
+                              )
+                                ? false
+                                : null,
+                              type: "text",
+                              placeholder: "SEO ключові слова"
+                            },
+                            model: {
+                              value: _vm.fields.keywordsSEO,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "keywordsSEO", $$v)
+                              },
+                              expression: "fields.keywordsSEO"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.keywordsSEO
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.keywordsSEO[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              staticClass:
+                                "btn btn-success w-100 text-uppercase font-weight-bold",
+                              attrs: { type: "submit" }
+                            },
+                            [_vm._v("Зберегти")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
                 ])
               ])
             ]

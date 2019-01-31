@@ -29,6 +29,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::post('categories', ['as' => 'categories.store', 'uses' => 'CategoryController@store']);
 	Route::get('categories/{category}/edit', ['as' => 'categories.edit', 'uses' => 'CategoryController@edit']);
 	Route::post('categories/{category}', ['as' => 'categories.update', 'uses' => 'CategoryController@update']);
+	Route::delete('categories/{category}', ['as' => 'categories.destroy', 'uses' => 'CategoryController@destroy']);
 
 	Route::get('categories/getCategories', ['as' => 'categories.getCategories', 'uses' => 'CategoryController@getCategories']);
 

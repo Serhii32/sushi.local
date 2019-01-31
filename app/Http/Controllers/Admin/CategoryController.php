@@ -23,17 +23,26 @@ class CategoryController extends Controller
     	return response()->json($categories);
     }
 
+    public function store(StoreCategoryRequest $request)
+    {
+    	$category = new Category();
+        $category->title = $request->title;
+        $category->titleSEO = $request->titleSEO;
+        $category->descriptionSEO = $request->descriptionSEO;
+        $category->keywordsSEO = $request->keywordsSEO;
+        $category->save();
+        $last_insereted_id = $category->id;
+        if ($request->photo != null) {
+            $category->photo = $request->photo->store('img/categories/'.$last_insereted_id, ['disk' => 'uploaded_img']);
+        }
+        $category->save();
+        return response()->json(null, 200);
+    }
+
     public function edit(int $id)
     {
         $category = Category::findOrFail($id);
         // $products = Product::where('category_id', $id)->paginate(12);
-
-        // $categories = Category::select('id','title','parent_id')->get();
-
-		// $categories = $categories->reject(function($value, $key)use($id){
-		// 	return $value->id == $id;
-		// });
-        // $categories = $categories->toJson();
         // $pageTitle = 'Редактировать ' . $category->title;
         return view('admin.categories.edit', compact(['category']));
     }
@@ -45,15 +54,24 @@ class CategoryController extends Controller
         $category->titleSEO = $request->titleSEO;
         $category->descriptionSEO = $request->descriptionSEO;
         $category->keywordsSEO = $request->keywordsSEO;
-        
+        $category->save();
+        $last_insereted_id = $category->id;
         if ($request->photo != null) {
             if($category->photo) {
                 Storage::disk('uploaded_img')->delete($category->photo);
             }
-            $category->photo = $request->photo->store('img/avatars/admin', ['disk' => 'uploaded_img']);
+            $category->photo = $request->photo->store('img/categories/'.$last_insereted_id, ['disk' => 'uploaded_img']);
         }
         
         $category->save();
         return response()->json(['newPhoto' => $category->photo], 200);
+    }
+
+    public function destroy(int $id)
+    {
+    	$category = Category::findOrFail($id);
+        Storage::disk('uploaded_img')->deleteDirectory('img/categories/' . $id);
+        $category->delete();
+        return response()->json(null, 200);
     }
 }

@@ -14,7 +14,7 @@
                             <b-img thumbnail fluid src="/img/default.png" :alt="old_datas.title" />
                         </div>
                     </div>
-                    <div class="form-group py-4">
+                    <div class="py-4">
                         <b-form-group label-class="text-uppercase font-weight-bold" breakpoint="md" description="Виберіть фото категорії" label="Фото:" label-for="photo">
                             <b-form-file v-model="fields.photo" :state="Boolean(errors.photo)?false:null" placeholder="Фото" @change="previewImage" accept="image/*" ref="fileinput"></b-form-file>
                             <div v-if="errors && errors.photo">
