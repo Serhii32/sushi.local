@@ -13,6 +13,11 @@ class Product extends Model
 
     public function components()
     {
-    	return $this->belongsToMany('App\Component', 'create_component_product_table', 'product_id', 'component_id')->withTimestamps();
+    	return $this->belongsToMany('App\Component', 'component_product', 'product_id', 'component_id')->withTimestamps();
+    }
+
+    public function attributes()
+    {
+    	return $this->belongsToMany('App\Attribute', 'attribute_product', 'product_id', 'attribute_id')->withTimestamps();
     }
 }
