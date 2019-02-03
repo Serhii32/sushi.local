@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
-class StoreCategoryRequest extends FormRequest
+class StoreAttributeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +26,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'title' => 'required|min:3|max:191',
-            'titleSEO' => 'max:255',
-            'descriptionSEO' => 'max:1000',
-            'keywordsSEO' => 'max:255',
-            'photo' => 'nullable|mimetypes:image/jpeg,image/png,image/jpg,image/gif|max:20000',
+            'type' => 'required|integer|min:0|max:1',
         ];
     }
 }

@@ -15,6 +15,15 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title');
+            $table->decimal('price', 10, 2);
+            $table->integer('category_id')->nullable()->unsigned();
+            $table->decimal('weight', 10, 0)->nullable();
+            $table->string('photo')->nullable();
+            $table->string('titleSEO')->nullable();
+            $table->text('descriptionSEO')->nullable();
+            $table->string('keywordsSEO')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

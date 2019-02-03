@@ -16,7 +16,7 @@ class CreateAttributesTable extends Migration
         Schema::create('attributes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->boolean('class');
+            $table->boolean('type');
             $table->timestamps();
         });
     }

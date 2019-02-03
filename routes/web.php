@@ -39,7 +39,20 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::delete('components/{component}', ['as' => 'components.destroy', 'uses' => 'ComponentController@destroy']);
 	Route::get('components/getComponents', ['as' => 'components.getComponents', 'uses' => 'ComponentController@getComponents']);
 
-	Route::resource('products', 'ProductController')->except(['show']);
+	Route::get('attributes', ['as' => 'attributes.index', 'uses' => 'AttributeController@index']);
+	Route::post('attributes', ['as' => 'attributes.store', 'uses' => 'AttributeController@store']);
+	Route::get('attributes/{attribute}/edit', ['as' => 'attributes.edit', 'uses' => 'AttributeController@edit']);
+	Route::post('attributes/{attribute}', ['as' => 'attributes.update', 'uses' => 'AttributeController@update']);
+	Route::delete('attributes/{attribute}', ['as' => 'attributes.destroy', 'uses' => 'AttributeController@destroy']);
+	Route::get('attributes/getAttributes', ['as' => 'attributes.getAttributes', 'uses' => 'AttributeController@getAttributes']);
+
+	Route::get('products', ['as' => 'products.index', 'uses' => 'ProductController@index']);
+	Route::post('products', ['as' => 'products.store', 'uses' => 'ProductController@store']);
+	Route::get('products/{product}/edit', ['as' => 'products.edit', 'uses' => 'ProductController@edit']);
+	Route::post('products/{product}', ['as' => 'products.update', 'uses' => 'ProductController@update']);
+	Route::delete('products/{product}', ['as' => 'products.destroy', 'uses' => 'ProductController@destroy']);
+	Route::get('products/getProducts', ['as' => 'products.getProducts', 'uses' => 'ProductController@getProducts']);
+
 });
 
 // Route::group(['namespace' => 'User', 'middleware' => ['auth', 'isUser'], 'as' => 'user.', 'prefix'=>'user'], function () {
@@ -55,6 +68,4 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 //check method put in vue formdata
 //add attributes type tabs and checkboxes not subcategories
 //add products in categories in admin panel
-
-
-       // | DELETE    | admin/categories/{category}      | admin.categories.destroy | App\Http\Controllers\Admin\CategoryController@destroy                  | web,auth,isAdmin |
+//finish products
