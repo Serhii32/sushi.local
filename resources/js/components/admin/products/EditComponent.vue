@@ -99,9 +99,9 @@
 export default {
     props: [
         'product',
-        'categories',
-        'components',
-        'attributes',
+        'productattributes',
+        'productcategories',
+        'productcomponents'
     ],
     data() {
         return {
@@ -111,6 +111,9 @@ export default {
             fields: {...this.product},
             old_datas: {},
             uploadedImageData: null,
+            categories: {},
+            components: {},
+            attributes: {},
             categoriesOptions: [],
             attributesOptions: [],
             componentsOptions: [],
@@ -120,6 +123,7 @@ export default {
         this.fields.photo = null;
         this.old_datas.title = this.product.title;
         this.old_datas.photo = this.product.photo;
+        this.getProducts();
     },
     methods: {
         submit() {
@@ -144,6 +148,36 @@ export default {
                     if (error.response.status === 422) {
                         this.errors = error.response.data.errors || {};
                     }
+                });
+            }
+        },
+
+        getProducts() {
+            if (this.loaded) {
+                this.loaded = false;
+                axios.get('/admin/products/getProducts').then(response => {
+                    this.loaded = true;
+                    this.categories = response.data.categories;
+                    this.attributes = response.data.attributes;
+                    this.components = response.data.components;
+                    if(typeof this.categories.length === 'undefined') {
+                        for (let prop in this.categories) {
+                            this.categoriesOptions.push({text: this.categories[prop], value: prop});
+                        }
+                    }
+                    if(typeof this.attributes.length === 'undefined') {
+                        for (let prop in this.attributes) {
+                            this.attributesOptions.push({text: this.attributes[prop], value: prop});
+                        }
+                    }
+                    if(typeof this.components.length === 'undefined') {
+                        for (let prop in this.components) {
+                            this.componentsOptions.push({text: this.components[prop], value: prop});
+                        }
+                    }
+                }).catch(error => {
+                    this.loaded = true;
+                    console.log(error);
                 });
             }
         },

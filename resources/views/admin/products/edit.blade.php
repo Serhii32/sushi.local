@@ -8,7 +8,7 @@
             <div class="col-12 col-md-9 p-2">
                 <div class="py-4 bg-white border rounded border-light shadow">
                 	<h2 class="text-center font-weight-bold text-uppercase pb-5">Редагувати продукт</h2>
-					<admin-products-edit-component :product="{{$product}}" :productattributes="{{$productAttributes}}" :productcategories="{{$productCategories}}" :productcomponents="{{$productComponents}}" :categories="{{$categories}}" :components="{{$components}}" :attributes="{{$attributes}}"></admin-products-edit-component>
+					<admin-products-edit-component :product="{{$product}}" :productattributes="{{$productAttributes}}" :productcategories="{{$productCategories}}" :productcomponents="{{$productComponents}}"></admin-products-edit-component>
                 </div>
             </div>
         </div>

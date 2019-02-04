@@ -63,21 +63,13 @@ class ProductController extends Controller
     public function edit(int $id)
     {
         $product = Product::findOrFail($id);
-        $categories = Category::pluck('title','id')->all();
-        $components = Component::pluck('title','id')->all();
-        $attributes = Attribute::pluck('title','id')->all();
 
         $productCategories = $product->category()->first() ? $product->category()->first()->toJson(): null;
         $productComponents = count($product->components()->get()) > 0 ? $product->components()->get()->toJson(): null;
         $productAttributes = count($product->attributes()->get()) > 0 ? $product->attributes()->get()->toJson(): null;
 
-        // $product = null;
-        // $categories = null;
-        // $components = null;
-        // $attributes = null;
-        dd($attributes);
         // $pageTitle = 'Редактировать ' . $category->title;
-        return view('admin.products.edit', compact(['product', 'categories', 'components', 'attributes', 'productCategories', 'productComponents', 'productAttributes']));
+        return view('admin.products.edit', compact('product', 'productCategories', 'productComponents', 'productAttributes'));
     }
 
     // public function update(StoreCategoryRequest $request, int $id)
