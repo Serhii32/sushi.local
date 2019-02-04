@@ -17,13 +17,13 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->decimal('price', 10, 2);
-            $table->integer('category_id')->nullable()->unsigned();
-            $table->decimal('weight', 10, 0)->nullable();
+            $table->integer('category')->nullable()->unsigned();
+            $table->string('weight')->nullable();
             $table->string('photo')->nullable();
             $table->string('titleSEO')->nullable();
             $table->text('descriptionSEO')->nullable();
             $table->string('keywordsSEO')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category')->references('id')->on('categories');
             $table->timestamps();
         });
     }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
+use App\Component;
+use App\Attribute;
 use App\Http\Requests\StoreProductRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,33 +24,61 @@ class ProductController extends Controller
     	$products = Product::paginate(12);
     	$categories = Category::pluck('title','id')->all();
     	$components = Component::pluck('title','id')->all();
-    	$attributes = Attribute::plick('title','id')->all();
+    	$attributes = Attribute::pluck('title','id')->all();
     	return response()->json(['products' => $products, 'categories' => $categories, 'components' => $components, 'attributes' => $attributes]);
     }
 
-    // public function store(StoreProductRequest $request)
-    // {
-    // 	$category = new Category();
-    //     $category->title = $request->title;
-    //     $category->titleSEO = $request->titleSEO;
-    //     $category->descriptionSEO = $request->descriptionSEO;
-    //     $category->keywordsSEO = $request->keywordsSEO;
-    //     $category->save();
-    //     $last_insereted_id = $category->id;
-    //     if ($request->photo != null) {
-    //         $category->photo = $request->photo->store('img/categories/'.$last_insereted_id, ['disk' => 'uploaded_img']);
-    //     }
-    //     $category->save();
-    //     return response()->json(null, 200);
-    // }
+    public function store(StoreProductRequest $request)
+    {
+        
+    	$product = new Product();
+        $product->title = $request->title;
+        $product->price = $request->price;
+        $product->weight = $request->weight;
+        $product->category = $request->category;
+        $product->titleSEO = $request->titleSEO;
+        $product->descriptionSEO = $request->descriptionSEO;
+        $product->keywordsSEO = $request->keywordsSEO;
+        $product->save();
+        $last_insereted_id = $product->id;
+        if ($request->photo != null) {
+            $product->photo = $request->photo->store('img/products/'.$last_insereted_id, ['disk' => 'uploaded_img']);
+        }
+        if ($request->components && is_string($request->components)) {
+            $components = explode(",", $request->components);
+            foreach ($components as $component) {
+                $product->components()->attach($component);
+            }
+        }
+        if ($request->attributes && is_string($request->attributes)) {
+            $attributes = explode(",", $request->attributes);
+            foreach ($attributes as $attribute) {
+                $product->attributes()->attach($attribute);
+            }
+        }
+        $product->save();
+        return response()->json(null, 200);
+    }
 
-    // public function edit(int $id)
-    // {
-    //     $category = Category::findOrFail($id);
-    //     // $products = Product::where('category_id', $id)->paginate(12);
-    //     // $pageTitle = 'Редактировать ' . $category->title;
-    //     return view('admin.categories.edit', compact(['category']));
-    // }
+    public function edit(int $id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::pluck('title','id')->all();
+        $components = Component::pluck('title','id')->all();
+        $attributes = Attribute::pluck('title','id')->all();
+
+        $productCategories = $product->category()->first() ? $product->category()->first()->toJson(): null;
+        $productComponents = count($product->components()->get()) > 0 ? $product->components()->get()->toJson(): null;
+        $productAttributes = count($product->attributes()->get()) > 0 ? $product->attributes()->get()->toJson(): null;
+
+        // $product = null;
+        // $categories = null;
+        // $components = null;
+        // $attributes = null;
+        dd($attributes);
+        // $pageTitle = 'Редактировать ' . $category->title;
+        return view('admin.products.edit', compact(['product', 'categories', 'components', 'attributes', 'productCategories', 'productComponents', 'productAttributes']));
+    }
 
     // public function update(StoreCategoryRequest $request, int $id)
     // {

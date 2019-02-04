@@ -27,8 +27,10 @@ class StoreProductRequest extends FormRequest
         return [
             'title' => 'required|min:3|max:191',
             'price' => 'required|numeric|min:0.00|max:100000000.00',
-            'weight' => 'nullable|numeric|min:0|max:100000000',
-            'category_id' => 'integer|nullable',
+            'weight' => 'nullable|min:1|max:191',
+            'category' => 'integer|nullable',
+            'attributes' => 'nullable|max:1000',
+            'components' => 'nullable|max:1000',
             'titleSEO' => 'max:255',
             'descriptionSEO' => 'max:1000',
             'keywordsSEO' => 'max:255',

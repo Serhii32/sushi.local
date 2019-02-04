@@ -45,12 +45,36 @@
                                     <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.title[0] }}</b-alert>
                                 </div>
                             </b-form-group>
-
-
-
-                            <!-- price ,weight, category, attribute -->
-
-
+                            <b-form-group label-class="text-uppercase font-weight-bold" description="Введіть ціну продукта" label="Ціна:" label-for="price">
+                                <b-form-input id="price" name="price" :state="Boolean(errors && errors.price && errors.price[0])?false:null" type="number" placeholder="Ціна" v-model="fields.price" step='0.01'></b-form-input>
+                                <div v-if="errors && errors.price">
+                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.price[0] }}</b-alert>
+                                </div>
+                            </b-form-group>
+                            <b-form-group label-class="text-uppercase font-weight-bold" description="Введіть вагу продукта" label="Вага:" label-for="weight">
+                                <b-form-input id="weight" name="weight" :state="Boolean(errors && errors.weight && errors.weight[0])?false:null" type="text" placeholder="Вага" v-model="fields.weight"></b-form-input>
+                                <div v-if="errors && errors.weight">
+                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.weight[0] }}</b-alert>
+                                </div>
+                            </b-form-group>
+                            <b-form-group label-class="text-uppercase font-weight-bold" description="Виберіть категорію продукта" label="Категорія:" label-for="category">
+                                <b-form-select id="category" name="category" :state="Boolean(errors && errors.category && errors.category[0])?false:null" placeholder="Категорія" v-model="fields.category" :options="categoriesOptions"></b-form-select>
+                                <div v-if="errors && errors.category">
+                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.category[0] }}</b-alert>
+                                </div>
+                            </b-form-group>
+                            <b-form-group label-class="text-uppercase font-weight-bold" description="Виберіть атрибути продукта" label="Атрибути:" label-for="attributes">
+                                <b-form-select multiple id="attributes" name="attributes" :state="Boolean(errors && errors.attributes && errors.attributes[0])?false:null" placeholder="Атрибути" v-model="fields.attributes" :options="attributesOptions"></b-form-select>
+                                <div v-if="errors && errors.attributes">
+                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.attributes[0] }}</b-alert>
+                                </div>
+                            </b-form-group>
+                            <b-form-group label-class="text-uppercase font-weight-bold" description="Виберіть компоненти продукта" label="Компоненти:" label-for="components">
+                                <b-form-select multiple id="components" name="components" :state="Boolean(errors && errors.components && errors.components[0])?false:null" placeholder="Компоненти" v-model="fields.components" :options="componentsOptions"></b-form-select>
+                                <div v-if="errors && errors.components">
+                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.components[0] }}</b-alert>
+                                </div>
+                            </b-form-group>
                             <b-form-group label-class="text-uppercase font-weight-bold" description="Введіть SEO заголовок продукта" label="SEO заголовок:" label-for="titleSEO">
                                 <b-form-input id="titleSEO" name="titleSEO" :state="Boolean(errors && errors.titleSEO && errors.titleSEO[0])?false:null" type="text" placeholder="SEO заголовок" v-model="fields.titleSEO"></b-form-input>
                                 <div v-if="errors && errors.titleSEO">
@@ -88,9 +112,18 @@ export default {
         return {
             errors: {},
             products: {},
+            categories: {},
+            categoriesOptions: [],
+            attributesOptions: [],
+            componentsOptions: [],
+            attributes: {},
+            components: {},
             currentPage: 1,
             loaded: true,
-            fields: {},
+            fields: {
+                'attributes': [],
+                'components': [],
+            },
             uploadedImageData: null,
         }
     },
@@ -107,7 +140,25 @@ export default {
                 this.currentPage = page;
                 axios.get('/admin/products/getProducts?page=' + page).then(response => {
                     this.loaded = true;
-                    this.products = response.data;
+                    this.products = response.data.products;
+                    this.categories = response.data.categories;
+                    this.attributes = response.data.attributes;
+                    this.components = response.data.components;
+                    if(typeof this.categories.length === 'undefined') {
+                        for (let prop in this.categories) {
+                            this.categoriesOptions.push({text: this.categories[prop], value: prop});
+                        }
+                    }
+                    if(typeof this.attributes.length === 'undefined') {
+                        for (let prop in this.attributes) {
+                            this.attributesOptions.push({text: this.attributes[prop], value: prop});
+                        }
+                    }
+                    if(typeof this.components.length === 'undefined') {
+                        for (let prop in this.components) {
+                            this.componentsOptions.push({text: this.components[prop], value: prop});
+                        }
+                    }
                 }).catch(error => {
                     this.loaded = true;
                     console.log(error);
@@ -140,6 +191,11 @@ export default {
                 this.errors = {};
                 let formData = new FormData();
                 formData.set('title', this.fields.title == null?"":this.fields.title);
+                formData.set('price', this.fields.price == null?"":this.fields.price);
+                formData.set('weight', this.fields.weight == null?"":this.fields.weight);
+                formData.set('category', this.fields.category == null?"":this.fields.category);
+                formData.set('attributes', this.fields.attributes == null || this.fields.attributes.length == 0?"":this.fields.attributes);
+                formData.set('components', this.fields.components == null || this.fields.components.length == 0?"":this.fields.components);
                 formData.set('titleSEO', this.fields.titleSEO == null?"":this.fields.titleSEO);
                 formData.set('descriptionSEO', this.fields.descriptionSEO == null?"":this.fields.descriptionSEO);
                 formData.set('keywordsSEO', this.fields.keywordsSEO == null?"":this.fields.keywordsSEO);
@@ -148,7 +204,10 @@ export default {
                     this.loaded = true;
                     this.hideCreateModal();
                     this.resetImage();
-                    this.fields = {};
+                    this.fields = {
+                        'attributes': [],
+                        'components': [],
+                    };
                     let page = this.products.last_page;
                     this.getProducts(page);
                 }).catch(error => {

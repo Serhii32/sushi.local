@@ -37,6 +37,8 @@ Vue.component('admin-components-index-component', require('./components/admin/co
 Vue.component('admin-components-edit-component', require('./components/admin/components/EditComponent.vue').default);
 Vue.component('admin-attributes-index-component', require('./components/admin/attributes/IndexComponent.vue').default);
 Vue.component('admin-attributes-edit-component', require('./components/admin/attributes/EditComponent.vue').default);
+Vue.component('admin-products-index-component', require('./components/admin/products/IndexComponent.vue').default);
+// Vue.component('admin-products-edit-component', require('./components/admin/attributes/EditComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
