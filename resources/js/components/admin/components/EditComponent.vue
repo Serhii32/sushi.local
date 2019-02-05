@@ -78,7 +78,7 @@ export default {
                 formData.set('title', this.fields.title == null?"":this.fields.title);
                 formData.append('photo', this.fields.photo == null?"":this.fields.photo);
 
-                axios.post('/admin/components/'+this.category.id, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
+                axios.post('/admin/components/'+this.component.id, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
                     this.loaded = true;
                     this.success = true;
                     this.old_datas.name = this.fields.name;

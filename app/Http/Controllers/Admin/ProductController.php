@@ -63,40 +63,65 @@ class ProductController extends Controller
     public function edit(int $id)
     {
         $product = Product::findOrFail($id);
-
-        $productCategories = $product->category()->first() ? $product->category()->first()->toJson(): null;
-        $productComponents = count($product->components()->get()) > 0 ? $product->components()->get()->toJson(): null;
-        $productAttributes = count($product->attributes()->get()) > 0 ? $product->attributes()->get()->toJson(): null;
-
         // $pageTitle = 'Редактировать ' . $category->title;
-        return view('admin.products.edit', compact('product', 'productCategories', 'productComponents', 'productAttributes'));
+        return view('admin.products.edit', compact('product'));
     }
 
-    // public function update(StoreCategoryRequest $request, int $id)
-    // {
-    // 	$category = Category::findOrFail($id);
-    //     $category->title = $request->title;
-    //     $category->titleSEO = $request->titleSEO;
-    //     $category->descriptionSEO = $request->descriptionSEO;
-    //     $category->keywordsSEO = $request->keywordsSEO;
-    //     $category->save();
-    //     $last_insereted_id = $category->id;
-    //     if ($request->photo != null) {
-    //         if($category->photo) {
-    //             Storage::disk('uploaded_img')->delete($category->photo);
-    //         }
-    //         $category->photo = $request->photo->store('img/categories/'.$last_insereted_id, ['disk' => 'uploaded_img']);
-    //     }
-        
-    //     $category->save();
-    //     return response()->json(['newPhoto' => $category->photo], 200);
-    // }
+    public function getProductDependencies(int $id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::pluck('title','id')->all();
+        $components = Component::pluck('title','id')->all();
+        $attributes = Attribute::pluck('title','id')->all();
 
-    // public function destroy(int $id)
-    // {
-    // 	$category = Category::findOrFail($id);
-    //     Storage::disk('uploaded_img')->deleteDirectory('img/categories/' . $id);
-    //     $category->delete();
-    //     return response()->json(null, 200);
-    // }
+        $productComponents = $product->components()->get();
+        $productAttributes = $product->attributes()->get();
+
+        return response()->json(['categories' => $categories, 'components' => $components, 'attributes' => $attributes, 'productComponents' => $productComponents, 'productAttributes' => $productAttributes]);
+    }
+
+    public function update(StoreProductRequest $request, int $id)
+    {
+        // return dd($request);
+        $product = Product::findOrFail($id);
+        $product->title = $request->title;
+        $product->price = $request->price;
+        $product->weight = $request->weight;
+        $product->category = $request->category;
+        $product->titleSEO = $request->titleSEO;
+        $product->descriptionSEO = $request->descriptionSEO;
+        $product->keywordsSEO = $request->keywordsSEO;
+        $product->save();
+        $last_insereted_id = $product->id;
+        if ($request->photo != null) {
+            if($product->photo) {
+                Storage::disk('uploaded_img')->delete($product->photo);
+            }
+            $product->photo = $request->photo->store('img/products/'.$last_insereted_id, ['disk' => 'uploaded_img']);
+        }
+        if ($request->components && is_string($request->components)) {
+            $product->components()->detach();
+            $components = explode(",", $request->components);
+            foreach ($components as $component) {
+                $product->components()->attach($component);
+            }
+        }
+        if ($request->attributes && is_string($request->attributes)) {
+            $product->attributes()->detach();
+            $attributes = explode(",", $request->attributes);
+            foreach ($attributes as $attribute) {
+                $product->attributes()->attach($attribute);
+            }
+        }
+        $product->save();
+        return response()->json(['newPhoto' => $product->photo], 200);
+    }
+
+    public function destroy(int $id)
+    {
+    	$product = Product::findOrFail($id);
+        Storage::disk('uploaded_img')->deleteDirectory('img/products/' . $id);
+        $product->delete();
+        return response()->json(null, 200);
+    }
 }

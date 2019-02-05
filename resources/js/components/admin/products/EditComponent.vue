@@ -99,9 +99,6 @@
 export default {
     props: [
         'product',
-        'productattributes',
-        'productcategories',
-        'productcomponents'
     ],
     data() {
         return {
@@ -123,7 +120,9 @@ export default {
         this.fields.photo = null;
         this.old_datas.title = this.product.title;
         this.old_datas.photo = this.product.photo;
-        this.getProducts();
+        this.fields.attributes = [];
+        this.fields.components = [];
+        this.getProductDependencies();
     },
     methods: {
         submit() {
@@ -133,12 +132,17 @@ export default {
                 this.errors = {};
                 let formData = new FormData();
                 formData.set('title', this.fields.title == null?"":this.fields.title);
+                formData.set('price', this.fields.price == null?"":this.fields.price);
+                formData.set('weight', this.fields.weight == null?"":this.fields.weight);
+                formData.set('category', this.fields.category == null?"":this.fields.category);
+                formData.set('attributes', this.fields.attributes == null || this.fields.attributes.length == 0?"":this.fields.attributes);
+                formData.set('components', this.fields.components == null || this.fields.components.length == 0?"":this.fields.components);
                 formData.set('titleSEO', this.fields.titleSEO == null?"":this.fields.titleSEO);
                 formData.set('descriptionSEO', this.fields.descriptionSEO == null?"":this.fields.descriptionSEO);
                 formData.set('keywordsSEO', this.fields.keywordsSEO == null?"":this.fields.keywordsSEO);
                 formData.append('photo', this.fields.photo == null?"":this.fields.photo);
 
-                axios.post('/admin/categories/'+this.category.id, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
+                axios.post('/admin/products/'+this.product.id, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
                     this.loaded = true;
                     this.success = true;
                     this.old_datas.name = this.fields.name;
@@ -152,14 +156,27 @@ export default {
             }
         },
 
-        getProducts() {
+        getProductDependencies() {
             if (this.loaded) {
                 this.loaded = false;
-                axios.get('/admin/products/getProducts').then(response => {
+                axios.get('/admin/products/getProductDependencies/' + this.product.id).then(response => {
                     this.loaded = true;
                     this.categories = response.data.categories;
                     this.attributes = response.data.attributes;
                     this.components = response.data.components;
+
+                    if(response.data.productAttributes.length > 0) {
+                        for (let attributeItem in response.data.productAttributes) {
+                            this.fields.attributes.push(attributeItem.id);
+                        }
+                    }
+
+                    if(response.data.productComponents.length > 0) {
+                        for (let componentKey in response.data.productComponents) {
+                            this.fields.components.push(response.data.productComponents[componentKey].id);
+                        }
+                    }
+
                     if(typeof this.categories.length === 'undefined') {
                         for (let prop in this.categories) {
                             this.categoriesOptions.push({text: this.categories[prop], value: prop});
