@@ -101,15 +101,29 @@
 						</ul>
 	        		</div>
 	        	</aside>
+
+<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900&amp;subset=cyrillic" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Exo+2:100,200,300,400,500,600,700,800,900&amp;subset=cyrillic" rel="stylesheet">
+                <style type="text/css">
+                    @import url("https://fonts.googleapis.com/css?family=Exo+2:100,200,300,400,500,600,700,800,900&amp;subset=cyrillic");
+                    body {
+
+
+    
+
+    font-family: 'Montserrat', sans-serif !important;
+
+                    }
+                </style>
 	        	<div class="col-8" style="background-color: black">
                     <div class="container-fluid p-1">
                         <div class="row">
-                            <div class="col-12 col-md-4 my-auto px-4">
-                                <h1 class="text-white">Доставка суші для істинних поціновувачів</h1>
+                            <div class="col-12 col-lg-4 my-auto px-4">
+                                <h1 class="text-white" style="font-family: 'Exo 2', sans-serif">Доставка суші для істинних поціновувачів</h1>
                                 <p class="text-white">Замовляйте суші преміум класу для всієї компанії додому та в офіс</p>
                                 <b-button style="border-radius: 20px; background: #e16729; border-color: #e16729;">Зробити замовлення</b-button>
                             </div>
-                            <div class="col-12 col-md-8">
+                            <div class="col-12 col-lg-8">
                                 <img class="img-fluid" src="/img/front/index-page-main.jpg">
                             </div>
                         </div>
