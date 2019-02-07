@@ -49,7 +49,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::get('products', ['as' => 'products.index', 'uses' => 'ProductController@index']);
 	Route::post('products', ['as' => 'products.store', 'uses' => 'ProductController@store']);
 	Route::get('products/{product}/edit', ['as' => 'products.edit', 'uses' => 'ProductController@edit']);
-
 	Route::get('products/getProductDependencies/{product}', ['as' => 'products.getProductDependencies', 'uses' => 'ProductController@getProductDependencies']);
 	Route::post('products/{product}', ['as' => 'products.update', 'uses' => 'ProductController@update']);
 	Route::delete('products/{product}', ['as' => 'products.destroy', 'uses' => 'ProductController@destroy']);
@@ -70,4 +69,4 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 //check method put in vue formdata
 //add attributes type tabs and checkboxes not subcategories
 //add products in categories in admin panel
-//finish products
+//delete menu in admin panel

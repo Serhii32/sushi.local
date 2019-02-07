@@ -8,7 +8,6 @@
 // BootstrapVue
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~bootstrap-vue/dist/bootstrap-vue.css';
-@import '~vue-sidebar-menu/dist/vue-sidebar-menu.css';
 
 
 .navbar-laravel {
@@ -17,7 +16,11 @@
   z-index: 1;
 }
 
+body {
+	font-family: 'Comfortaa', cursive;
+}
+
 // Fonts
 //@import url('https://fonts.googleapis.com/css?family=Nunito');
-@import url("https://fonts.googleapis.com/css?family=Exo+2:100,200,300,400,500,600,700,800,900&amp;subset=cyrillic");
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700&subset=cyrillic');
 

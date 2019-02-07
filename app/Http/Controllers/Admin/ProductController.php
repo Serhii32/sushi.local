@@ -120,6 +120,8 @@ class ProductController extends Controller
     public function destroy(int $id)
     {
     	$product = Product::findOrFail($id);
+        $product->components()->detach();
+        $product->attributes()->detach();
         Storage::disk('uploaded_img')->deleteDirectory('img/products/' . $id);
         $product->delete();
         return response()->json(null, 200);

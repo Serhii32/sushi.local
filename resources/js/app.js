@@ -13,10 +13,9 @@ import BootstrapVue from 'bootstrap-vue';
 
 Vue.use(BootstrapVue);
 
-import VueSidebarMenu from 'vue-sidebar-menu';
+import VueCarousel from 'vue-carousel';
 
-Vue.use(VueSidebarMenu);
-
+Vue.use(VueCarousel);
 
 /**
  * The following block of code may be used to automatically register your
@@ -30,7 +29,6 @@ Vue.use(VueSidebarMenu);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('admin-home-edit-component', require('./components/admin/HomeEditComponent.vue').default);
-Vue.component('admin-sidebar-component', require('./components/admin/SidebarComponent.vue').default);
 Vue.component('admin-categories-index-component', require('./components/admin/categories/IndexComponent.vue').default);
 Vue.component('admin-categories-edit-component', require('./components/admin/categories/EditComponent.vue').default);
 Vue.component('admin-components-index-component', require('./components/admin/components/IndexComponent.vue').default);
