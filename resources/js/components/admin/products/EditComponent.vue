@@ -141,7 +141,6 @@ export default {
                 formData.set('descriptionSEO', this.fields.descriptionSEO == null?"":this.fields.descriptionSEO);
                 formData.set('keywordsSEO', this.fields.keywordsSEO == null?"":this.fields.keywordsSEO);
                 formData.append('photo', this.fields.photo == null?"":this.fields.photo);
-
                 axios.post('/admin/products/'+this.product.id, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
                     this.loaded = true;
                     this.success = true;
@@ -164,32 +163,29 @@ export default {
                     this.categories = response.data.categories;
                     this.attributes = response.data.attributes;
                     this.components = response.data.components;
-
                     if(response.data.productAttributes.length > 0) {
-                        for (let attributeItem in response.data.productAttributes) {
-                            this.fields.attributes.push(attributeItem.id);
+                        for (let attributeKey in response.data.productAttributes) {
+                            this.fields.attributes.push(response.data.productAttributes[attributeKey].id);
                         }
                     }
-
                     if(response.data.productComponents.length > 0) {
                         for (let componentKey in response.data.productComponents) {
                             this.fields.components.push(response.data.productComponents[componentKey].id);
                         }
                     }
-
                     if(typeof this.categories.length === 'undefined') {
                         for (let prop in this.categories) {
-                            this.categoriesOptions.push({text: this.categories[prop], value: prop});
+                            this.categoriesOptions.push({text: this.categories[prop], value: Number(prop)});
                         }
                     }
                     if(typeof this.attributes.length === 'undefined') {
                         for (let prop in this.attributes) {
-                            this.attributesOptions.push({text: this.attributes[prop], value: prop});
+                            this.attributesOptions.push({text: this.attributes[prop], value: Number(prop)});
                         }
                     }
                     if(typeof this.components.length === 'undefined') {
                         for (let prop in this.components) {
-                            this.componentsOptions.push({text: this.components[prop], value: prop});
+                            this.componentsOptions.push({text: this.components[prop], value: Number(prop)});
                         }
                     }
                 }).catch(error => {

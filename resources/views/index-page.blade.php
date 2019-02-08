@@ -17,10 +17,10 @@
 </head>
 <body>
 	<div id="app">
-		<nav class="navbar navbar-expand-md navbar-light navbar-laravel sticky-top">
+		<nav class="navbar navbar-expand-md navbar-light navbar-laravel sticky-top" style="background-color: black; border-bottom: 1px white solid;">
             <div class="container-fluid">
                 <a href="{{ route('page.index') }}">
-                    <img width="200" src="{{asset('img/logo.svg')}}">
+                    <img width="150" src="{{asset('img/logo.svg')}}">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -81,131 +81,157 @@
                 </div>
             </div>
         </nav>
-        <section class="container-fluid bg-white">
-        	<div class="row">
-	        	<aside class="col-1">
-	        		<div class="position-fixed">
-	        			<ul class="nav flex-column">
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="#">Active</a>
-						  	</li>
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="#">Link</a>
-						  	</li>
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="#">Link</a>
-						  	</li>
-						  	<li class="nav-item">
-						    	<a class="nav-link" href="#">Disabled</a>
-						  	</li>
-						</ul>
-	        		</div>
-	        	</aside>
-                
-	        	<div class="col-8" style="background-color: black">
-                    <div class="container-fluid p-1">
-                        <div class="row">
-                            <div class="col-12 col-lg-4 my-auto px-4">
-                                <h1 class="text-white">Доставка суші для істинних поціновувачів</h1>
-                                <p class="text-white">Замовляйте суші преміум класу для всієї компанії додому та в офіс</p>
-                                <b-button class="text-uppercase font-weight-bold" style="border-radius: 20px; background: #e16729; border-color: #e16729;">Зробити замовлення</b-button>
-                            </div>
-                            <div class="col-12 col-lg-8">
-                                <img class="img-fluid" src="/img/front/index-page-main.jpg">
-                            </div>
+        <section>
+
+        	<aside class="position-fixed p-0" style="background-color: black; border-right: 1px white solid; width: 100px; min-height: 100vh; left: 0px;">
+        		<div class="py-3">
+        			<ul class="nav flex-column">
+					  	<li class="nav-item text-center py-2">
+					    	<a href="#">
+                                <img width="40" src="/img/front/icons/sideicon1.svg">
+                            </a>
+					  	</li>
+                        <li class="nav-item text-center py-2">
+                            <a class="nav-link" href="#">
+                                <img width="50" class="img-fluid" src="/img/front/icons/sideicon2.svg">
+                            </a>
+                        </li>
+                        <li class="nav-item text-center py-2">
+                            <a class="nav-link" href="#">
+                                <img width="50" class="img-fluid" src="/img/front/icons/sideicon3.svg">
+                            </a>
+                        </li>
+                        <li class="nav-item text-center py-2">
+                            <a class="nav-link" href="#">
+                                <img width="50" class="img-fluid" src="/img/front/icons/sideicon4.svg">
+                            </a>
+                        </li>
+                        <li class="nav-item text-center py-2">
+                            <a class="nav-link" href="#">
+                                <img width="50" class="img-fluid" src="/img/front/icons/sideicon5.svg">
+                            </a>
+                        </li>
+					</ul>
+        		</div>
+        	</aside>
+            
+
+
+
+
+
+        	<div style="background-color: black; margin-left: 100px; margin-right: 300px;">
+                <div class="container-fluid p-1">
+                    <div class="row">
+                        <div class="col-12 col-lg-4 my-auto px-4">
+                            <h1 class="text-white">Доставка суші для істинних поціновувачів</h1>
+                            <p class="text-white">Замовляйте суші преміум класу для всієї компанії додому та в офіс</p>
+                            <b-button class="text-uppercase font-weight-bold" style="border-radius: 20px; background: #e16729; border-color: #e16729;">Зробити замовлення</b-button>
+                        </div>
+                        <div class="col-12 col-lg-8">
+                            <img class="img-fluid" src="/img/front/index-page-main.jpg">
                         </div>
                     </div>
-                    <div class="container-fluid p-1">
-                        <div class="row">
-                            <div class="col-12 col-md-6 col-lg-3 text-center">
-                                <div class="row">
-                                    <div class="col-3 col-lg-12 my-auto">
-                                        <img class="img-fluid" src="/img/front/icons/icon1.svg">
-                                    </div>
-                                    <div class="col-9 col-lg-12 text-white">
-                                        <h4>Fresh Made</h4>
-                                        <p>
-                                            Мы гарантируем свежесть продуктов и не используем замороженную рыбу
-                                        </p>
-                                    </div>
+                </div>
+                <div class="container-fluid p-1">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-3 text-center">
+                            <div class="row">
+                                <div class="col-3 col-lg-12 my-auto">
+                                    <img class="img-fluid" src="/img/front/icons/icon1.svg">
                                 </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3 text-center">
-                                <div class="row">
-                                    <div class="col-3 col-lg-12 my-auto">
-                                        <img class="img-fluid" src="/img/front/icons/icon2.svg">
-                                    </div>
-                                    <div class="col-9 col-lg-12 text-white">
-                                        <h4>Рецепты от шеф-повара</h4>
-                                        <p>
-                                            Мы предлагаем как классические суши, так и авторские рецепты от шеф-повара
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3 text-center">
-                                <div class="row">
-                                    <div class="col-3 col-lg-12 my-auto">
-                                        <img class="img-fluid" src="/img/front/icons/icon3.svg">
-                                    </div>
-                                    <div class="col-9 col-lg-12 text-white">
-                                        <h4>Качественные ингредиенты</h4>
-                                        <p>
-                                            Мы не используем усилители вкуса. Все продукты закупаем у проверенных поставщиков
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3 text-center">
-                                <div class="row">
-                                    <div class="col-3 col-lg-12 my-auto">
-                                        <img class="img-fluid" src="/img/front/icons/icon4.svg">
-                                    </div>
-                                    <div class="col-9 col-lg-12 text-white">
-                                        <h4>Чистая кухня</h4>
-                                        <p>
-                                            Весь процесс приготовления проходит в соответствии со всеми санитарными нормами
-                                        </p>
-                                    </div>
+                                <div class="col-9 col-lg-12 text-white">
+                                    <h4>Fresh Made</h4>
+                                    <p>
+                                        Мы гарантируем свежесть продуктов и не используем замороженную рыбу
+                                    </p>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 col-md-6 col-lg-3 text-center">
+                            <div class="row">
+                                <div class="col-3 col-lg-12 my-auto">
+                                    <img class="img-fluid" src="/img/front/icons/icon2.svg">
+                                </div>
+                                <div class="col-9 col-lg-12 text-white">
+                                    <h4>Рецепты от шеф-повара</h4>
+                                    <p>
+                                        Мы предлагаем как классические суши, так и авторские рецепты от шеф-повара
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3 text-center">
+                            <div class="row">
+                                <div class="col-3 col-lg-12 my-auto">
+                                    <img class="img-fluid" src="/img/front/icons/icon3.svg">
+                                </div>
+                                <div class="col-9 col-lg-12 text-white">
+                                    <h4>Качественные ингредиенты</h4>
+                                    <p>
+                                        Мы не используем усилители вкуса. Все продукты закупаем у проверенных поставщиков
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3 text-center">
+                            <div class="row">
+                                <div class="col-3 col-lg-12 my-auto">
+                                    <img class="img-fluid" src="/img/front/icons/icon4.svg">
+                                </div>
+                                <div class="col-9 col-lg-12 text-white">
+                                    <h4>Чистая кухня</h4>
+                                    <p>
+                                        Весь процесс приготовления проходит в соответствии со всеми санитарными нормами
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h1 class="text-white">Топ позиції</h1>
-                        <p class="text-white">В ассортименте Ninja Sushi представлены роллы, суши, сеты и напитки на любой вкус. Мы рекомендуем обязательно попробовать топ позиции нашего меню!</p>
-                        <carousel :navigation-enabled="true" :per-page="3">
-                            <slide>
-                                <img class="img-fluid" src="/img/default.png">
-                                Slide 1 Content
-                            </slide>
-                            <slide>
-                                <img class="img-fluid" src="/img/default.png">
-                                Slide 2 Content
-                            </slide>
-                            <slide>
-                                <img class="img-fluid" src="/img/default.png">
-                                Slide 1 Content
-                            </slide>
-                            <slide>
-                                <img class="img-fluid" src="/img/default.png">
-                                Slide 2 Content
-                            </slide>
-                            <slide>
-                                <img class="img-fluid" src="/img/default.png">
-                                Slide 1 Content
-                            </slide>
-                            <slide>
-                                <img class="img-fluid" src="/img/default.png">
-                                Slide 2 Content
-                            </slide>
-                        </carousel>
-                    </div>
-	        	</div>
-	        	<div class="col-3">
-	        		kek
-	        	</div>
-	        </div>
+                </div>
+                <div>
+                    <h1 class="text-white">Топ позиції</h1>
+                    <p class="text-white">В ассортименте Ninja Sushi представлены роллы, суши, сеты и напитки на любой вкус. Мы рекомендуем обязательно попробовать топ позиции нашего меню!</p>
+                    <carousel :navigation-enabled="true" :per-page="3">
+                        <slide>
+                            <img class="img-fluid" src="/img/default.png">
+                            Slide 1 Content
+                        </slide>
+                        <slide>
+                            <img class="img-fluid" src="/img/default.png">
+                            Slide 2 Content
+                        </slide>
+                        <slide>
+                            <img class="img-fluid" src="/img/default.png">
+                            Slide 1 Content
+                        </slide>
+                        <slide>
+                            <img class="img-fluid" src="/img/default.png">
+                            Slide 2 Content
+                        </slide>
+                        <slide>
+                            <img class="img-fluid" src="/img/default.png">
+                            Slide 1 Content
+                        </slide>
+                        <slide>
+                            <img class="img-fluid" src="/img/default.png">
+                            Slide 2 Content
+                        </slide>
+                    </carousel>
+                </div>
+        	</div>
+
+
+
+
+
+
+        	<aside class="p-0" style="position: fixed; background-color: black; border-left: 1px white solid; width: 300px; right: 0px; top: 0px; min-height: 100vh; top: 99px;">
+                <p class="text-white">basket</p>
+        	</aside>
+
+
+	        
         </section>
 	</div>
 </body>

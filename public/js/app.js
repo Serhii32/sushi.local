@@ -3015,8 +3015,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this2.components = response.data.components;
 
           if (response.data.productAttributes.length > 0) {
-            for (var attributeItem in response.data.productAttributes) {
-              _this2.fields.attributes.push(attributeItem.id);
+            for (var attributeKey in response.data.productAttributes) {
+              _this2.fields.attributes.push(response.data.productAttributes[attributeKey].id);
             }
           }
 
@@ -3030,7 +3030,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             for (var prop in _this2.categories) {
               _this2.categoriesOptions.push({
                 text: _this2.categories[prop],
-                value: prop
+                value: Number(prop)
               });
             }
           }
@@ -3039,7 +3039,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             for (var _prop in _this2.attributes) {
               _this2.attributesOptions.push({
                 text: _this2.attributes[_prop],
-                value: _prop
+                value: Number(_prop)
               });
             }
           }
@@ -3048,7 +3048,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             for (var _prop2 in _this2.components) {
               _this2.componentsOptions.push({
                 text: _this2.components[_prop2],
-                value: _prop2
+                value: Number(_prop2)
               });
             }
           }

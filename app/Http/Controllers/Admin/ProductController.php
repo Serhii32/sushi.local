@@ -44,14 +44,14 @@ class ProductController extends Controller
         if ($request->photo != null) {
             $product->photo = $request->photo->store('img/products/'.$last_insereted_id, ['disk' => 'uploaded_img']);
         }
-        if ($request->components && is_string($request->components)) {
-            $components = explode(",", $request->components);
+        if ($request->input('components') && is_string($request->input('components'))) {
+            $components = explode(",", $request->input('components'));
             foreach ($components as $component) {
                 $product->components()->attach($component);
             }
         }
-        if ($request->attributes && is_string($request->attributes)) {
-            $attributes = explode(",", $request->attributes);
+        if ($request->input('attributes') && is_string($request->input('attributes'))) {
+            $attributes = explode(",", $request->input('attributes'));
             foreach ($attributes as $attribute) {
                 $product->attributes()->attach($attribute);
             }
@@ -82,7 +82,6 @@ class ProductController extends Controller
 
     public function update(StoreProductRequest $request, int $id)
     {
-        // return dd($request);
         $product = Product::findOrFail($id);
         $product->title = $request->title;
         $product->price = $request->price;
@@ -99,16 +98,16 @@ class ProductController extends Controller
             }
             $product->photo = $request->photo->store('img/products/'.$last_insereted_id, ['disk' => 'uploaded_img']);
         }
-        if ($request->components && is_string($request->components)) {
+        if ($request->input('components') && is_string($request->input('components'))) {
             $product->components()->detach();
-            $components = explode(",", $request->components);
+            $components = explode(",", $request->input('components'));
             foreach ($components as $component) {
                 $product->components()->attach($component);
             }
         }
-        if ($request->attributes && is_string($request->attributes)) {
+        if ($request->input('attributes') && is_string($request->input('attributes'))) {
             $product->attributes()->detach();
-            $attributes = explode(",", $request->attributes);
+            $attributes = explode(",", $request->input('attributes'));
             foreach ($attributes as $attribute) {
                 $product->attributes()->attach($attribute);
             }
