@@ -35,6 +35,9 @@ class CategoryController extends Controller
         if ($request->photo != null) {
             $category->photo = $request->photo->store('img/categories/'.$last_insereted_id, ['disk' => 'uploaded_img']);
         }
+        if ($request->icon != null) {
+            $category->icon = $request->icon->store('img/categories/'.$last_insereted_id.'/icon', ['disk' => 'uploaded_img']);
+        }
         $category->save();
         return response()->json(null, 200);
     }
@@ -62,9 +65,14 @@ class CategoryController extends Controller
             }
             $category->photo = $request->photo->store('img/categories/'.$last_insereted_id, ['disk' => 'uploaded_img']);
         }
-        
+        if ($request->icon != null) {
+            if($category->icon) {
+                Storage::disk('uploaded_img')->delete($category->icon);
+            }
+            $category->icon = $request->icon->store('img/categories/'.$last_insereted_id.'/icon', ['disk' => 'uploaded_img']);
+        }
         $category->save();
-        return response()->json(['newPhoto' => $category->photo], 200);
+        return response()->json(['newPhoto' => $category->photo, 'newIcon' => $category->icon], 200);
     }
 
     public function destroy(int $id)

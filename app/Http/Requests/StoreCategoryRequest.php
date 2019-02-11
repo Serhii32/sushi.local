@@ -30,6 +30,7 @@ class StoreCategoryRequest extends FormRequest
             'descriptionSEO' => 'max:1000',
             'keywordsSEO' => 'max:255',
             'photo' => 'nullable|mimetypes:image/jpeg,image/png,image/jpg,image/gif|max:20000',
+            'photo' => 'nullable|image|size:20000',
         ];
     }
 }

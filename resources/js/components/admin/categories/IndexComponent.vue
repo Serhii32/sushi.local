@@ -30,12 +30,29 @@
                             </div>
                             <div class="py-4">
                                 <b-form-group label-class="text-uppercase font-weight-bold" breakpoint="md" description="Виберіть фото категорії" label="Фото:" label-for="photo">
-                                    <b-form-file v-model="fields.photo" :state="Boolean(errors.photo)?false:null" placeholder="Фото" @change="previewImage" accept="image/*" ref="fileinput"></b-form-file>
+                                    <b-form-file id="photo" v-model="fields.photo" :state="Boolean(errors.photo)?false:null" placeholder="Фото" @change="previewImage" accept="image/*" ref="fileinputphoto"></b-form-file>
                                     <div v-if="errors && errors.photo">
                                         <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.photo[0] }}</b-alert>
                                     </div>
                                 </b-form-group>
                                 <a class="btn btn-warning w-100 text-uppercase font-weight-bold my-2" @click="resetImage">Зкинути зображення</a>
+                            </div>
+                            <div class="text-center">
+                                <div v-if="uploadedIconData">
+                                    <b-img thumbnail fluid :src="uploadedIconData" alt="Завантажене фото" />
+                                </div>
+                                <div v-else>
+                                    <b-img thumbnail fluid src="/img/default.png" alt="Фото відсутнє" />
+                                </div>
+                            </div>
+                            <div class="py-4">
+                                <b-form-group label-class="text-uppercase font-weight-bold" breakpoint="md" description="Виберіть іконку категорії" label="Іконка:" label-for="icon">
+                                    <b-form-file id="icon" v-model="fields.icon" :state="Boolean(errors.icon)?false:null" placeholder="Іконка" @change="previewIcon" accept="image/*" ref="fileinputicon"></b-form-file>
+                                    <div v-if="errors && errors.icon">
+                                        <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.icon[0] }}</b-alert>
+                                    </div>
+                                </b-form-group>
+                                <a class="btn btn-warning w-100 text-uppercase font-weight-bold my-2" @click="resetIcon">Зкинути іконку</a>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -86,6 +103,7 @@ export default {
             loaded: true,
             fields: {},
             uploadedImageData: null,
+            uploadedIconData: null,
         }
     },
     created() {
@@ -138,6 +156,7 @@ export default {
                 formData.set('descriptionSEO', this.fields.descriptionSEO == null?"":this.fields.descriptionSEO);
                 formData.set('keywordsSEO', this.fields.keywordsSEO == null?"":this.fields.keywordsSEO);
                 formData.append('photo', this.fields.photo == null?"":this.fields.photo);
+                formData.append('icon', this.fields.icon == null?"":this.fields.icon);
                 axios.post('/admin/categories', formData, {'Content-Type': 'multipart/form-data'}).then(response => {
                     this.loaded = true;
                     this.hideCreateModal();
@@ -155,7 +174,7 @@ export default {
         },
         previewImage: function(event) {
             var input = event.target;
-            if (input.files && input.files[0]) {
+            if (input.id == 'photo' && input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = (e) => {
                     this.uploadedImageData = e.target.result;
@@ -163,10 +182,25 @@ export default {
                 reader.readAsDataURL(input.files[0]);
             }
         },
+        previewIcon: function(event) {
+            var input = event.target;
+            if (input.id == 'icon' && input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.uploadedIconData = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
         resetImage() {
             this.uploadedImageData = null;
             this.fields.photo = null;
-            this.$refs.fileinput.reset();
+            this.$refs.fileinputphoto.reset();
+        },
+        resetIcon() {
+            this.uploadedIconData = null;
+            this.fields.icon = null;
+            this.$refs.fileinputicon.reset();
         }
     }
 }

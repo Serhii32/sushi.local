@@ -8,11 +8,6 @@ class Category extends Model
 {
     public function products()
     {
-        return $this->hasMany('App\Product');
-    }
-
-    public function childs() 
-    {
-        return $this->hasMany('App\Category','parent_id','id') ;
+        return $this->hasMany('App\Product','category','id');
     }
 }
