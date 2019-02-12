@@ -20,7 +20,7 @@
 		<nav class="navbar navbar-expand-md navbar-light navbar-laravel sticky-top" style="background-color: black; border-bottom: 1px white solid;">
             <div class="container-fluid">
                 <a href="{{ route('page.index') }}">
-                    <img style="filter: brightness(2);" width="150" src="{{asset('img/logo.svg')}}">
+                    <img style="filter: brightness(4);" width="150" src="{{asset('img/logo.svg')}}">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

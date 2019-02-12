@@ -18,6 +18,7 @@
 Auth::routes();
 
 Route::get('/', ['as' => 'page.index', 'uses' => 'PagesController@index']);
+Route::get('getCategories', ['as' => 'page.getCategories', 'uses' => 'PagesController@getCategories']);
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' => 'admin.', 'prefix'=>'admin'], function () {
 	Route::get('home', ['as' => 'home.index', 'uses' => 'HomeController@index']);

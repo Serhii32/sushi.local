@@ -73,38 +73,26 @@
             <div class="row">
                 <p class="col-12 col-md-6 text-white">В ассортименте Ninja Sushi представлены роллы, суши, сеты и напитки на любой вкус. Мы рекомендуем обязательно попробовать топ позиции нашего меню!</p>
             </div>
-            <carousel :navigation-enabled="true" :per-page="4">
-                <slide class="px-3">
-                    <img class="img-fluid" src="/img/default.png">
-                    <h3 class="text-white text-center p-2">Slide Title</h3>
-                    <p class="text-white text-justify">Slide Description</p>
-                </slide>
-                <slide class="px-3">
-                    <img class="img-fluid" src="/img/default.png">
-                    <h3 class="text-white text-center p-2">Slide Title</h3>
-                    <p class="text-white text-justify">Slide Description</p>
-                </slide>
-                <slide class="px-3">
-                    <img class="img-fluid" src="/img/default.png">
-                    <h3 class="text-white text-center p-2">Slide Title</h3>
-                    <p class="text-white text-justify">Slide Description</p>
-                </slide>
-                <slide class="px-3">
-                    <img class="img-fluid" src="/img/default.png">
-                    <h3 class="text-white text-center p-2">Slide Title</h3>
-                    <p class="text-white text-justify">Slide Description</p>
-                </slide>
-                <slide class="px-3">
-                    <img class="img-fluid" src="/img/default.png">
-                    <h3 class="text-white text-center p-2">Slide Title</h3>
-                    <p class="text-white text-justify">Slide Description</p>
-                </slide>
-                <slide class="px-3">
-                    <img class="img-fluid" src="/img/default.png">
-                    <h3 class="text-white text-center p-2">Slide Title</h3>
-                    <p class="text-white text-justify">Slide Description</p>
-                </slide>
-            </carousel>
+
+            <div v-for="category in categories" :key="category.id">
+                <h2 class="text-white font-weight-bold">{{category.title}}</h2>
+
+                <carousel :navigation-enabled="true" :per-page-custom="[[768, 2], [992, 3], [1199, 4]]">
+                    <slide style="background-color: black;" class="px-3 card" v-for="product in category.products" :key="product.id">
+                        <img class="img-fluid card-img-top" :src="product.photo">
+                        <div class="card-body">
+                            <h3 class="text-white text-center p-2 card-title">{{product.title}}</h3>
+                            <p class="text-white text-justify card-text">
+                                {{product.weight}} г. - <span v-for="component in product.components" :key="component.id">{{component.title}} </span>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <p class="text-white text-justify card-text">{{product.price}}</p>
+                        </div>
+                    </slide>
+                </carousel>
+            </div>
+
         </div>
     </section>
 </template>
@@ -112,11 +100,27 @@
 export default {
     data() {
         return {
-            
+            categories: {},
+            loaded: true,
         }
     },
     created() {
-        
+        this.getCategories();
     },
+    methods: {
+        getCategories(){
+            if (this.loaded) {
+                this.loaded = false;
+                axios.get('/getCategories').then(response => {
+                    this.loaded = true;
+                    this.categories = response.data.categories;
+                    console.log(this.categories);
+                }).catch(error => {
+                    this.loaded = true;
+                    console.log(error);
+                });
+            }
+        }
+    }
 }
 </script>
