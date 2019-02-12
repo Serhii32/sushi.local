@@ -15,7 +15,6 @@ class ProductController extends Controller
 {
     public function index()
     {
-        // $pageTitle = 'Категорії товарів';
         return view('admin.products.index');
     }
 
@@ -45,13 +44,13 @@ class ProductController extends Controller
             $product->photo = $request->photo->store('img/products/'.$last_insereted_id, ['disk' => 'uploaded_img']);
         }
         if ($request->input('components') && is_string($request->input('components'))) {
-            $components = explode(",", $request->input('components'));
+            $components = array_unique(explode(",", $request->input('components')));
             foreach ($components as $component) {
                 $product->components()->attach($component);
             }
         }
         if ($request->input('attributes') && is_string($request->input('attributes'))) {
-            $attributes = explode(",", $request->input('attributes'));
+            $attributes = array_unique(explode(",", $request->input('attributes')));
             foreach ($attributes as $attribute) {
                 $product->attributes()->attach($attribute);
             }
@@ -100,14 +99,14 @@ class ProductController extends Controller
         }
         if ($request->input('components') && is_string($request->input('components'))) {
             $product->components()->detach();
-            $components = explode(",", $request->input('components'));
+            $components = array_unique(explode(",", $request->input('components')));
             foreach ($components as $component) {
                 $product->components()->attach($component);
             }
         }
         if ($request->input('attributes') && is_string($request->input('attributes'))) {
             $product->attributes()->detach();
-            $attributes = explode(",", $request->input('attributes'));
+            $attributes = array_unique(explode(",", $request->input('attributes')));
             foreach ($attributes as $attribute) {
                 $product->attributes()->attach($attribute);
             }

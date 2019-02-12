@@ -81,13 +81,18 @@
                     <slide style="background-color: black;" class="px-3 card" v-for="product in category.products" :key="product.id">
                         <img class="img-fluid card-img-top" :src="product.photo">
                         <div class="card-body">
-                            <h3 class="text-white text-center p-2 card-title">{{product.title}}</h3>
-                            <p class="text-white text-justify card-text">
-                                {{product.weight}} г. - <span v-for="component in product.components" :key="component.id">{{component.title}} </span>
+                            <h4 class="text-white text-center p-2 card-title">{{product.title}}</h4>
+                            <p class="text-white card-text" style="text-overflow: ellipsis; overflow: hidden; height: 5em; white-space: nowrap;">
+                                <span class="font-weight-bold" style="color: #e16729">{{product.weight}}</span> - <span v-for="component in product.components" :key="component.id">{{component.title}} </span> 
                             </p>
                         </div>
                         <div class="card-footer">
-                            <p class="text-white text-justify card-text">{{product.price}}</p>
+                            <div>
+                                <b-button class="text-uppercase font-weight-bold" style="border-radius: 20px; background: #e16729; border-color: #e16729;">В корзину</b-button>
+                            </div>
+                            <div>
+                                <h5 class="text-white text-center card-text font-weight-bold" style="color: #e16729">{{product.price}} грн.</h5>                                
+                            </div>
                         </div>
                     </slide>
                 </carousel>

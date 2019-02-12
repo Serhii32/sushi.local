@@ -13,7 +13,6 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        // $pageTitle = 'Категорії товарів';
         return view('admin.categories.index');
     }
 

@@ -9,10 +9,6 @@ class PagesController extends Controller
 {
     public function index()
     {
-    	$categories = Category::all();
-    	foreach ($categories as $category) {
-    		$category->products = $category->products()->get();
-    	}
     	return view('index-page');
     }
 
@@ -26,5 +22,10 @@ class PagesController extends Controller
     		}
     	}
     	return response()->json(['categories' => $categories], 200);
+    }
+
+    public function menu()
+    {
+        return view('menu-page');
     }
 }

@@ -1861,6 +1861,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -56409,7 +56414,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "card-body" }, [
                           _c(
-                            "h3",
+                            "h4",
                             {
                               staticClass:
                                 "text-white text-center p-2 card-title"
@@ -56420,14 +56425,24 @@ var render = function() {
                           _c(
                             "p",
                             {
-                              staticClass: "text-white text-justify card-text"
+                              staticClass: "text-white card-text",
+                              staticStyle: {
+                                "text-overflow": "ellipsis",
+                                overflow: "hidden",
+                                height: "5em",
+                                "white-space": "nowrap"
+                              }
                             },
                             [
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(product.weight) +
-                                  " г. - "
+                              _c(
+                                "span",
+                                {
+                                  staticClass: "font-weight-bold",
+                                  staticStyle: { color: "#e16729" }
+                                },
+                                [_vm._v(_vm._s(product.weight))]
                               ),
+                              _vm._v(" - "),
                               _vm._l(product.components, function(component) {
                                 return _c("span", { key: component.id }, [
                                   _vm._v(_vm._s(component.title) + " ")
@@ -56440,12 +56455,36 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "card-footer" }, [
                           _c(
-                            "p",
-                            {
-                              staticClass: "text-white text-justify card-text"
-                            },
-                            [_vm._v(_vm._s(product.price))]
-                          )
+                            "div",
+                            [
+                              _c(
+                                "b-button",
+                                {
+                                  staticClass:
+                                    "text-uppercase font-weight-bold",
+                                  staticStyle: {
+                                    "border-radius": "20px",
+                                    background: "#e16729",
+                                    "border-color": "#e16729"
+                                  }
+                                },
+                                [_vm._v("В корзину")]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("div", [
+                            _c(
+                              "h5",
+                              {
+                                staticClass:
+                                  "text-white text-center card-text font-weight-bold",
+                                staticStyle: { color: "#e16729" }
+                              },
+                              [_vm._v(_vm._s(product.price) + " грн.")]
+                            )
+                          ])
                         ])
                       ]
                     )
@@ -73476,8 +73515,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
