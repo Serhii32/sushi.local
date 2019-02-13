@@ -69,7 +69,8 @@ class PagesController extends Controller
 
     public function getCartContent()
     {
-    	return Cart::content();
+        $cart = Cart::content();
+    	return response()->json(['cart' => $cart], 200); 
     }
 
 }

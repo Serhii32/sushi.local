@@ -131,6 +131,9 @@ export default {
     
                 axios.post('/addToCart', {id:id}).then(response => {
                     this.loaded = true;
+
+                    this.$root.$emit('cartUpdated');
+
                 }).catch(error => {
                     this.loaded = true;
                 });

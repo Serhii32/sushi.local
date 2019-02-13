@@ -1780,11 +1780,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      loaded: true
+      loaded: true,
+      cart: {}
     };
   },
-  created: function created() {},
-  methods: {}
+  created: function created() {
+    this.getCartContent();
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$root.$on('cartUpdated', function () {
+      _this.getCartContent();
+    });
+  },
+  methods: {
+    getCartContent: function getCartContent() {
+      var _this2 = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        axios.get('/getCartContent').then(function (response) {
+          _this2.loaded = true;
+          _this2.cart = response.data.cart;
+        }).catch(function (error) {
+          _this2.loaded = true;
+          console.log(error);
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -1984,7 +2009,6 @@ __webpack_require__.r(__webpack_exports__);
         axios.get('/getCategories').then(function (response) {
           _this.loaded = true;
           _this.categories = response.data.categories;
-          console.log(_this.categories);
         }).catch(function (error) {
           _this.loaded = true;
           console.log(error);
@@ -2000,6 +2024,8 @@ __webpack_require__.r(__webpack_exports__);
           id: id
         }).then(function (response) {
           _this2.loaded = true;
+
+          _this2.$root.$emit('cartUpdated');
         }).catch(function (error) {
           _this2.loaded = true;
         });
@@ -56436,53 +56462,52 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "aside",
-      {
-        staticClass: "position-fixed p-0",
-        staticStyle: {
-          "background-color": "black",
-          "border-left": "1px white solid",
-          width: "300px",
-          "min-height": "100vh",
-          right: "0px"
-        }
-      },
-      [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c(
+  return _c(
+    "aside",
+    {
+      staticClass: "position-fixed p-0",
+      staticStyle: {
+        "background-color": "black",
+        "border-left": "1px white solid",
+        width: "300px",
+        "min-height": "100vh",
+        right: "0px"
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "container-fluid" },
+        _vm._l(_vm.cart, function(item) {
+          return _c(
             "div",
             {
+              key: item.id,
               staticClass: "row m-2",
               staticStyle: { border: "1px solid white", "border-radius": "5px" }
             },
             [
               _c("div", { staticClass: "col-12 col-md-6" }, [
                 _c("p", { staticClass: "font-weight-bold text-white" }, [
-                  _vm._v("fsfa adfdsv afasdfs a")
+                  _vm._v(_vm._s(item.name))
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-12 col-md-6" }, [
                 _c("img", {
                   staticClass: "img-fluid",
-                  attrs: { src: "/img/default.png" }
+                  attrs: { src: item.options.photo }
                 })
               ])
             ]
           )
-        ])
-      ]
-    )
-  }
-]
+        }),
+        0
+      )
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -73901,8 +73926,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
