@@ -1,3 +1,1 @@
-<aside class="position-fixed p-0" style="background-color: black; border-left: 1px white solid; width: 300px; min-height: 100vh; right: 0px;">
-    <p class="text-white">basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket basket</p>
-</aside>
+<cart-component></cart-component>

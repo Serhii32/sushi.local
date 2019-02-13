@@ -38,6 +38,8 @@ Vue.component('admin-attributes-edit-component', require('./components/admin/att
 Vue.component('admin-products-index-component', require('./components/admin/products/IndexComponent.vue').default);
 Vue.component('admin-products-edit-component', require('./components/admin/products/EditComponent.vue').default);
 Vue.component('index-page-component', require('./components/IndexPageComponent.vue').default);
+Vue.component('category-page-component', require('./components/CategoryPageComponent.vue').default);
+Vue.component('cart-component', require('./components/CartComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

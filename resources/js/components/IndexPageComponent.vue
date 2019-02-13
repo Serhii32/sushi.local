@@ -82,15 +82,15 @@
                         <img class="img-fluid card-img-top" :src="product.photo">
                         <div class="card-body">
                             <h4 class="text-white text-center p-2 card-title">{{product.title}}</h4>
-                            <p class="text-white card-text" style="text-overflow: ellipsis; overflow: hidden; height: 5em; white-space: nowrap;">
+                            <p class="text-white card-text" style="text-overflow: ellipsis; overflow: hidden; height: 3em; white-space: nowrap;">
                                 <span class="font-weight-bold" style="color: #e16729">{{product.weight}}</span> - <span v-for="component in product.components" :key="component.id">{{component.title}} </span> 
                             </p>
                         </div>
                         <div class="card-footer">
                             <div>
-                                <b-button class="text-uppercase font-weight-bold" style="border-radius: 20px; background: #e16729; border-color: #e16729;">В корзину</b-button>
+                                <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id)">В корзину</b-button>
                             </div>
-                            <div>
+                            <div class="p-2">
                                 <h5 class="text-white text-center card-text font-weight-bold" style="color: #e16729">{{product.price}} грн.</h5>                                
                             </div>
                         </div>
@@ -119,10 +119,20 @@ export default {
                 axios.get('/getCategories').then(response => {
                     this.loaded = true;
                     this.categories = response.data.categories;
-                    console.log(this.categories);
                 }).catch(error => {
                     this.loaded = true;
                     console.log(error);
+                });
+            }
+        },
+        addToCart(id){
+            if (this.loaded) {
+                this.loaded = false;
+    
+                axios.post('/addToCart', {id:id}).then(response => {
+                    this.loaded = true;
+                }).catch(error => {
+                    this.loaded = true;
                 });
             }
         }

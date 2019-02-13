@@ -20,6 +20,10 @@ Auth::routes();
 Route::get('/', ['as' => 'page.index', 'uses' => 'PagesController@index']);
 Route::get('menu', ['as' => 'page.menu', 'uses' => 'PagesController@menu']);
 Route::get('getCategories', ['as' => 'page.getCategories', 'uses' => 'PagesController@getCategories']);
+Route::get('category/{id}', ['as' => 'page.category', 'uses' => 'PagesController@category']);
+
+Route::post('addToCart', ['as' => 'addToCart', 'uses' => 'PagesController@addToCart']);
+Route::get('getCartContent', ['as' => 'getCartContent', 'uses' => 'PagesController@getCartContent']);
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' => 'admin.', 'prefix'=>'admin'], function () {
 	Route::get('home', ['as' => 'home.index', 'uses' => 'HomeController@index']);

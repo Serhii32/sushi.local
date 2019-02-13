@@ -4,12 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Product;
+use Cart;
 
 class PagesController extends Controller
 {
+	private $categories;
+
+	public function __construct()
+	{
+		$this->categories = Category::all();
+	}
+
     public function index()
     {
-    	return view('index-page');
+    	return view('index-page', ['categories' => $this->categories]);
     }
 
     public function getCategories()
@@ -26,6 +35,41 @@ class PagesController extends Controller
 
     public function menu()
     {
-        return view('menu-page');
+        return view('menu-page', ['categories' => $this->categories]);
     }
+
+    public function category(int $id)
+    {
+    	$category = Category::findOrFail($id);
+    	$products = $category->products()->get();
+    	$tabs = [];
+    	$checkboxes = [];
+    	foreach ($products as $product) {
+    		if (count($product->attributes()->get())) {
+    			foreach ($product->attributes()->get() as $attribute) {
+    				if ($attribute->type == 1) {
+    					$tabs[$attribute->id] = $attribute->title;
+    				} elseif ($attribute->type == 2) {
+    					$checkboxes[$attribute->id] = $attribute->title;
+    				}
+	    		}
+    		}
+    	}
+    	$tabs = json_encode(array_unique($tabs));
+    	$checkboxes = json_encode(array_unique($checkboxes));
+    	return view('category-page', compact('category', 'tabs', 'checkboxes'), ['categories' => $this->categories]);
+    }
+
+    public function addToCart(Request $request)
+    {
+    	$product = Product::findOrFail($request->id);
+    	Cart::add($product->id, $product->title, 1, $product->price, ['photo' => $product->photo]);
+    	return response()->json(null, 200);
+    }
+
+    public function getCartContent()
+    {
+    	return Cart::content();
+    }
+
 }
