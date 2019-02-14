@@ -19,8 +19,11 @@ Auth::routes();
 
 Route::get('/', ['as' => 'page.index', 'uses' => 'PagesController@index']);
 Route::get('menu', ['as' => 'page.menu', 'uses' => 'PagesController@menu']);
+Route::get('delivery', ['as' => 'page.delivery', 'uses' => 'PagesController@delivery']);
+Route::get('clients', ['as' => 'page.clients', 'uses' => 'PagesController@clients']);
 Route::get('getCategories', ['as' => 'page.getCategories', 'uses' => 'PagesController@getCategories']);
 Route::get('category/{id}', ['as' => 'page.category', 'uses' => 'PagesController@category']);
+Route::get('product/{id}', ['as' => 'page.product', 'uses' => 'PagesController@product']);
 
 Route::post('addToCart', ['as' => 'addToCart', 'uses' => 'PagesController@addToCart']);
 Route::get('getCartContent', ['as' => 'getCartContent', 'uses' => 'PagesController@getCartContent']);

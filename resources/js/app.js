@@ -39,6 +39,7 @@ Vue.component('admin-products-index-component', require('./components/admin/prod
 Vue.component('admin-products-edit-component', require('./components/admin/products/EditComponent.vue').default);
 Vue.component('index-page-component', require('./components/IndexPageComponent.vue').default);
 Vue.component('category-page-component', require('./components/CategoryPageComponent.vue').default);
+Vue.component('product-page-component', require('./components/ProductPageComponent.vue').default);
 Vue.component('cart-component', require('./components/CartComponent.vue').default);
 
 /**

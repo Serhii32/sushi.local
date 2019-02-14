@@ -8,31 +8,6 @@
                     </a>
                 </li>
             @endforeach
-		  	<li class="nav-item text-center py-2">
-		    	<a class="nav-link" href="#">
-                    <img class="img-fluid" src="/img/front/icons/sideicon1.svg">
-                </a>
-		  	</li>
-            <li class="nav-item text-center py-2">
-                <a class="nav-link" href="#">
-                    <img class="img-fluid" src="/img/front/icons/sideicon2.svg">
-                </a>
-            </li>
-            <li class="nav-item text-center py-2">
-                <a class="nav-link" href="#">
-                    <img class="img-fluid" src="/img/front/icons/sideicon3.svg">
-                </a>
-            </li>
-            <li class="nav-item text-center py-2">
-                <a class="nav-link" href="#">
-                    <img class="img-fluid" src="/img/front/icons/sideicon4.svg">
-                </a>
-            </li>
-            <li class="nav-item text-center py-2">
-                <a class="nav-link" href="#">
-                    <img class="img-fluid" src="/img/front/icons/sideicon5.svg">
-                </a>
-            </li>
 		</ul>
 	</div>
 </aside>

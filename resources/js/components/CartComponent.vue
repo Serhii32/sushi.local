@@ -6,7 +6,7 @@
                     <p class="font-weight-bold text-white">{{item.name}}</p>
                 </div>
                 <div class="col-12 col-md-6">
-                    <img class="img-fluid" :src="item.options.photo">
+                    <img class="img-fluid" :src="'/'+item.options.photo">
                 </div>
             </div>
         </div>

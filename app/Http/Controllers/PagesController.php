@@ -44,20 +44,41 @@ class PagesController extends Controller
     	$products = $category->products()->get();
     	$tabs = [];
     	$checkboxes = [];
+    	
     	foreach ($products as $product) {
+    		$product->components = $product->components()->get();
     		if (count($product->attributes()->get())) {
+    			$product->attributes = $product->attributes()->get();
     			foreach ($product->attributes()->get() as $attribute) {
+    
     				if ($attribute->type == 1) {
     					$tabs[$attribute->id] = $attribute->title;
     				} elseif ($attribute->type == 2) {
     					$checkboxes[$attribute->id] = $attribute->title;
     				}
+
 	    		}
     		}
     	}
     	$tabs = json_encode(array_unique($tabs));
     	$checkboxes = json_encode(array_unique($checkboxes));
-    	return view('category-page', compact('category', 'tabs', 'checkboxes'), ['categories' => $this->categories]);
+    	return view('category-page', compact('category', 'tabs', 'checkboxes', 'products'), ['categories' => $this->categories]);
+    }
+
+    public function product(int $id)
+    {
+    	$product = Product::findOrFail($id);
+    	return view('product-page', compact('product'), ['categories' => $this->categories]);
+    }
+
+    public function clients()
+    {
+    	return view('clients-page', ['categories' => $this->categories]);
+    }
+
+    public function delivery()
+    {
+    	return view('delivery-page', ['categories' => $this->categories]);
     }
 
     public function addToCart(Request $request)

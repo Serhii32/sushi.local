@@ -1,0 +1,15 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="102" width="102" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="svg_1" fill-rule="nonzero" fill="currentColor">
+   <path stroke="#ffffff" fill="#eb6727" id="svg_2" d="m8.54101,41.448508l4.258001,15.946531a17.422262,20.083792 0 0 0 11.526569,13.287437l29.335605,10.403404a17.422262,20.083792 0 0 0 13.666023,-1.687039l21.356209,-13.849783" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+   <path stroke-width="5" stroke="#ffffff" id="svg_3" d="m95.896233,71.686666c-6.251108,-8.254439 -31.847895,-17.440765 -52.510699,-22.204641c-26.133393,-6.025138 -52.266787,0 -40.071203,-22.092171c11.721698,-21.236602 82.365487,-26.518639 96.115137,39.906495c1.118509,5.410574 -2.177783,6.177774 -3.533235,4.390317z" fill="#eb6727"/>
+   <path stroke="#ffffff" fill="#eb6727" id="svg_4" d="m48.612213,13.331199c-17.613907,5.077183 -28.976707,47.478085 -19.164489,58.242997m17.422262,6.025138c-8.244215,-21.433423 8.770367,-53.342552 22.648941,-56.234618" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+ </g>
+</svg>
