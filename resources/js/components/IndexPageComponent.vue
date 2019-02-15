@@ -74,7 +74,7 @@
                 <p class="col-12 col-md-6 text-white">В ассортименте Ninja Sushi представлены роллы, суши, сеты и напитки на любой вкус. Мы рекомендуем обязательно попробовать топ позиции нашего меню!</p>
             </div>
 
-            <div v-for="category in categories" :key="category.id">
+            <div class="p-2" v-for="category in categories" :key="category.id">
                 <h2 class="text-white font-weight-bold">{{category.title}}</h2>
 
                 <carousel :navigation-enabled="true" :per-page-custom="[[768, 2], [992, 3], [1199, 4]]">

@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div id="app">
-		<nav class="navbar navbar-expand-md navbar-light navbar-laravel sticky-top" style="background-color: black; border-bottom: 1px white solid;">
+		<nav class="navbar navbar-expand-md navbar-light navbar-laravel sticky-top" style="background-color: black; border-bottom: 3px solid #e16729;">
             <div class="container-fluid">
                 <a href="{{ route('page.index') }}">
                     <img style="filter: brightness(4);" width="150" src="{{asset('img/logo.svg')}}">

@@ -2,6 +2,6 @@
 
 @section('content')
 
-	<product-page-component :product="{{$product}}"></product-page-component>
+	<product-page-component :product="{{$product}}" :components="{{$components}}"></product-page-component>
 
 @endsection

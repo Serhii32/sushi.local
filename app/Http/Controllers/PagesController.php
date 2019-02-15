@@ -68,7 +68,8 @@ class PagesController extends Controller
     public function product(int $id)
     {
     	$product = Product::findOrFail($id);
-    	return view('product-page', compact('product'), ['categories' => $this->categories]);
+    	$components = $product->components()->get();
+    	return view('product-page', compact('product', 'components'), ['categories' => $this->categories]);
     }
 
     public function clients()
@@ -86,6 +87,17 @@ class PagesController extends Controller
     	$product = Product::findOrFail($request->id);
     	Cart::add($product->id, $product->title, 1, $product->price, ['photo' => $product->photo]);
     	return response()->json(null, 200);
+    }
+
+    public function updateQTY(Request $request)
+    {
+    	Cart::update($request->id, $request->qty);    	
+    	return response()->json(null, 200); 
+    }
+
+    public function removeItemFromCart(String $id)
+    {
+
     }
 
     public function getCartContent()

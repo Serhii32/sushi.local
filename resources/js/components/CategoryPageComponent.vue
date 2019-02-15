@@ -47,7 +47,7 @@ export default {
         }
     },
     methods: {
-        ddToCart(id){
+        addToCart(id){
             if (this.loaded) {
                 this.loaded = false;
     

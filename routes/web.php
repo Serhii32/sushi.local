@@ -26,7 +26,9 @@ Route::get('category/{id}', ['as' => 'page.category', 'uses' => 'PagesController
 Route::get('product/{id}', ['as' => 'page.product', 'uses' => 'PagesController@product']);
 
 Route::post('addToCart', ['as' => 'addToCart', 'uses' => 'PagesController@addToCart']);
+Route::post('updateQTY', ['as' => 'updateQTY', 'uses' => 'PagesController@updateQTY']);
 Route::get('getCartContent', ['as' => 'getCartContent', 'uses' => 'PagesController@getCartContent']);
+Route::get('removeItemFromCart', ['as' => 'removeItemFromCart', 'uses' => 'PagesController@removeItemFromCart']);
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' => 'admin.', 'prefix'=>'admin'], function () {
 	Route::get('home', ['as' => 'home.index', 'uses' => 'HomeController@index']);

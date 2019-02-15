@@ -1,11 +1,16 @@
 <template>
-   <aside class="position-fixed p-0" style="background-color: black; border-left: 1px white solid; width: 300px; min-height: 100vh; right: 0px;">
-        <div class="container-fluid">
-            <div v-for="item in cart" :key="item.id" class="row m-2" style="border: 1px solid white; border-radius: 5px;">
+   <aside class="position-fixed p-2" style="background-color: black; border-left: 3px solid #e16729; width: 300px; min-height: 100vh; right: 0px;">
+        <div v-for="item in cart" :key="item.id" class="container-fluid" style="border: 3px solid #e16729; border-radius: 5px;">
+            <div>
+                <img width=15 class="d-inline float-right" src="/img/front/icons/close.svg" @click="removeItemFromCart(item.id)">
+            </div>
+            <div class="row m-0">
                 <div class="col-12 col-md-6">
-                    <p class="font-weight-bold text-white">{{item.name}}</p>
+                    <p class="font-weight-bold text-white m-0">{{item.name}}</p>
+                    <p class="font-weight-bold text-white m-0"><img width=15 class="d-inline" src="/img/front/icons/plus.svg" @click="updateQTY(cart['item'],item.qty++)"> {{item.qty}} <img width=15 class="d-inline" src="/img/front/icons/minus.svg"@click="item.qty>1?item.qty--:item.qty"></p>
+                    <p class="font-weight-bold text-white m-0">{{item.qty * item.price}} грн</p>
                 </div>
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 m-auto">
                     <img class="img-fluid" :src="'/'+item.options.photo">
                 </div>
             </div>
@@ -26,7 +31,7 @@ export default {
     mounted: function () { 
         this.$root.$on('cartUpdated', () => {
             this.getCartContent();
-        })
+        });
     },
     methods: {
         getCartContent(){
@@ -40,6 +45,19 @@ export default {
                     console.log(error);
                 });
             }
+        },
+        updateQTY(id,qty){
+            if (this.loaded) {
+                this.loaded = false;
+                axios.post('/updateQTY', {id:id, qty:qty}).then(response => {
+                    this.loaded = true;
+                }).catch(error => {
+                    this.loaded = true;
+                });
+            }
+        },
+        removeItemFromCart(itemId){
+
         }
     }
 }
