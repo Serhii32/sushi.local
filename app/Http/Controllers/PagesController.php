@@ -47,7 +47,7 @@ class PagesController extends Controller
     	
     	foreach ($products as $product) {
     		$product->components = $product->components()->get();
-    		if (count($product->attributes()->get())) {
+    		// if (count($product->attributes()->get())) {
     			$product->attributes = $product->attributes()->get();
     			foreach ($product->attributes()->get() as $attribute) {
     
@@ -58,7 +58,7 @@ class PagesController extends Controller
     				}
 
 	    		}
-    		}
+    		// } 
     	}
     	$tabs = json_encode(array_unique($tabs));
     	$checkboxes = json_encode(array_unique($checkboxes));
@@ -95,9 +95,10 @@ class PagesController extends Controller
     	return response()->json(null, 200); 
     }
 
-    public function removeItemFromCart(String $id)
+    public function removeItemFromCart(Request $request)
     {
-
+    	Cart::remove($request->id);
+    	return response()->json(null, 200);
     }
 
     public function getCartContent()

@@ -9,6 +9,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134456724-1"></script>
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -30,16 +32,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="#">Головна</a>
+							<a class="nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/">Головна</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="#">Меню</a>
+							<a class="nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/menu">Меню</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="#">Доставка</a>
+							<a class="nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/delivery">Доставка</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="#">Клієнтам</a>
+							<a class="nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/clients">Клієнтам</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="#">Новини</a>
