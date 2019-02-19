@@ -1,5 +1,5 @@
 <template>
-   <aside class="position-fixed p-2" style="background-color: black; border-left: 3px solid #e16729; width: 370px; right: 0px; overflow-y: auto; height: 90vh;">
+   <aside class="position-fixed p-2" style="background-color: black; border-left: 3px solid #e16729; width: 370px; right: 0px; overflow-y: auto; height: calc(100vh - 100px);">
         <h5 class="text-white">Ваше замовлення:</h5>
         <div v-for="item in cart" :key="item.rowId" class="container-fluid my-2" style="border-bottom: 3px solid #e16729;">
             <div>
@@ -73,13 +73,13 @@
                     </b-form-group>
                 </div>
                 <b-form-group>
-                    <b-form-checkbox id="call" name="call" :state="Boolean(errors && errors.call && errors.call[0])?false:null" v-model="fields.call" value="1" unchecked-value="null">Не дзвонити в двері</b-form-checkbox>
+                    <b-form-checkbox id="call" class="text-white" name="call" :state="Boolean(errors && errors.call && errors.call[0])?false:null" v-model="fields.call" value="1" unchecked-value="null">Не дзвонити в двері</b-form-checkbox>
                     <div v-if="errors && errors.call">
                         <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.call[0] }}</b-alert>
                     </div>
                 </b-form-group>
 
-
+                <h5 class="text-white">Всього:</h5>
                 <b-form-group>
                     <b-button type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
                 </b-form-group>
@@ -113,6 +113,7 @@ export default {
                 axios.get('/getCartContent').then(response => {
                     this.loaded = true;
                     this.cart = response.data.cart;
+                    console.log(this.cart);
                 }).catch(error => {
                     this.loaded = true;
                     console.log(error);

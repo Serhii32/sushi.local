@@ -1845,6 +1845,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1873,6 +1881,7 @@ __webpack_require__.r(__webpack_exports__);
         axios.get('/getCartContent').then(function (response) {
           _this2.loaded = true;
           _this2.cart = response.data.cart;
+          console.log(_this2.cart);
         }).catch(function (error) {
           _this2.loaded = true;
           console.log(error);
@@ -56757,7 +56766,7 @@ var render = function() {
         width: "370px",
         right: "0px",
         "overflow-y": "auto",
-        height: "90vh"
+        height: "calc(100vh - 100px)"
       }
     },
     [
@@ -57306,6 +57315,62 @@ var render = function() {
                 ],
                 1
               ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                [
+                  _c(
+                    "b-form-checkbox",
+                    {
+                      staticClass: "text-white",
+                      attrs: {
+                        id: "call",
+                        name: "call",
+                        state: Boolean(
+                          _vm.errors && _vm.errors.call && _vm.errors.call[0]
+                        )
+                          ? false
+                          : null,
+                        value: "1",
+                        "unchecked-value": "null"
+                      },
+                      model: {
+                        value: _vm.fields.call,
+                        callback: function($$v) {
+                          _vm.$set(_vm.fields, "call", $$v)
+                        },
+                        expression: "fields.call"
+                      }
+                    },
+                    [_vm._v("Не дзвонити в двері")]
+                  ),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.call
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.call[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("h5", { staticClass: "text-white" }, [_vm._v("Всього:")]),
               _vm._v(" "),
               _c(
                 "b-form-group",
@@ -75289,8 +75354,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
