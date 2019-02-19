@@ -29,11 +29,11 @@ Route::post('addToCart', ['as' => 'addToCart', 'uses' => 'PagesController@addToC
 Route::post('updateQTY', ['as' => 'updateQTY', 'uses' => 'PagesController@updateQTY']);
 Route::get('getCartContent', ['as' => 'getCartContent', 'uses' => 'PagesController@getCartContent']);
 Route::post('removeItemFromCart', ['as' => 'removeItemFromCart', 'uses' => 'PagesController@removeItemFromCart']);
+Route::post('makeOrder', ['as' => 'makeOrder', 'uses' => 'PagesController@makeOrder']);
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' => 'admin.', 'prefix'=>'admin'], function () {
 	Route::get('home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
 	Route::get('home/edit', ['as' => 'home.edit', 'uses' => 'HomeController@edit']);
-	// Route::match(['put', 'patch'], 'home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
 	Route::post('home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
 
 	Route::get('categories', ['as' => 'categories.index', 'uses' => 'CategoryController@index']);

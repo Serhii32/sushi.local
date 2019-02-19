@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use Cart;
+use App\Http\Requests\StoreOrderRequest;
+use App\Order;
 
 class PagesController extends Controller
 {
@@ -87,6 +89,11 @@ class PagesController extends Controller
     	$product = Product::findOrFail($request->id);
     	Cart::add($product->id, $product->title, 1, $product->price, ['photo' => $product->photo]);
     	return response()->json(null, 200);
+    }
+
+    public function makeOrder(StoreOrderRequest $request)
+    {
+
     }
 
     public function updateQTY(Request $request)

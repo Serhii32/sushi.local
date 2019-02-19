@@ -1,5 +1,5 @@
 <template>
-    <section style="min-height: 100vh; background-color: black; margin-left: 60px; margin-right: 300px;">
+    <section style="min-height: 100vh; background-color: black; margin-left: 60px; margin-right: 370px;">
         <div class="container-fluid p-3">
             <h1 class="text-white font-weight-bold">{{category.title}}</h1>
             

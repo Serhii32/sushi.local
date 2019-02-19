@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<section style="min-height: 100vh; background-color: black; margin-left: 60px; margin-right: 300px;">
+	<section style="min-height: 100vh; background-color: black; margin-left: 60px; margin-right: 370px;">
 		<div class="container-fluid">
 			<div class="row">
 				@foreach($categories as $category)

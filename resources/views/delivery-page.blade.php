@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<section style="min-height: 100vh; background-color: black; margin-left: 60px; margin-right: 300px;">
+	<section style="min-height: 100vh; background-color: black; margin-left: 60px; margin-right: 370px;">
         <div class="container-fluid p-3">
         	<p class="text-white">Ми з радістю доставимо смачні суші вам додому чи у офіс. Також ви можете замовити суші та забрати самовивазом за адресою вул. Замостянська 4/3</p>
 

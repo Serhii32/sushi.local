@@ -1782,11 +1782,76 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       loaded: true,
-      cart: {}
+      cart: {},
+      errors: {},
+      fields: {}
     };
   },
   created: function created() {
@@ -1844,6 +1909,38 @@ __webpack_require__.r(__webpack_exports__);
           _this4.loaded = true;
           console.log(error);
         });
+      }
+    },
+    submit: function submit() {
+      if (this.loaded) {
+        this.loaded = false;
+        this.errors = {}; //     let formData = new FormData();
+        //     formData.set('title', this.fields.title == null?"":this.fields.title);
+        //     formData.set('price', this.fields.price == null?"":this.fields.price);
+        //     formData.set('weight', this.fields.weight == null?"":this.fields.weight);
+        //     formData.set('category', this.fields.category == null?"":this.fields.category);
+        //     formData.set('attributes', this.fields.attributes == null || this.fields.attributes.length == 0?"":this.fields.attributes);
+        //     formData.set('components', this.fields.components == null || this.fields.components.length == 0?"":this.fields.components);
+        //     formData.set('titleSEO', this.fields.titleSEO == null?"":this.fields.titleSEO);
+        //     formData.set('descriptionSEO', this.fields.descriptionSEO == null?"":this.fields.descriptionSEO);
+        //     formData.set('keywordsSEO', this.fields.keywordsSEO == null?"":this.fields.keywordsSEO);
+        //     formData.append('photo', this.fields.photo == null?"":this.fields.photo);
+        //     axios.post('/admin/products', formData, {'Content-Type': 'multipart/form-data'}).then(response => {
+        //         this.loaded = true;
+        //         this.hideCreateModal();
+        //         this.resetImage();
+        //         this.fields = {
+        //             'attributes': [],
+        //             'components': [],
+        //         };
+        //         let page = this.products.last_page;
+        //         this.getProducts(page);
+        //     }).catch(error => {
+        //         this.loaded = true;
+        //         if (error.response.status === 422) {
+        //             this.errors = error.response.data.errors || {};
+        //         }
+        //     });
       }
     }
   }
@@ -56657,78 +56754,581 @@ var render = function() {
       staticStyle: {
         "background-color": "black",
         "border-left": "3px solid #e16729",
-        width: "300px",
-        "min-height": "100vh",
-        right: "0px"
+        width: "370px",
+        right: "0px",
+        "overflow-y": "auto",
+        height: "90vh"
       }
     },
-    _vm._l(_vm.cart, function(item) {
-      return _c(
-        "div",
-        {
-          key: item.rowId,
-          staticClass: "container-fluid",
-          staticStyle: { border: "3px solid #e16729", "border-radius": "5px" }
-        },
-        [
-          _c("div", [
-            _c("img", {
-              staticClass: "d-inline float-right",
-              attrs: { width: "15", src: "/img/front/icons/close.svg" },
-              on: {
-                click: function($event) {
-                  _vm.removeItemFromCart(item.rowId)
+    [
+      _c("h5", { staticClass: "text-white" }, [_vm._v("Ваше замовлення:")]),
+      _vm._v(" "),
+      _vm._l(_vm.cart, function(item) {
+        return _c(
+          "div",
+          {
+            key: item.rowId,
+            staticClass: "container-fluid my-2",
+            staticStyle: { "border-bottom": "3px solid #e16729" }
+          },
+          [
+            _c("div", [
+              _c("img", {
+                staticClass: "d-inline float-right",
+                attrs: { width: "15", src: "/img/front/icons/close.svg" },
+                on: {
+                  click: function($event) {
+                    _vm.removeItemFromCart(item.rowId)
+                  }
                 }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row m-0" }, [
-            _c("div", { staticClass: "col-12 col-md-6" }, [
-              _c("p", { staticClass: "font-weight-bold text-white m-0" }, [
-                _vm._v(_vm._s(item.name))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "font-weight-bold text-white m-0" }, [
-                _c("img", {
-                  staticClass: "d-inline",
-                  attrs: { width: "15", src: "/img/front/icons/plus.svg" },
-                  on: {
-                    click: function($event) {
-                      _vm.updateQTY(item.rowId, ++item.qty)
-                    }
-                  }
-                }),
-                _vm._v(" " + _vm._s(item.qty) + " "),
-                _c("img", {
-                  staticClass: "d-inline",
-                  attrs: { width: "15", src: "/img/front/icons/minus.svg" },
-                  on: {
-                    click: function($event) {
-                      item.qty > 1
-                        ? _vm.updateQTY(item.rowId, --item.qty)
-                        : item.qty
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "font-weight-bold text-white m-0" }, [
-                _vm._v(_vm._s(item.qty * item.price) + " грн")
-              ])
+              })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-12 col-md-6 m-auto" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "/" + item.options.photo }
-              })
+            _c("div", { staticClass: "row m-0" }, [
+              _c("div", { staticClass: "col-12 col-md-6" }, [
+                _c("p", { staticClass: "font-weight-bold text-white m-0" }, [
+                  _vm._v(_vm._s(item.name))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "font-weight-bold text-white m-0" }, [
+                  _c("img", {
+                    staticClass: "d-inline",
+                    attrs: { width: "15", src: "/img/front/icons/plus.svg" },
+                    on: {
+                      click: function($event) {
+                        _vm.updateQTY(item.rowId, ++item.qty)
+                      }
+                    }
+                  }),
+                  _vm._v(" " + _vm._s(item.qty) + " "),
+                  _c("img", {
+                    staticClass: "d-inline",
+                    attrs: { width: "15", src: "/img/front/icons/minus.svg" },
+                    on: {
+                      click: function($event) {
+                        item.qty > 1
+                          ? _vm.updateQTY(item.rowId, --item.qty)
+                          : item.qty
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "font-weight-bold text-white m-0" }, [
+                  _vm._v(_vm._s(item.qty * item.price) + " грн")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-12 col-md-6 m-auto" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  attrs: {
+                    src: item.options.photo
+                      ? "/" + item.options.photo
+                      : "/img/default.png"
+                  }
+                })
+              ])
             ])
-          ])
+          ]
+        )
+      }),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          staticClass: "mt-3",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submit($event)
+            }
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "container-fluid" },
+            [
+              _c("h5", { staticClass: "text-white" }, [
+                _vm._v("Персональні дані:")
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    "label-class": "text-uppercase font-weight-bold",
+                    description: "Введіть ваше ім'я"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "name",
+                      name: "name",
+                      state: Boolean(
+                        _vm.errors && _vm.errors.name && _vm.errors.name[0]
+                      )
+                        ? false
+                        : null,
+                      type: "text",
+                      placeholder: "Ім'я"
+                    },
+                    model: {
+                      value: _vm.fields.name,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "name", $$v)
+                      },
+                      expression: "fields.name"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.name
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.name[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    "label-class": "text-uppercase font-weight-bold",
+                    description: "Введіть ваш номер телефону"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "phone",
+                      name: "phone",
+                      state: Boolean(
+                        _vm.errors && _vm.errors.phone && _vm.errors.phone[0]
+                      )
+                        ? false
+                        : null,
+                      type: "tel",
+                      placeholder: "Телефон"
+                    },
+                    model: {
+                      value: _vm.fields.phone,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "phone", $$v)
+                      },
+                      expression: "fields.phone"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.phone
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.phone[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("h5", { staticClass: "text-white" }, [_vm._v("Доставка:")]),
+              _vm._v(" "),
+              _c("h5", { staticClass: "text-white text-center" }, [
+                _vm._v("Вінниця")
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row" },
+                [
+                  _c(
+                    "b-form-group",
+                    {
+                      staticClass: "col-12 col-md-6",
+                      attrs: { description: "Введіть назву вулиці" }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "street",
+                          name: "street",
+                          state: Boolean(
+                            _vm.errors &&
+                              _vm.errors.street &&
+                              _vm.errors.street[0]
+                          )
+                            ? false
+                            : null,
+                          type: "text",
+                          placeholder: "Вулиця"
+                        },
+                        model: {
+                          value: _vm.fields.street,
+                          callback: function($$v) {
+                            _vm.$set(_vm.fields, "street", $$v)
+                          },
+                          expression: "fields.street"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.street
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-alert",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: {
+                                    variant: "danger",
+                                    dismissible: "",
+                                    fade: "",
+                                    show: true
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.errors.street[0]))]
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      staticClass: "col-12 col-md-6",
+                      attrs: { description: "Введіть номер будинку" }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "building",
+                          name: "building",
+                          state: Boolean(
+                            _vm.errors &&
+                              _vm.errors.building &&
+                              _vm.errors.building[0]
+                          )
+                            ? false
+                            : null,
+                          type: "text",
+                          placeholder: "Будинок"
+                        },
+                        model: {
+                          value: _vm.fields.building,
+                          callback: function($$v) {
+                            _vm.$set(_vm.fields, "building", $$v)
+                          },
+                          expression: "fields.building"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.building
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-alert",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: {
+                                    variant: "danger",
+                                    dismissible: "",
+                                    fade: "",
+                                    show: true
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.errors.building[0]))]
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      staticClass: "col-12 col-md-6",
+                      attrs: { description: "Введіть номер під'їзду" }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "entrance",
+                          name: "entrance",
+                          state: Boolean(
+                            _vm.errors &&
+                              _vm.errors.entrance &&
+                              _vm.errors.entrance[0]
+                          )
+                            ? false
+                            : null,
+                          type: "text",
+                          placeholder: "Під'їзд"
+                        },
+                        model: {
+                          value: _vm.fields.entrance,
+                          callback: function($$v) {
+                            _vm.$set(_vm.fields, "entrance", $$v)
+                          },
+                          expression: "fields.entrance"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.entrance
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-alert",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: {
+                                    variant: "danger",
+                                    dismissible: "",
+                                    fade: "",
+                                    show: true
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.errors.entrance[0]))]
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      staticClass: "col-12 col-md-6",
+                      attrs: { description: "Введіть номер корпусу" }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "house",
+                          name: "house",
+                          state: Boolean(
+                            _vm.errors &&
+                              _vm.errors.house &&
+                              _vm.errors.house[0]
+                          )
+                            ? false
+                            : null,
+                          type: "text",
+                          placeholder: "Корпус"
+                        },
+                        model: {
+                          value: _vm.fields.house,
+                          callback: function($$v) {
+                            _vm.$set(_vm.fields, "house", $$v)
+                          },
+                          expression: "fields.house"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.house
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-alert",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: {
+                                    variant: "danger",
+                                    dismissible: "",
+                                    fade: "",
+                                    show: true
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.errors.house[0]))]
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      staticClass: "col-12 col-md-6",
+                      attrs: { description: "Введіть номер квартири" }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "apartment",
+                          name: "apartment",
+                          state: Boolean(
+                            _vm.errors &&
+                              _vm.errors.apartment &&
+                              _vm.errors.apartment[0]
+                          )
+                            ? false
+                            : null,
+                          type: "text",
+                          placeholder: "Квартира"
+                        },
+                        model: {
+                          value: _vm.fields.apartment,
+                          callback: function($$v) {
+                            _vm.$set(_vm.fields, "apartment", $$v)
+                          },
+                          expression: "fields.apartment"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.apartment
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-alert",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: {
+                                    variant: "danger",
+                                    dismissible: "",
+                                    fade: "",
+                                    show: true
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.errors.apartment[0]))]
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      staticClass: "col-12 col-md-6",
+                      attrs: { description: "Введіть номер поверху" }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "floor",
+                          name: "floor",
+                          state: Boolean(
+                            _vm.errors &&
+                              _vm.errors.floor &&
+                              _vm.errors.floor[0]
+                          )
+                            ? false
+                            : null,
+                          type: "text",
+                          placeholder: "Поверх"
+                        },
+                        model: {
+                          value: _vm.fields.floor,
+                          callback: function($$v) {
+                            _vm.$set(_vm.fields, "floor", $$v)
+                          },
+                          expression: "fields.floor"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.floor
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-alert",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: {
+                                    variant: "danger",
+                                    dismissible: "",
+                                    fade: "",
+                                    show: true
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.errors.floor[0]))]
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                [
+                  _c(
+                    "b-button",
+                    {
+                      staticClass:
+                        "btn btn-success w-100 text-uppercase font-weight-bold",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Оформити")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ]
       )
-    }),
-    0
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -56760,7 +57360,7 @@ var render = function() {
         "min-height": "100vh",
         "background-color": "black",
         "margin-left": "60px",
-        "margin-right": "300px"
+        "margin-right": "370px"
       }
     },
     [
@@ -57096,7 +57696,7 @@ var render = function() {
       staticStyle: {
         "background-color": "black",
         "margin-left": "60px",
-        "margin-right": "300px"
+        "margin-right": "370px"
       }
     },
     [
@@ -57445,7 +58045,7 @@ var render = function() {
         "min-height": "100vh",
         "background-color": "black",
         "margin-left": "60px",
-        "margin-right": "300px"
+        "margin-right": "370px"
       }
     },
     [

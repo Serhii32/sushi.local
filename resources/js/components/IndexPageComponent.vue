@@ -1,5 +1,5 @@
 <template>
-    <section style="background-color: black; margin-left: 60px; margin-right: 300px;">
+    <section style="background-color: black; margin-left: 60px; margin-right: 370px;">
         <div class="container-fluid p-1">
             <div class="row">
                 <div class="col-12 col-lg-4 my-auto px-5">
