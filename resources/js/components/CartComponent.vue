@@ -78,8 +78,43 @@
                         <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.call[0] }}</b-alert>
                     </div>
                 </b-form-group>
+                
+                <div class="row">
+                    <b-form-group class="col-12 col-md-6" description="Виберіть дату доставки">
+                        <b-form-select id="date" name="date" :state="Boolean(errors && errors.date && errors.date[0])?false:null" placeholder="Дата" v-model="fields.date" :options="dateOptions"></b-form-select>
+                        <div v-if="errors && errors.date">
+                            <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.date[0] }}</b-alert>
+                        </div>
+                    </b-form-group>
+                    <b-form-group class="col-12 col-md-6" description="Виберіть час доставки">
+                        <b-form-select id="time" name="time" :state="Boolean(errors && errors.time && errors.time[0])?false:null" placeholder="Час" v-model="fields.time" :options="timeOptions"></b-form-select>
+                        <div v-if="errors && errors.time">
+                            <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.time[0] }}</b-alert>
+                        </div>
+                    </b-form-group>
+                </div>
 
-                <h5 class="text-white">Всього:</h5>
+                <h5 class="text-white">Спосіб оплати</h5>
+
+                <b-form-group>
+                    <b-form-radio-group stacked class="text-white" id="payment" :state="Boolean(errors && errors.payment && errors.payment[0])?false:null" v-model="fields.payment" name="payment">
+                        <b-form-radio value=1>Готівкою</b-form-radio>
+                        <b-form-radio value=0>Онлайн картою</b-form-radio>
+                    </b-form-radio-group>
+                    <span>{{fields.payment}}</span>
+                    <div v-if="errors && errors.payment">
+                        <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.payment[0] }}</b-alert>
+                    </div>
+                </b-form-group>
+
+                <b-form-group v-if="fields.payment == '1'" description="Підготувати решту з...">
+                    <b-form-input id="change" name="change" :state="Boolean(errors && errors.change && errors.change[0])?false:null" type="text" placeholder="Решта з..." v-model="fields.change"></b-form-input>
+                    <div v-if="errors && errors.change">
+                        <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.change[0] }}</b-alert>
+                    </div>
+                </b-form-group>
+
+                <h5 class="text-white">Всього: {{totalSum}}</h5>
                 <b-form-group>
                     <b-button type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
                 </b-form-group>
@@ -96,6 +131,64 @@ export default {
             cart:{},
             errors: {},
             fields: {},
+            totalSum: 0,
+            dateOptions: [
+                { value: Date.now(), text: 'Сьогодні' },
+                { value: Date.now()+86400000, text: 'Завтра' },
+                { value: Date.now()+172800000, text: new Date(Date.now()+172800000).getDate() + '.' + parseInt(new Date(Date.now()+172800000).getMonth()+1)},
+                { value: Date.now()+259200000, text: new Date(Date.now()+259200000).getDate() + '.' + parseInt(new Date(Date.now()+259200000).getMonth()+1)},
+                { value: Date.now()+345600000, text: new Date(Date.now()+345600000).getDate() + '.' + parseInt(new Date(Date.now()+345600000).getMonth()+1)},
+            ],
+            timeOptions: [
+                { value: '11:00', text: '11:00' },
+                { value: '11:15', text: '11:15' },
+                { value: '11:30', text: '11:30' },
+                { value: '11:45', text: '11:45' },
+                { value: '12:00', text: '12:00' },
+                { value: '12:15', text: '12:15' },
+                { value: '12:30', text: '12:30' },
+                { value: '12:45', text: '12:45' },
+                { value: '13:00', text: '13:00' },
+                { value: '13:15', text: '13:15' },
+                { value: '13:30', text: '13:30' },
+                { value: '13:45', text: '13:45' },
+                { value: '14:00', text: '14:00' },
+                { value: '14:15', text: '14:15' },
+                { value: '14:30', text: '14:30' },
+                { value: '14:45', text: '14:45' },
+                { value: '15:00', text: '15:00' },
+                { value: '15:15', text: '15:15' },
+                { value: '15:30', text: '15:30' },
+                { value: '15:45', text: '15:45' },
+                { value: '16:00', text: '16:00' },
+                { value: '16:15', text: '16:15' },
+                { value: '16:30', text: '16:30' },
+                { value: '16:45', text: '16:45' },
+                { value: '17:00', text: '17:00' },
+                { value: '17:15', text: '17:15' },
+                { value: '17:30', text: '17:30' },
+                { value: '17:45', text: '17:45' },
+                { value: '18:00', text: '18:00' },
+                { value: '18:15', text: '18:15' },
+                { value: '18:30', text: '18:30' },
+                { value: '18:45', text: '18:45' },
+                { value: '19:00', text: '19:00' },
+                { value: '19:15', text: '19:15' },
+                { value: '19:30', text: '19:30' },
+                { value: '19:45', text: '19:45' },
+                { value: '20:00', text: '20:00' },
+                { value: '20:15', text: '20:15' },
+                { value: '20:30', text: '20:30' },
+                { value: '20:45', text: '20:45' },
+                { value: '21:00', text: '21:00' },
+                { value: '21:15', text: '21:15' },
+                { value: '21:30', text: '21:30' },
+                { value: '21:45', text: '21:45' },
+                { value: '22:00', text: '22:00' },
+                { value: '22:15', text: '22:15' },
+                { value: '22:30', text: '22:30' },
+                { value: '22:45', text: '22:45' },
+            ],
         }
     },
     created() {
@@ -113,7 +206,7 @@ export default {
                 axios.get('/getCartContent').then(response => {
                     this.loaded = true;
                     this.cart = response.data.cart;
-                    console.log(this.cart);
+                    this.getTotalSum();
                 }).catch(error => {
                     this.loaded = true;
                     console.log(error);
@@ -125,6 +218,7 @@ export default {
                 this.loaded = false;
                 axios.post('/updateQTY', {id:id, qty:qty}).then(response => {
                     this.loaded = true;
+                    this.getTotalSum();
                 }).catch(error => {
                     this.loaded = true;
                     console.log(error);
@@ -137,10 +231,17 @@ export default {
                 Vue.delete(this.cart, id);
                 axios.post('/removeItemFromCart', {id:id}).then(response => {
                     this.loaded = true;
+                    this.getTotalSum();
                 }).catch(error => {
                     this.loaded = true;
                     console.log(error);
                 });
+            }
+        },
+        getTotalSum(){
+            this.totalSum = 0;
+            for(var index in this.cart){
+                this.totalSum += parseInt(this.cart[index].qty) * parseFloat(this.cart[index].price);
             }
         },
         submit() {

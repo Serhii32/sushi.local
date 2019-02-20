@@ -9,18 +9,33 @@
 @import '~bootstrap/dist/css/bootstrap.css';
 @import '~bootstrap-vue/dist/bootstrap-vue.css';
 
-
 .navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   z-index: 1;
 }
-
 body {
 	font-family: 'Comfortaa', cursive;
 }
-
+#left-sidebar {
+    width:60px;
+}
+#left-sidebar:hover{
+    width:230px;
+}
+.left-sidebar-title {
+    display: none;
+}
+#left-sidebar:hover .left-sidebar-title{
+    display: inline;
+}
+.left-sidebar-nav:hover {
+	background-color: #e16729;
+}
+.left-sidebar-nav:hover .left-sidebar-img {
+	filter: brightness(10);
+}
+.header-menu-link:hover {
+	border-bottom: 3px solid #e16729;
+}
 // Fonts
-//@import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700&subset=cyrillic');
 

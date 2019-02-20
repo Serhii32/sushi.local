@@ -175,7 +175,7 @@ export default {
             if (this.loaded) {
                 this.loaded = false;
 
-                axios.delete('/admin/products/'+id).then(() => {
+                axios.post('/admin/products/delete/'+id).then(() => {
                     this.loaded = true;
                     this.getProducts(this.products.current_page);
                 }).catch(error => {

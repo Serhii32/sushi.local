@@ -136,7 +136,7 @@ export default {
             if (this.loaded) {
                 this.loaded = false;
 
-                axios.delete('/admin/categories/'+id).then(() => {
+                axios.post('/admin/categories/delete/'+id).then(() => {
                     this.loaded = true;
                     this.getCategories(this.categories.current_page);
                 }).catch(error => {

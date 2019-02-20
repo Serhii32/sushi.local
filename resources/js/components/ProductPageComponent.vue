@@ -7,7 +7,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <h1 class="text-white font-weight-bold">
-                        {{product.title}} <span>{{product.price}} грн.</span>
+                        {{product.title}}
                     </h1>
                     <h4 class="font-weight-bold" style="color: #e16729">
                         {{product.weight}}
@@ -16,13 +16,20 @@
                         Склад:
                     </h5>
                     <carousel :pagination-enabled="false" :per-page-custom="[[768, 2], [992, 3], [1199, 4]]">
-                        <slide style="background-color: black;" class="px-3 card" v-for="component in components" :key="component.id">
+                        <slide style="background-color: black; max-width: 150px;" class="px-3 card" v-for="component in components" :key="component.id" v-if="component.photo">
                             <img class="img-fluid card-img-top" :src="component.photo?'/'+component.photo:'/img/default.png'">
-                            <h5 class="text-white text-center p-2 card-title">{{component.title}}</h5>
+                            <p class="text-white text-center p-2 card-title">{{component.title}}</p>
                         </slide>
                     </carousel>
                     <div class="container-fluid">
-                        <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id)">В корзину</b-button>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id)">В корзину</b-button>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <h3 class="text-white font-weight-bold">{{product.price}} грн.</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

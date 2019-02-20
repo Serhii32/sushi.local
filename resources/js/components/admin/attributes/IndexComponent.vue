@@ -81,7 +81,7 @@ export default {
             if (this.loaded) {
                 this.loaded = false;
 
-                axios.delete('/admin/attributes/'+id).then(() => {
+                axios.post('/admin/attributes/delete/'+id).then(() => {
                     this.loaded = true;
                     this.getAttributes(this.attributes.current_page);
                 }).catch(error => {

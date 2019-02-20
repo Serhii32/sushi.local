@@ -22,7 +22,7 @@
                         <div class="col-9 col-lg-12 text-white">
                             <h4>Fresh Made</h4>
                             <p>
-                                Мы гарантируем свежесть продуктов и не используем замороженную рыбу
+                                Ми гарантуємо свіжість продуктів і не використовуємо заморожену рибу
                             </p>
                         </div>
                     </div>
@@ -33,9 +33,9 @@
                             <img class="img-fluid" src="/img/front/icons/icon2.svg">
                         </div>
                         <div class="col-9 col-lg-12 text-white">
-                            <h4>Рецепты от шеф-повара</h4>
+                            <h4>Рецепти від шеф-повара</h4>
                             <p>
-                                Мы предлагаем как классические суши, так и авторские рецепты от шеф-повара
+                                Ми пропонуємо як класичні суші, так і авторські рецепти від шеф-повара
                             </p>
                         </div>
                     </div>
@@ -46,9 +46,9 @@
                             <img class="img-fluid" src="/img/front/icons/icon3.svg">
                         </div>
                         <div class="col-9 col-lg-12 text-white">
-                            <h4>Качественные ингредиенты</h4>
+                            <h4>Якісні інгрідієнти</h4>
                             <p>
-                                Мы не используем усилители вкуса. Все продукты закупаем у проверенных поставщиков
+                                Ми не використовуємо підсилювачі смаку. Всі продукти закуповуємо у перевірених постачальників
                             </p>
                         </div>
                     </div>
@@ -59,9 +59,9 @@
                             <img class="img-fluid" src="/img/front/icons/icon4.svg">
                         </div>
                         <div class="col-9 col-lg-12 text-white">
-                            <h4>Чистая кухня</h4>
+                            <h4>Чиста кухня</h4>
                             <p>
-                                Весь процесс приготовления проходит в соответствии со всеми санитарными нормами
+                                Весь процес приготування проходить у відповідності з усіма санітарними нормами
                             </p>
                         </div>
                     </div>
@@ -71,14 +71,14 @@
         <div class="container-fluid p-3">
             <h1 class="text-white font-weight-bold">Топ позиції</h1>
             <div class="row">
-                <p class="col-12 col-md-6 text-white">В ассортименте Ninja Sushi представлены роллы, суши, сеты и напитки на любой вкус. Мы рекомендуем обязательно попробовать топ позиции нашего меню!</p>
+                <p class="col-12 col-md-6 text-white">В асортименті SushiWin представлені роли, суші, сети і напої на будь-який смак. Ми рекомендуємо обов'язково спробувати топ позиції нашого меню!</p>
             </div>
 
             <div class="p-2" v-for="category in categories" :key="category.id">
                 <h2 class="text-white font-weight-bold">{{category.title}}</h2>
 
                 <carousel :navigation-enabled="true" :per-page-custom="[[768, 2], [992, 3], [1199, 4]]">
-                    <slide style="background-color: black;" class="px-3 card" v-for="product in category.products" :key="product.id">
+                    <slide style="background-color: black;" class="product-slide px-3 card" v-for="product in category.products" :key="product.id">
                         <a class="card-link" :href="'/product/' + product.id"><img class="img-fluid card-img-top" :src="product.photo?'/'+product.photo:'/img/default.png'"></a>
                         <div class="card-body">
                             <h4 class="text-white text-center p-2 card-title"><a class="text-white card-link" :href="'/product/' + product.id">{{product.title}}</a></h4>
@@ -142,3 +142,8 @@ export default {
     }
 }
 </script>
+<style>
+    .product-slide:hover {
+        border: 3px solid #e16729;
+    }
+</style>

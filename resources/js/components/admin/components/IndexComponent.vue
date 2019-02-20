@@ -101,7 +101,7 @@ export default {
             if (this.loaded) {
                 this.loaded = false;
 
-                axios.delete('/admin/components/'+id).then(() => {
+                axios.post('/admin/components/delete/'+id).then(() => {
                     this.loaded = true;
                     this.getComponents(this.components.current_page);
                 }).catch(error => {
