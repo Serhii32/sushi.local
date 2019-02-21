@@ -81,13 +81,13 @@
                 
                 <div class="row">
                     <b-form-group class="col-12 col-md-6" description="Виберіть дату доставки">
-                        <b-form-select id="date" name="date" :state="Boolean(errors && errors.date && errors.date[0])?false:null" placeholder="Дата" v-model="fields.date" :options="dateOptions"></b-form-select>
+                        <b-form-select id="date" name="date" :state="Boolean(errors && errors.date && errors.date[0])?false:null" v-model="fields.date" :options="dateOptions"></b-form-select>
                         <div v-if="errors && errors.date">
                             <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.date[0] }}</b-alert>
                         </div>
                     </b-form-group>
                     <b-form-group class="col-12 col-md-6" description="Виберіть час доставки">
-                        <b-form-select id="time" name="time" :state="Boolean(errors && errors.time && errors.time[0])?false:null" placeholder="Час" v-model="fields.time" :options="timeOptions"></b-form-select>
+                        <b-form-select id="time" name="time" :state="Boolean(errors && errors.time && errors.time[0])?false:null" v-model="fields.time" :options="timeOptions"></b-form-select>
                         <div v-if="errors && errors.time">
                             <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.time[0] }}</b-alert>
                         </div>
@@ -101,7 +101,6 @@
                         <b-form-radio value=1>Готівкою</b-form-radio>
                         <b-form-radio value=0>Онлайн картою</b-form-radio>
                     </b-form-radio-group>
-                    <span>{{fields.payment}}</span>
                     <div v-if="errors && errors.payment">
                         <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.payment[0] }}</b-alert>
                     </div>
@@ -114,9 +113,32 @@
                     </div>
                 </b-form-group>
 
-                <h5 class="text-white">Всього: {{totalSum}}</h5>
+                <h5 class="text-white">Коментар</h5>
+
+                <b-form-group description="Виберіть кількість персон">
+                    <b-form-select id="persons" name="persons" :state="Boolean(errors && errors.persons && errors.persons[0])?false:null" v-model="fields.persons" :options="personsOptions"></b-form-select>
+                    <div v-if="errors && errors.persons">
+                        <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.persons[0] }}</b-alert>
+                    </div>
+                </b-form-group>
+
+                <b-form-group description="Виберіть тип паличок">
+                    <b-form-select id="sticks" name="sticks" :state="Boolean(errors && errors.sticks && errors.sticks[0])?false:null" v-model="fields.sticks" :options="sticksOptions"></b-form-select>
+                    <div v-if="errors && errors.sticks">
+                        <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.sticks[0] }}</b-alert>
+                    </div>
+                </b-form-group>
+
+                <b-form-group description="Введіть коментар">
+                    <b-form-textarea id="comment" name="comment" :state="Boolean(errors && errors.comment && errors.comment[0])?false:null" placeholder="Коментар" v-model="fields.comment" rows="3" max-rows="6"/>
+                    <div v-if="errors && errors.comment">
+                        <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.comment[0] }}</b-alert>
+                    </div>
+                </b-form-group>
+                <p class="text-white">Мінімальне замовлення 150 грн.<br>Від 150 грн. до 250 грн. + доставка 25  грн</p>
+                <h5 class="text-white">Всього: {{totalSum}} <span v-if="totalSum >= 150 && totalSum < 250">+ доставка 25 грн.</span></h5>
                 <b-form-group>
-                    <b-button type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
+                    <b-button :disabled="totalSum < 150" type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
                 </b-form-group>
             </div>
         </form>
@@ -189,6 +211,19 @@ export default {
                 { value: '22:30', text: '22:30' },
                 { value: '22:45', text: '22:45' },
             ],
+            personsOptions: [
+                { value: '1', text: '1 персона' },
+                { value: '2', text: '2 персона' },
+                { value: '3', text: '3 персона' },
+                { value: '4', text: '4 персона' },
+                { value: '5', text: '5 персона' },
+                { value: '6', text: '6 персона' },
+                { value: '7', text: '7 персона' },
+            ],
+            sticksOptions: [
+                { value: '1', text: 'Звичайні' },
+                { value: '0', text: 'Навчальні' },
+            ]
         }
     },
     created() {
@@ -247,34 +282,34 @@ export default {
         submit() {
             if (this.loaded) {
                 this.loaded = false;
-                this.errors = {};
-            //     let formData = new FormData();
-            //     formData.set('title', this.fields.title == null?"":this.fields.title);
-            //     formData.set('price', this.fields.price == null?"":this.fields.price);
-            //     formData.set('weight', this.fields.weight == null?"":this.fields.weight);
-            //     formData.set('category', this.fields.category == null?"":this.fields.category);
-            //     formData.set('attributes', this.fields.attributes == null || this.fields.attributes.length == 0?"":this.fields.attributes);
-            //     formData.set('components', this.fields.components == null || this.fields.components.length == 0?"":this.fields.components);
-            //     formData.set('titleSEO', this.fields.titleSEO == null?"":this.fields.titleSEO);
-            //     formData.set('descriptionSEO', this.fields.descriptionSEO == null?"":this.fields.descriptionSEO);
-            //     formData.set('keywordsSEO', this.fields.keywordsSEO == null?"":this.fields.keywordsSEO);
-            //     formData.append('photo', this.fields.photo == null?"":this.fields.photo);
-            //     axios.post('/admin/products', formData, {'Content-Type': 'multipart/form-data'}).then(response => {
-            //         this.loaded = true;
-            //         this.hideCreateModal();
-            //         this.resetImage();
-            //         this.fields = {
-            //             'attributes': [],
-            //             'components': [],
-            //         };
-            //         let page = this.products.last_page;
-            //         this.getProducts(page);
-            //     }).catch(error => {
-            //         this.loaded = true;
-            //         if (error.response.status === 422) {
-            //             this.errors = error.response.data.errors || {};
-            //         }
-            //     });
+                this.errors = {}; 
+                               
+                let formData = new FormData();
+                formData.set('name', this.fields.name == null?"":this.fields.name);
+                formData.set('phone', this.fields.phone == null?"":this.fields.phone);
+                formData.set('street', this.fields.street == null?"":this.fields.street);
+                formData.set('building', this.fields.building == null?"":this.fields.building);
+                formData.set('entrance', this.fields.entrance == null?"":this.fields.entrance);
+                formData.set('house', this.fields.house == null?"":this.fields.house);
+                formData.set('apartment', this.fields.apartment == null?"":this.fields.apartment);
+                formData.set('floor', this.fields.floor == null?"":this.fields.floor);
+                formData.set('call', this.fields.call == null?"":this.fields.call);
+                formData.set('date', this.fields.date == null?"":this.fields.date);
+                formData.set('time', this.fields.time == null?"":this.fields.time);
+                formData.set('payment', this.fields.payment == null?"":this.fields.payment);
+                formData.set('change', this.fields.change == null?"":this.fields.change);
+                formData.set('persons', this.fields.persons == null?"":this.fields.persons);
+                formData.set('sticks', this.fields.sticks == null?"":this.fields.sticks);
+                formData.set('comment', this.fields.comment == null?"":this.fields.comment);
+
+                axios.post('/makeOrder', formData).then(response => {
+                    this.loaded = true;
+                }).catch(error => {
+                    this.loaded = true;
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors || {};
+                    }
+                });
             }
         },
     }

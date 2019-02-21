@@ -20,4 +20,9 @@ class Product extends Model
     {
     	return $this->belongsToMany('App\Attribute', 'attribute_product', 'product_id', 'attribute_id')->withTimestamps();
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany('App\Order', 'order_product', 'product_id', 'order_id')->withPivot('price', 'quantity')->withTimestamps();
+    }
 }

@@ -1888,6 +1888,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2056,6 +2079,35 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         value: '22:45',
         text: '22:45'
+      }],
+      personsOptions: [{
+        value: '1',
+        text: '1 персона'
+      }, {
+        value: '2',
+        text: '2 персона'
+      }, {
+        value: '3',
+        text: '3 персона'
+      }, {
+        value: '4',
+        text: '4 персона'
+      }, {
+        value: '5',
+        text: '5 персона'
+      }, {
+        value: '6',
+        text: '6 персона'
+      }, {
+        value: '7',
+        text: '7 персона'
+      }],
+      sticksOptions: [{
+        value: '1',
+        text: 'Звичайні'
+      }, {
+        value: '0',
+        text: 'Навчальні'
       }]
     };
   },
@@ -2130,35 +2182,36 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     submit: function submit() {
+      var _this5 = this;
+
       if (this.loaded) {
         this.loaded = false;
-        this.errors = {}; //     let formData = new FormData();
-        //     formData.set('title', this.fields.title == null?"":this.fields.title);
-        //     formData.set('price', this.fields.price == null?"":this.fields.price);
-        //     formData.set('weight', this.fields.weight == null?"":this.fields.weight);
-        //     formData.set('category', this.fields.category == null?"":this.fields.category);
-        //     formData.set('attributes', this.fields.attributes == null || this.fields.attributes.length == 0?"":this.fields.attributes);
-        //     formData.set('components', this.fields.components == null || this.fields.components.length == 0?"":this.fields.components);
-        //     formData.set('titleSEO', this.fields.titleSEO == null?"":this.fields.titleSEO);
-        //     formData.set('descriptionSEO', this.fields.descriptionSEO == null?"":this.fields.descriptionSEO);
-        //     formData.set('keywordsSEO', this.fields.keywordsSEO == null?"":this.fields.keywordsSEO);
-        //     formData.append('photo', this.fields.photo == null?"":this.fields.photo);
-        //     axios.post('/admin/products', formData, {'Content-Type': 'multipart/form-data'}).then(response => {
-        //         this.loaded = true;
-        //         this.hideCreateModal();
-        //         this.resetImage();
-        //         this.fields = {
-        //             'attributes': [],
-        //             'components': [],
-        //         };
-        //         let page = this.products.last_page;
-        //         this.getProducts(page);
-        //     }).catch(error => {
-        //         this.loaded = true;
-        //         if (error.response.status === 422) {
-        //             this.errors = error.response.data.errors || {};
-        //         }
-        //     });
+        this.errors = {};
+        var formData = new FormData();
+        formData.set('name', this.fields.name == null ? "" : this.fields.name);
+        formData.set('phone', this.fields.phone == null ? "" : this.fields.phone);
+        formData.set('street', this.fields.street == null ? "" : this.fields.street);
+        formData.set('building', this.fields.building == null ? "" : this.fields.building);
+        formData.set('entrance', this.fields.entrance == null ? "" : this.fields.entrance);
+        formData.set('house', this.fields.house == null ? "" : this.fields.house);
+        formData.set('apartment', this.fields.apartment == null ? "" : this.fields.apartment);
+        formData.set('floor', this.fields.floor == null ? "" : this.fields.floor);
+        formData.set('call', this.fields.call == null ? "" : this.fields.call);
+        formData.set('date', this.fields.date == null ? "" : this.fields.date);
+        formData.set('time', this.fields.time == null ? "" : this.fields.time);
+        formData.set('payment', this.fields.payment == null ? "" : this.fields.payment);
+        formData.set('change', this.fields.change == null ? "" : this.fields.change);
+        formData.set('persons', this.fields.persons == null ? "" : this.fields.persons);
+        formData.set('comment', this.fields.comment == null ? "" : this.fields.comment);
+        axios.post('/makeOrder', formData).then(function (response) {
+          _this5.loaded = true;
+        }).catch(function (error) {
+          _this5.loaded = true;
+
+          if (error.response.status === 422) {
+            _this5.errors = error.response.data.errors || {};
+          }
+        });
       }
     }
   }
@@ -57655,7 +57708,6 @@ var render = function() {
                           )
                             ? false
                             : null,
-                          placeholder: "Дата",
                           options: _vm.dateOptions
                         },
                         model: {
@@ -57708,7 +57760,6 @@ var render = function() {
                           )
                             ? false
                             : null,
-                          placeholder: "Час",
                           options: _vm.timeOptions
                         },
                         model: {
@@ -57872,8 +57923,168 @@ var render = function() {
                   )
                 : _vm._e(),
               _vm._v(" "),
+              _c("h5", { staticClass: "text-white" }, [_vm._v("Коментар")]),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { attrs: { description: "Виберіть кількість персон" } },
+                [
+                  _c("b-form-select", {
+                    attrs: {
+                      id: "persons",
+                      name: "persons",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.persons &&
+                          _vm.errors.persons[0]
+                      )
+                        ? false
+                        : null,
+                      options: _vm.personsOptions
+                    },
+                    model: {
+                      value: _vm.fields.persons,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "persons", $$v)
+                      },
+                      expression: "fields.persons"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.persons
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.persons[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { attrs: { description: "Виберіть тип паличок" } },
+                [
+                  _c("b-form-select", {
+                    attrs: {
+                      id: "sticks",
+                      name: "sticks",
+                      state: Boolean(
+                        _vm.errors && _vm.errors.sticks && _vm.errors.sticks[0]
+                      )
+                        ? false
+                        : null,
+                      options: _vm.sticksOptions
+                    },
+                    model: {
+                      value: _vm.fields.sticks,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "sticks", $$v)
+                      },
+                      expression: "fields.sticks"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.sticks
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.sticks[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                { attrs: { description: "Введіть коментар" } },
+                [
+                  _c("b-form-textarea", {
+                    attrs: {
+                      id: "comment",
+                      name: "comment",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.comment &&
+                          _vm.errors.comment[0]
+                      )
+                        ? false
+                        : null,
+                      placeholder: "Коментар",
+                      rows: "3",
+                      "max-rows": "6"
+                    },
+                    model: {
+                      value: _vm.fields.comment,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "comment", $$v)
+                      },
+                      expression: "fields.comment"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.comment
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.comment[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
               _c("h5", { staticClass: "text-white" }, [
-                _vm._v("Всього: " + _vm._s(_vm.totalSum))
+                _vm._v("Всього: " + _vm._s(_vm.totalSum) + " "),
+                _vm.totalSum >= 150 && _vm.totalSum < 250
+                  ? _c("span", [_vm._v("+ доставка 25 грн.")])
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c(
@@ -57884,7 +58095,7 @@ var render = function() {
                     {
                       staticClass:
                         "btn btn-success w-100 text-uppercase font-weight-bold",
-                      attrs: { type: "submit" }
+                      attrs: { disabled: _vm.totalSum < 150, type: "submit" }
                     },
                     [_vm._v("Оформити")]
                   )
@@ -57900,7 +58111,18 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "text-white" }, [
+      _vm._v("Мінімальне замовлення 150 грн."),
+      _c("br"),
+      _vm._v("Від 150 грн. до 250 грн. + доставка 25  грн")
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -58382,15 +58604,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "p",
-                            {
-                              staticClass: "text-white card-text",
-                              staticStyle: {
-                                "text-overflow": "ellipsis",
-                                overflow: "hidden",
-                                height: "3em",
-                                "white-space": "nowrap"
-                              }
-                            },
+                            { staticClass: "text-white card-text" },
                             [
                               _c(
                                 "span",
@@ -58667,7 +58881,7 @@ var render = function() {
                 {
                   attrs: {
                     "pagination-enabled": false,
-                    "per-page-custom": [[768, 2], [992, 3], [1199, 4]]
+                    "per-page-custom": [[768, 3], [992, 4], [1199, 6]]
                   }
                 },
                 _vm._l(_vm.components, function(component) {
@@ -58679,7 +58893,7 @@ var render = function() {
                           staticClass: "px-3 card",
                           staticStyle: {
                             "background-color": "black",
-                            "max-width": "150px"
+                            "max-width": "105px"
                           }
                         },
                         [
@@ -58695,8 +58909,7 @@ var render = function() {
                           _c(
                             "p",
                             {
-                              staticClass:
-                                "text-white text-center p-2 card-title"
+                              staticClass: "text-white text-center card-title"
                             },
                             [_vm._v(_vm._s(component.title))]
                           )

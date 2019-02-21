@@ -8,7 +8,7 @@ use App\Product;
 use Cart;
 use App\Http\Requests\StoreOrderRequest;
 use App\Order;
-
+use LiqPay;
 class PagesController extends Controller
 {
 	private $categories;
@@ -93,7 +93,37 @@ class PagesController extends Controller
 
     public function makeOrder(StoreOrderRequest $request)
     {
-
+    	$order = new Order();
+    	$order->name = $request->name;
+    	$order->phone = $request->phone;
+    	$order->street = $request->street;
+    	$order->building = $request->building;
+    	$order->entrance = $request->entrance;
+    	$order->house = $request->house;
+    	$order->apartment = $request->apartment;
+    	$order->floor = $request->floor;
+    	$order->call = $request->call;
+    	$order->date = $request->date;
+    	$order->time = $request->time;
+    	$order->payment = $request->payment;
+    	$order->change = $request->change;
+    	$order->persons = $request->persons;
+    	$order->sticks = $request->sticks;
+    	$order->comment = $request->comment;
+    	$order->status = 1;
+    	$order->totalSum = Cart::getSubTotal();
+    	if(Auth::check()){
+            $user = Auth::user();
+            $order->user_id = $user->id;
+            $user->save();
+        }
+        $order->save();
+        $orderedProducts = Cart::getContent();
+        foreach ($orderedProducts as $orderedProduct) {
+            $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->quantity]);
+        }
+        Cart::clear();
+        return response()->json(null, 200);
     }
 
     public function updateQTY(Request $request)
