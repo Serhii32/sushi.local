@@ -36,6 +36,7 @@ class CreateOrdersTable extends Migration
             $table->text('comment')->nullable();
             $table->boolean('sticks')->nullable();
             $table->decimal('totalSum', 10, 2);
+            $table->boolean('paid')->nullable();
             $table->timestamps();
         });
     }

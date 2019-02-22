@@ -9,6 +9,7 @@ use Cart;
 use App\Http\Requests\StoreOrderRequest;
 use App\Order;
 use LiqPay;
+
 class PagesController extends Controller
 {
 	private $categories;
@@ -93,36 +94,88 @@ class PagesController extends Controller
 
     public function makeOrder(StoreOrderRequest $request)
     {
-    	$order = new Order();
-    	$order->name = $request->name;
-    	$order->phone = $request->phone;
-    	$order->street = $request->street;
-    	$order->building = $request->building;
-    	$order->entrance = $request->entrance;
-    	$order->house = $request->house;
-    	$order->apartment = $request->apartment;
-    	$order->floor = $request->floor;
-    	$order->call = $request->call;
-    	$order->date = $request->date;
-    	$order->time = $request->time;
-    	$order->payment = $request->payment;
-    	$order->change = $request->change;
-    	$order->persons = $request->persons;
-    	$order->sticks = $request->sticks;
-    	$order->comment = $request->comment;
-    	$order->status = 1;
-    	$order->totalSum = Cart::getSubTotal();
-    	if(Auth::check()){
-            $user = Auth::user();
-            $order->user_id = $user->id;
-            $user->save();
-        }
-        $order->save();
-        $orderedProducts = Cart::getContent();
-        foreach ($orderedProducts as $orderedProduct) {
-            $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->quantity]);
-        }
-        Cart::clear();
+    	// $order = new Order();
+    	// $order->name = $request->name;
+    	// $order->phone = $request->phone;
+    	// $order->street = $request->street;
+    	// $order->building = $request->building;
+    	// $order->entrance = $request->entrance;
+    	// $order->house = $request->house;
+    	// $order->apartment = $request->apartment;
+    	// $order->floor = $request->floor;
+    	// $order->call = $request->call;
+    	// $order->date = $request->date;
+    	// $order->time = $request->time;
+    	// $order->payment = $request->payment;
+    	// $order->change = $request->change;
+    	// $order->persons = $request->persons;
+    	// $order->sticks = $request->sticks;
+    	// $order->comment = $request->comment;
+    	// $order->status = 1;
+    	// $order->totalSum = Cart::total();
+    	// if($order->totalSum < 250) {
+    	// 	$order->totalSum+=25;
+    	// }
+    	// if(Auth::check()){
+     //        $user = Auth::user();
+     //        $order->user_id = $user->id;
+     //        $user->save();
+     //    }
+     //    $order->save();
+     //    $orderedProducts = Cart::content();
+     //    foreach ($orderedProducts as $orderedProduct) {
+     //        $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->quantity]);
+     //    }
+     //    Cart::destroy();
+
+    	$response = null;
+
+        if($request->payment==="0") {
+			$public_key = 'i94485343771';
+			$private_key= 'ib7ZU0Z7VbLWSxaXSm1KOaNH90waiEhMsziMJh5t';
+
+			$liqpay = new LiqPay($public_key, $private_key);
+
+			$params = [
+				'version'=>'3',
+				'action'=>'pay',
+				'amount'=>Cart::total(), 
+				'currency'=>'UAH',
+				'order_id'=>'11',
+				'sandbox'=>'1',
+				'language'=>'uk',
+				'description'=>'Оплата заказа', 
+			];
+
+			$data = base64_encode(json_encode($params));
+
+			$signature = $liqpay->cnb_signature($params);
+
+			$response = ['data' => $data, 'signature' => $signature];
+
+		}
+		
+		return response()->json($response, 200);
+
+
+
+			// $html = $liqpay->cnb_form(array(
+			
+			// // если пользователь возжелает вернуться на сайт
+			// 'result_url'	=>	'http://mydomain.site/thank_you_page/',
+			
+			// 	если не вернулся, то Webhook LiqPay скинет нам сюда информацию из формы,
+			// 	в частонсти все тот же order_id, чтобы заказ
+			// 	 можно было обработать как оплаченый
+			
+			// 'server_url'	=>	'http://mydomain.site/liqpay_status/',
+			
+			// ));
+
+
+
+        // $order->paid = null;
+
         return response()->json(null, 200);
     }
 

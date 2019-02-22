@@ -1910,7 +1910,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2202,9 +2201,12 @@ __webpack_require__.r(__webpack_exports__);
         formData.set('payment', this.fields.payment == null ? "" : this.fields.payment);
         formData.set('change', this.fields.change == null ? "" : this.fields.change);
         formData.set('persons', this.fields.persons == null ? "" : this.fields.persons);
+        formData.set('sticks', this.fields.sticks == null ? "" : this.fields.sticks);
         formData.set('comment', this.fields.comment == null ? "" : this.fields.comment);
         axios.post('/makeOrder', formData).then(function (response) {
           _this5.loaded = true;
+          console.log(response.data.data);
+          console.log(response.data.signature);
         }).catch(function (error) {
           _this5.loaded = true;
 
@@ -57841,8 +57843,6 @@ var render = function() {
                     ],
                     1
                   ),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(_vm.fields.payment))]),
                   _vm._v(" "),
                   _vm.errors && _vm.errors.payment
                     ? _c(

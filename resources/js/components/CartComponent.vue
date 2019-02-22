@@ -304,6 +304,9 @@ export default {
 
                 axios.post('/makeOrder', formData).then(response => {
                     this.loaded = true;
+                    if (typeof response.data.data !== 'undefined' && typeof response.data.signature !== 'undefined') {
+                        axios.post('https://www.liqpay.com/api/3/checkout', {data: response.data.data, signature: response.data.signature});
+                    }
                 }).catch(error => {
                     this.loaded = true;
                     if (error.response.status === 422) {
