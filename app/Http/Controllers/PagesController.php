@@ -94,39 +94,38 @@ class PagesController extends Controller
 
     public function makeOrder(StoreOrderRequest $request)
     {
-    	// $order = new Order();
-    	// $order->name = $request->name;
-    	// $order->phone = $request->phone;
-    	// $order->street = $request->street;
-    	// $order->building = $request->building;
-    	// $order->entrance = $request->entrance;
-    	// $order->house = $request->house;
-    	// $order->apartment = $request->apartment;
-    	// $order->floor = $request->floor;
-    	// $order->call = $request->call;
-    	// $order->date = $request->date;
-    	// $order->time = $request->time;
-    	// $order->payment = $request->payment;
-    	// $order->change = $request->change;
-    	// $order->persons = $request->persons;
-    	// $order->sticks = $request->sticks;
-    	// $order->comment = $request->comment;
-    	// $order->status = 1;
-    	// $order->totalSum = Cart::total();
-    	// if($order->totalSum < 250) {
-    	// 	$order->totalSum+=25;
-    	// }
-    	// if(Auth::check()){
-     //        $user = Auth::user();
-     //        $order->user_id = $user->id;
-     //        $user->save();
-     //    }
-     //    $order->save();
-     //    $orderedProducts = Cart::content();
-     //    foreach ($orderedProducts as $orderedProduct) {
-     //        $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->quantity]);
-     //    }
-     //    Cart::destroy();
+    	$order = new Order();
+    	$order->name = $request->name;
+    	$order->phone = $request->phone;
+    	$order->street = $request->street;
+    	$order->building = $request->building;
+    	$order->entrance = $request->entrance;
+    	$order->house = $request->house;
+    	$order->apartment = $request->apartment;
+    	$order->floor = $request->floor;
+    	$order->call = $request->call;
+    	$order->date = $request->date;
+    	$order->time = $request->time;
+    	$order->payment = $request->payment;
+    	$order->change = $request->change;
+    	$order->persons = $request->persons;
+    	$order->sticks = $request->sticks;
+    	$order->comment = $request->comment;
+    	$order->status = 1;
+    	$order->totalSum = Cart::subtotal();
+    	if($order->totalSum < 250) {
+    		$order->totalSum+=25;
+    	}
+    	if(Auth::check()){
+            $user = Auth::user();
+            $order->user_id = $user->id;
+            $user->save();
+        }
+        $order->save();
+        $orderedProducts = Cart::content();
+        foreach ($orderedProducts as $orderedProduct) {
+            $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->quantity]);
+        }
 
     	$response = null;
 
@@ -137,14 +136,15 @@ class PagesController extends Controller
 			$liqpay = new LiqPay($public_key, $private_key);
 
 			$params = [
+                'public_key'=> $public_key,
 				'version'=>'3',
 				'action'=>'pay',
-				'amount'=>Cart::total(), 
+				'amount'=> strval(Cart::subtotal()), 
 				'currency'=>'UAH',
-				'order_id'=>'11',
+				'order_id'=>strval($order->id),
 				'sandbox'=>'1',
 				'language'=>'uk',
-				'description'=>'Оплата заказа', 
+				'description'=>'Оплата замовлення', 
 			];
 
 			$data = base64_encode(json_encode($params));
@@ -153,7 +153,9 @@ class PagesController extends Controller
 
 			$response = ['data' => $data, 'signature' => $signature];
 
-		}
+		} else {
+            Cart::destroy();
+        }
 		
 		return response()->json($response, 200);
 
@@ -176,7 +178,6 @@ class PagesController extends Controller
 
         // $order->paid = null;
 
-        return response()->json(null, 200);
     }
 
     public function updateQTY(Request $request)

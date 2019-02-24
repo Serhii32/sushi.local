@@ -28,11 +28,11 @@ class CreateOrdersTable extends Migration
             $table->string('apartment')->nullable();
             $table->string('floor')->nullable();
             $table->boolean('call')->nullable();
-            $table->string('date')->nullable();
+            $table->timestamp('date')->nullable();
             $table->string('time')->nullable();
             $table->boolean('payment')->nullable();
             $table->string('change')->nullable();
-            $table->int('persons')->nullable();
+            $table->integer('persons')->nullable();
             $table->text('comment')->nullable();
             $table->boolean('sticks')->nullable();
             $table->decimal('totalSum', 10, 2);

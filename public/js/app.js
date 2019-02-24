@@ -2205,8 +2205,25 @@ __webpack_require__.r(__webpack_exports__);
         formData.set('comment', this.fields.comment == null ? "" : this.fields.comment);
         axios.post('/makeOrder', formData).then(function (response) {
           _this5.loaded = true;
-          console.log(response.data.data);
-          console.log(response.data.signature);
+
+          if (typeof response.data.data !== 'undefined' && typeof response.data.signature !== 'undefined') {
+            // axios.post('https://www.liqpay.com/api/3/checkout', {data: response.data.data, signature: response.data.signature});
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "https://www.liqpay.com/api/3/checkout");
+            var data = document.createElement("input");
+            data.setAttribute("type", "hidden");
+            data.setAttribute("name", "data");
+            data.setAttribute("value", response.data.data);
+            form.appendChild(data);
+            var signature = document.createElement("input");
+            signature.setAttribute("type", "hidden");
+            signature.setAttribute("name", "signature");
+            signature.setAttribute("value", response.data.signature);
+            form.appendChild(signature);
+            document.body.appendChild(form);
+            form.submit();
+          }
         }).catch(function (error) {
           _this5.loaded = true;
 
@@ -76106,8 +76123,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
