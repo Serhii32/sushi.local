@@ -28,7 +28,7 @@ class CreateOrdersTable extends Migration
             $table->string('apartment')->nullable();
             $table->string('floor')->nullable();
             $table->boolean('call')->nullable();
-            $table->timestamp('date')->nullable();
+            $table->string('date')->nullable();
             $table->string('time')->nullable();
             $table->boolean('payment')->nullable();
             $table->string('change')->nullable();

@@ -1,5 +1,5 @@
 <template>
-    <section style="min-height: 100vh; background-color: black; margin-left: 60px; margin-right: 370px;">
+    <section id="main-section">
         <div class="container-fluid p-4">
             <div class="row">
                 <div class="col-12 col-md-6">

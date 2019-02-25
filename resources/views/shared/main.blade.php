@@ -13,6 +13,16 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script defer>
+        function showMobileCart(){
+            let cart = document.getElementById("right-sidebar");
+            if (cart.style.display === "none") {
+                cart.style.display = "block";
+            } else {
+                cart.style.display = "none";
+            }
+        }
+    </script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -24,30 +34,30 @@
                 <a href="{{ route('page.index') }}">
                     <img style="filter: brightness(4);" width="150" src="{{asset('img/logo.svg')}}">
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                
+                <button style="background-color: #e16729; margin-left: auto;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <div class="collapse navbar-collapse px-4" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 60px">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-						<li class="nav-item">
+						<li class="nav-item text-center">
 							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/">Головна</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item text-center">
 							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/menu">Меню</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item text-center">
 							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/delivery">Доставка</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item text-center">
 							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/clients">Клієнтам</a>
 						</li>
-						<li class="nav-item">
+						<li class="nav-item text-center">
 							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="#">Акції</a>
 						</li>
                     </ul>
-
+{{-- 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
@@ -79,8 +89,22 @@
                                 </div>
                             </li>
                         @endguest
-                    </ul>
+                    </ul> --}}
                 </div>
+                <div>
+                    <a href="tel:+380962092020" class="nav-link text-center p-0"><p class="text-white font-weight-bold m-0">096 20 920 20</p></a>
+                    <a href="tel:+380932092020" class="nav-link text-center p-0"><p class="text-white font-weight-bold m-0">093 20 920 20</p></a>
+                    <p class="text-white font-weight-bold m-0 text-center">Прийом замовлень:<br>11.00-22.30</p>
+                </div>
+                <a href="https://facebook.vn.ua" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=40 src="/img/front/icons/facebook.svg"></a>
+                <a href="https://instagram.vn.ua" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=40 src="/img/front/icons/instagram.svg"></a>
+                <a id="header-cart-icon" href="javascript:void(0)" onclick="showMobileCart()" class="nav-link"><img width=40 src="/img/front/icons/cart.svg"></a>
+                <p style="font-size: 1.1rem;" class="text-white m-0">
+                    Улюблені
+                </p>
+                <p style="font-size: 1.1rem;" class="text-white m-0">
+                    Кабінет
+                </p>
             </div>
         </nav>
         <main>
@@ -92,6 +116,20 @@
         	@yield('content')
 	        
         </main>
+        <div id="bottom-left-sidebar" style="position: fixed; z-index: 2; bottom: 0px; color: white; width: 100%; text-align: center; border-top: 3px solid #e16729; background-color: black;">
+            <div>
+                <ul class="nav" style="justify-content: center;">
+                    @foreach($categories as $category)
+                        <li class="left-sidebar-nav nav-item text-center py-2">
+                            <a class="nav-link text-left" href="{{route('page.category', $category->id)}}">
+                                <img width=40 class="left-sidebar-img img-fluid" src="{{$category->icon ? asset($category->icon) : asset('img/default.svg')}}" alt="{{$category->title}}">
+                                <span class="left-sidebar-title text-white font-weight-bold pl-3">{{$category->title}}</span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
 	</div>
 </body>
 </html>

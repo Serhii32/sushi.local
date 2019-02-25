@@ -3926,6 +3926,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
 
           if (typeof _this2.categories.length === 'undefined') {
+            _this2.categoriesOptions.push({
+              text: 'Категорія не обрана',
+              value: 0
+            });
+
             for (var prop in _this2.categories) {
               _this2.categoriesOptions.push({
                 text: _this2.categories[prop],
@@ -3935,6 +3940,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
 
           if (typeof _this2.attributes.length === 'undefined') {
+            _this2.attributesOptions.push({
+              text: 'Атрибути не обрано',
+              value: 0
+            });
+
             for (var _prop in _this2.attributes) {
               _this2.attributesOptions.push({
                 text: _this2.attributes[_prop],
@@ -3944,6 +3954,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
 
           if (typeof _this2.components.length === 'undefined') {
+            _this2.componentsOptions.push({
+              text: 'Компоненти не обрано',
+              value: 0
+            });
+
             for (var _prop2 in _this2.components) {
               _this2.componentsOptions.push({
                 text: _this2.components[_prop2],
@@ -4142,6 +4157,11 @@ __webpack_require__.r(__webpack_exports__);
           _this.components = response.data.components;
 
           if (typeof _this.categories.length === 'undefined') {
+            _this.categoriesOptions.push({
+              text: 'Категорія не обрана',
+              value: 0
+            });
+
             for (var prop in _this.categories) {
               _this.categoriesOptions.push({
                 text: _this.categories[prop],
@@ -4151,6 +4171,11 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           if (typeof _this.attributes.length === 'undefined') {
+            _this.attributesOptions.push({
+              text: 'Атрибути не обрано',
+              value: 0
+            });
+
             for (var _prop in _this.attributes) {
               _this.attributesOptions.push({
                 text: _this.attributes[_prop],
@@ -4160,6 +4185,11 @@ __webpack_require__.r(__webpack_exports__);
           }
 
           if (typeof _this.components.length === 'undefined') {
+            _this.componentsOptions.push({
+              text: 'Компоненти не обрано',
+              value: 0
+            });
+
             for (var _prop2 in _this.components) {
               _this.componentsOptions.push({
                 text: _this.components[_prop2],
@@ -57098,13 +57128,15 @@ var render = function() {
     {
       staticClass: "position-fixed p-2",
       staticStyle: {
+        "z-index": "3",
         "background-color": "black",
         "border-left": "3px solid #e16729",
         width: "370px",
         right: "0px",
         "overflow-y": "auto",
         height: "calc(100vh - 100px)"
-      }
+      },
+      attrs: { id: "right-sidebar" }
     },
     [
       _c("h5", { staticClass: "text-white" }, [_vm._v("Ваше замовлення:")]),
@@ -58161,424 +58193,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "section",
-    {
-      staticStyle: {
-        "min-height": "100vh",
-        "background-color": "black",
-        "margin-left": "60px",
-        "margin-right": "370px"
-      }
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "container-fluid p-3" },
-        [
-          _c("h1", { staticClass: "text-white font-weight-bold" }, [
-            _vm._v(_vm._s(_vm.category.title))
-          ]),
-          _vm._v(" "),
-          _c(
-            "b-tabs",
-            [
-              _c(
-                "b-tab",
-                { staticClass: "container-fluid", attrs: { title: "Всі" } },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "row" },
-                    _vm._l(_vm.products, function(product) {
-                      return _c(
-                        "div",
-                        {
-                          key: product.id,
-                          staticClass: "px-3 card col-12 col-md-4",
-                          staticStyle: { "background-color": "black" }
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              staticClass: "card-link",
-                              attrs: { href: "/product/" + product.id }
-                            },
-                            [
-                              _c("img", {
-                                staticClass: "img-fluid card-img-top",
-                                attrs: {
-                                  src: product.photo
-                                    ? "/" + product.photo
-                                    : "/img/default.png"
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c(
-                              "h4",
-                              { staticClass: "text-center p-2 card-title" },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "text-white card-link",
-                                    attrs: { href: "/product/" + product.id }
-                                  },
-                                  [_vm._v(_vm._s(product.title))]
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "p",
-                              {
-                                staticClass: "text-white card-text",
-                                staticStyle: {
-                                  "text-overflow": "ellipsis",
-                                  overflow: "hidden",
-                                  height: "3em",
-                                  "white-space": "nowrap"
-                                }
-                              },
-                              [
-                                _c(
-                                  "span",
-                                  {
-                                    staticClass: "font-weight-bold",
-                                    staticStyle: { color: "#e16729" }
-                                  },
-                                  [_vm._v(_vm._s(product.weight))]
-                                ),
-                                _vm._v(" - "),
-                                _vm._l(product.components, function(component) {
-                                  return _c(
-                                    "span",
-                                    {
-                                      key: component.id,
-                                      staticClass: "text-lowercase"
-                                    },
-                                    [_vm._v(_vm._s(component.title) + ", ")]
-                                  )
-                                })
-                              ],
-                              2
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-footer" }, [
-                            _c(
-                              "div",
-                              [
-                                _c(
-                                  "b-button",
-                                  {
-                                    staticClass:
-                                      "text-uppercase font-weight-bold w-100",
-                                    staticStyle: {
-                                      "border-radius": "20px",
-                                      background: "#e16729",
-                                      "border-color": "#e16729"
-                                    },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.addToCart(product.id)
-                                      }
-                                    }
-                                  },
-                                  [_vm._v("В корзину")]
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "p-2" }, [
-                              _c(
-                                "h5",
-                                {
-                                  staticClass:
-                                    "text-white text-center card-text font-weight-bold",
-                                  staticStyle: { color: "#e16729" }
-                                },
-                                [_vm._v(_vm._s(product.price) + " грн.")]
-                              )
-                            ])
-                          ])
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.tabs, function(tab, tabIndex) {
-                return _c(
-                  "b-tab",
-                  {
-                    key: tabIndex,
-                    staticClass: "container-fluid",
-                    attrs: { title: tab }
-                  },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "row" },
-                      _vm._l(_vm.products, function(product) {
-                        return product.attributes.length &&
-                          product.attributes.filter(function(attribute) {
-                            return attribute.id == tabIndex
-                          }).length
-                          ? _c(
-                              "div",
-                              {
-                                key: product.id,
-                                staticClass: "px-3 card col-12 col-md-4",
-                                staticStyle: { "background-color": "black" }
-                              },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass: "card-link",
-                                    attrs: { href: "/product/" + product.id }
-                                  },
-                                  [
-                                    _c("img", {
-                                      staticClass: "img-fluid card-img-top",
-                                      attrs: {
-                                        src: product.photo
-                                          ? "/" + product.photo
-                                          : "/img/default.png"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "card-body" }, [
-                                  _c(
-                                    "h4",
-                                    {
-                                      staticClass: "text-center p-2 card-title"
-                                    },
-                                    [
-                                      _c(
-                                        "a",
-                                        {
-                                          staticClass: "text-white card-link",
-                                          attrs: {
-                                            href: "/product/" + product.id
-                                          }
-                                        },
-                                        [_vm._v(_vm._s(product.title))]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "p",
-                                    {
-                                      staticClass: "text-white card-text",
-                                      staticStyle: {
-                                        "text-overflow": "ellipsis",
-                                        overflow: "hidden",
-                                        height: "3em",
-                                        "white-space": "nowrap"
-                                      }
-                                    },
-                                    [
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass: "font-weight-bold",
-                                          staticStyle: { color: "#e16729" }
-                                        },
-                                        [_vm._v(_vm._s(product.weight))]
-                                      ),
-                                      _vm._v(" - "),
-                                      _vm._l(product.components, function(
-                                        component
-                                      ) {
-                                        return _c(
-                                          "span",
-                                          {
-                                            key: component.id,
-                                            staticClass: "text-lowercase"
-                                          },
-                                          [
-                                            _vm._v(
-                                              _vm._s(component.title) + ", "
-                                            )
-                                          ]
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "card-footer" }, [
-                                  _c(
-                                    "div",
-                                    [
-                                      _c(
-                                        "b-button",
-                                        {
-                                          staticClass:
-                                            "text-uppercase font-weight-bold w-100",
-                                          staticStyle: {
-                                            "border-radius": "20px",
-                                            background: "#e16729",
-                                            "border-color": "#e16729"
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              _vm.addToCart(product.id)
-                                            }
-                                          }
-                                        },
-                                        [_vm._v("В корзину")]
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "p-2" }, [
-                                    _c(
-                                      "h5",
-                                      {
-                                        staticClass:
-                                          "text-white text-center card-text font-weight-bold",
-                                        staticStyle: { color: "#e16729" }
-                                      },
-                                      [_vm._v(_vm._s(product.price) + " грн.")]
-                                    )
-                                  ])
-                                ])
-                              ]
-                            )
-                          : _vm._e()
-                      }),
-                      0
-                    )
-                  ]
-                )
-              })
-            ],
-            2
-          )
-        ],
-        1
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/IndexPageComponent.vue?vue&type=template&id=6ff98327&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/IndexPageComponent.vue?vue&type=template&id=6ff98327& ***!
-  \*********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "section",
-    {
-      staticStyle: {
-        "background-color": "black",
-        "margin-left": "60px",
-        "margin-right": "370px"
-      }
-    },
-    [
-      _c("div", { staticClass: "container-fluid p-1" }, [
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-12 col-lg-4 my-auto px-5" },
-            [
-              _c("h1", { staticClass: "text-white font-weight-bold" }, [
-                _vm._v("Доставка суші для істинних поціновувачів")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "text-white" }, [
-                _vm._v(
-                  "Замовляйте суші преміум класу для всієї компанії додому та в офіс"
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                {
-                  staticClass: "p-3 text-uppercase font-weight-bold",
-                  staticStyle: {
-                    "border-radius": "20px",
-                    background: "#e16729",
-                    "border-color": "#e16729"
-                  }
-                },
-                [_vm._v("Зробити замовлення")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _vm._m(0)
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "container-fluid p-3" },
-        [
-          _c("h1", { staticClass: "text-white font-weight-bold" }, [
-            _vm._v("Топ позиції")
-          ]),
-          _vm._v(" "),
-          _vm._m(2),
-          _vm._v(" "),
-          _vm._l(_vm.categories, function(category) {
-            return _c(
-              "div",
-              { key: category.id, staticClass: "p-2" },
+  return _c("section", { attrs: { id: "main-section" } }, [
+    _c(
+      "div",
+      { staticClass: "container-fluid p-3" },
+      [
+        _c("h1", { staticClass: "text-white font-weight-bold" }, [
+          _vm._v(_vm._s(_vm.category.title))
+        ]),
+        _vm._v(" "),
+        _c(
+          "b-tabs",
+          [
+            _c(
+              "b-tab",
+              { staticClass: "container-fluid", attrs: { title: "Всі" } },
               [
-                _c("h2", { staticClass: "text-white font-weight-bold" }, [
-                  _vm._v(_vm._s(category.title))
-                ]),
-                _vm._v(" "),
                 _c(
-                  "carousel",
-                  {
-                    attrs: {
-                      "navigation-enabled": true,
-                      "per-page-custom": [[768, 2], [992, 3], [1199, 4]]
-                    }
-                  },
-                  _vm._l(category.products, function(product) {
+                  "div",
+                  { staticClass: "row" },
+                  _vm._l(_vm.products, function(product) {
                     return _c(
-                      "slide",
+                      "div",
                       {
                         key: product.id,
-                        staticClass: "product-slide px-3 card",
+                        staticClass: "px-3 card col-12 col-md-4",
                         staticStyle: { "background-color": "black" }
                       },
                       [
@@ -58603,10 +58242,7 @@ var render = function() {
                         _c("div", { staticClass: "card-body" }, [
                           _c(
                             "h4",
-                            {
-                              staticClass:
-                                "text-white text-center p-2 card-title"
-                            },
+                            { staticClass: "text-center p-2 card-title" },
                             [
                               _c(
                                 "a",
@@ -58621,7 +58257,15 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "p",
-                            { staticClass: "text-white card-text" },
+                            {
+                              staticClass: "text-white card-text",
+                              staticStyle: {
+                                "text-overflow": "ellipsis",
+                                overflow: "hidden",
+                                height: "3em",
+                                "white-space": "nowrap"
+                              }
+                            },
                             [
                               _c(
                                 "span",
@@ -58688,17 +58332,377 @@ var render = function() {
                       ]
                     )
                   }),
-                  1
+                  0
                 )
-              ],
-              1
+              ]
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.tabs, function(tab, tabIndex) {
+              return _c(
+                "b-tab",
+                {
+                  key: tabIndex,
+                  staticClass: "container-fluid",
+                  attrs: { title: tab }
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "row" },
+                    _vm._l(_vm.products, function(product) {
+                      return product.attributes.length &&
+                        product.attributes.filter(function(attribute) {
+                          return attribute.id == tabIndex
+                        }).length
+                        ? _c(
+                            "div",
+                            {
+                              key: product.id,
+                              staticClass: "px-3 card col-12 col-md-4",
+                              staticStyle: { "background-color": "black" }
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "card-link",
+                                  attrs: { href: "/product/" + product.id }
+                                },
+                                [
+                                  _c("img", {
+                                    staticClass: "img-fluid card-img-top",
+                                    attrs: {
+                                      src: product.photo
+                                        ? "/" + product.photo
+                                        : "/img/default.png"
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "card-body" }, [
+                                _c(
+                                  "h4",
+                                  { staticClass: "text-center p-2 card-title" },
+                                  [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "text-white card-link",
+                                        attrs: {
+                                          href: "/product/" + product.id
+                                        }
+                                      },
+                                      [_vm._v(_vm._s(product.title))]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass: "text-white card-text",
+                                    staticStyle: {
+                                      "text-overflow": "ellipsis",
+                                      overflow: "hidden",
+                                      height: "3em",
+                                      "white-space": "nowrap"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass: "font-weight-bold",
+                                        staticStyle: { color: "#e16729" }
+                                      },
+                                      [_vm._v(_vm._s(product.weight))]
+                                    ),
+                                    _vm._v(" - "),
+                                    _vm._l(product.components, function(
+                                      component
+                                    ) {
+                                      return _c(
+                                        "span",
+                                        {
+                                          key: component.id,
+                                          staticClass: "text-lowercase"
+                                        },
+                                        [_vm._v(_vm._s(component.title) + ", ")]
+                                      )
+                                    })
+                                  ],
+                                  2
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "card-footer" }, [
+                                _c(
+                                  "div",
+                                  [
+                                    _c(
+                                      "b-button",
+                                      {
+                                        staticClass:
+                                          "text-uppercase font-weight-bold w-100",
+                                        staticStyle: {
+                                          "border-radius": "20px",
+                                          background: "#e16729",
+                                          "border-color": "#e16729"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.addToCart(product.id)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("В корзину")]
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "p-2" }, [
+                                  _c(
+                                    "h5",
+                                    {
+                                      staticClass:
+                                        "text-white text-center card-text font-weight-bold",
+                                      staticStyle: { color: "#e16729" }
+                                    },
+                                    [_vm._v(_vm._s(product.price) + " грн.")]
+                                  )
+                                ])
+                              ])
+                            ]
+                          )
+                        : _vm._e()
+                    }),
+                    0
+                  )
+                ]
+              )
+            })
+          ],
+          2
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/IndexPageComponent.vue?vue&type=template&id=6ff98327&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/IndexPageComponent.vue?vue&type=template&id=6ff98327& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { attrs: { id: "main-section" } }, [
+    _c("div", { staticClass: "container-fluid p-1" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-12 col-lg-4 my-auto px-5" },
+          [
+            _c("h1", { staticClass: "text-white font-weight-bold" }, [
+              _vm._v("Доставка суші для істинних поціновувачів")
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-white" }, [
+              _vm._v(
+                "Замовляйте суші преміум класу для всієї компанії додому та в офіс"
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "b-button",
+              {
+                staticClass: "p-3 text-uppercase font-weight-bold",
+                staticStyle: {
+                  "border-radius": "20px",
+                  background: "#e16729",
+                  "border-color": "#e16729"
+                }
+              },
+              [_vm._v("Зробити замовлення")]
             )
-          })
-        ],
-        2
-      )
-    ]
-  )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _vm._m(0)
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "container-fluid p-3" },
+      [
+        _c("h1", { staticClass: "text-white font-weight-bold" }, [
+          _vm._v("Топ позиції")
+        ]),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._l(_vm.categories, function(category) {
+          return _c(
+            "div",
+            { key: category.id, staticClass: "p-2" },
+            [
+              _c("h2", { staticClass: "text-white font-weight-bold" }, [
+                _vm._v(_vm._s(category.title))
+              ]),
+              _vm._v(" "),
+              _c(
+                "carousel",
+                {
+                  attrs: {
+                    "navigation-enabled": true,
+                    "per-page-custom": [[0, 1], [768, 2], [992, 3], [1199, 4]]
+                  }
+                },
+                _vm._l(category.products, function(product) {
+                  return _c(
+                    "slide",
+                    {
+                      key: product.id,
+                      staticClass: "product-slide px-3 card",
+                      staticStyle: { "background-color": "black" }
+                    },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "card-link",
+                          attrs: { href: "/product/" + product.id }
+                        },
+                        [
+                          _c("img", {
+                            staticClass: "img-fluid card-img-top",
+                            attrs: {
+                              src: product.photo
+                                ? "/" + product.photo
+                                : "/img/default.png"
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-body" }, [
+                        _c(
+                          "h4",
+                          {
+                            staticClass: "text-white text-center p-2 card-title"
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "text-white card-link",
+                                attrs: { href: "/product/" + product.id }
+                              },
+                              [_vm._v(_vm._s(product.title))]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          { staticClass: "text-white card-text" },
+                          [
+                            _c(
+                              "span",
+                              {
+                                staticClass: "font-weight-bold",
+                                staticStyle: { color: "#e16729" }
+                              },
+                              [_vm._v(_vm._s(product.weight))]
+                            ),
+                            _vm._v(" - "),
+                            _vm._l(product.components, function(component) {
+                              return _c(
+                                "span",
+                                {
+                                  key: component.id,
+                                  staticClass: "text-lowercase"
+                                },
+                                [_vm._v(_vm._s(component.title) + ", ")]
+                              )
+                            })
+                          ],
+                          2
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "card-footer" }, [
+                        _c(
+                          "div",
+                          [
+                            _c(
+                              "b-button",
+                              {
+                                staticClass:
+                                  "text-uppercase font-weight-bold w-100",
+                                staticStyle: {
+                                  "border-radius": "20px",
+                                  background: "#e16729",
+                                  "border-color": "#e16729"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addToCart(product.id)
+                                  }
+                                }
+                              },
+                              [_vm._v("В корзину")]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "p-2" }, [
+                          _c(
+                            "h5",
+                            {
+                              staticClass:
+                                "text-white text-center card-text font-weight-bold",
+                              staticStyle: { color: "#e16729" }
+                            },
+                            [_vm._v(_vm._s(product.price) + " грн.")]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                }),
+                1
+              )
+            ],
+            1
+          )
+        })
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -58838,146 +58842,133 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "section",
-    {
-      staticStyle: {
-        "min-height": "100vh",
-        "background-color": "black",
-        "margin-left": "60px",
-        "margin-right": "370px"
-      }
-    },
-    [
-      _c("div", { staticClass: "container-fluid p-4" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12 col-md-6" }, [
-            _c("img", {
-              staticClass: "img-fluid",
-              attrs: {
-                src: _vm.product.photo
-                  ? "/" + _vm.product.photo
-                  : "/img/default.png"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-12 col-md-6" },
-            [
-              _c("h1", { staticClass: "text-white font-weight-bold" }, [
+  return _c("section", { attrs: { id: "main-section" } }, [
+    _c("div", { staticClass: "container-fluid p-4" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12 col-md-6" }, [
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: {
+              src: _vm.product.photo
+                ? "/" + _vm.product.photo
+                : "/img/default.png"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-12 col-md-6" },
+          [
+            _c("h1", { staticClass: "text-white font-weight-bold" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(_vm.product.title) +
+                  "\n                "
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "h4",
+              {
+                staticClass: "font-weight-bold",
+                staticStyle: { color: "#e16729" }
+              },
+              [
                 _vm._v(
                   "\n                    " +
-                    _vm._s(_vm.product.title) +
+                    _vm._s(_vm.product.weight) +
                     "\n                "
                 )
-              ]),
-              _vm._v(" "),
-              _c(
-                "h4",
-                {
-                  staticClass: "font-weight-bold",
-                  staticStyle: { color: "#e16729" }
-                },
-                [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.product.weight) +
-                      "\n                "
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("h5", { staticClass: "text-white" }, [
-                _vm._v("\n                    Склад:\n                ")
-              ]),
-              _vm._v(" "),
-              _c(
-                "carousel",
-                {
-                  attrs: {
-                    "pagination-enabled": false,
-                    "per-page-custom": [[768, 3], [992, 4], [1199, 6]]
-                  }
-                },
-                _vm._l(_vm.components, function(component) {
-                  return component.photo
-                    ? _c(
-                        "slide",
-                        {
-                          key: component.id,
-                          staticClass: "px-3 card",
-                          staticStyle: {
-                            "background-color": "black",
-                            "max-width": "105px"
+              ]
+            ),
+            _vm._v(" "),
+            _c("h5", { staticClass: "text-white" }, [
+              _vm._v("\n                    Склад:\n                ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "carousel",
+              {
+                attrs: {
+                  "pagination-enabled": false,
+                  "per-page-custom": [[768, 3], [992, 4], [1199, 6]]
+                }
+              },
+              _vm._l(_vm.components, function(component) {
+                return component.photo
+                  ? _c(
+                      "slide",
+                      {
+                        key: component.id,
+                        staticClass: "px-3 card",
+                        staticStyle: {
+                          "background-color": "black",
+                          "max-width": "105px"
+                        }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "img-fluid card-img-top",
+                          attrs: {
+                            src: component.photo
+                              ? "/" + component.photo
+                              : "/img/default.png"
                           }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          { staticClass: "text-white text-center card-title" },
+                          [_vm._v(_vm._s(component.title))]
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              }),
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "container-fluid" }, [
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-12 col-md-6" },
+                  [
+                    _c(
+                      "b-button",
+                      {
+                        staticClass: "text-uppercase font-weight-bold w-100",
+                        staticStyle: {
+                          "border-radius": "20px",
+                          background: "#e16729",
+                          "border-color": "#e16729"
                         },
-                        [
-                          _c("img", {
-                            staticClass: "img-fluid card-img-top",
-                            attrs: {
-                              src: component.photo
-                                ? "/" + component.photo
-                                : "/img/default.png"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "p",
-                            {
-                              staticClass: "text-white text-center card-title"
-                            },
-                            [_vm._v(_vm._s(component.title))]
-                          )
-                        ]
-                      )
-                    : _vm._e()
-                }),
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "container-fluid" }, [
-                _c("div", { staticClass: "row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "col-12 col-md-6" },
-                    [
-                      _c(
-                        "b-button",
-                        {
-                          staticClass: "text-uppercase font-weight-bold w-100",
-                          staticStyle: {
-                            "border-radius": "20px",
-                            background: "#e16729",
-                            "border-color": "#e16729"
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.addToCart(_vm.product.id)
-                            }
+                        on: {
+                          click: function($event) {
+                            _vm.addToCart(_vm.product.id)
                           }
-                        },
-                        [_vm._v("В корзину")]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-12 col-md-6" }, [
-                    _c("h3", { staticClass: "text-white font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.product.price) + " грн.")
-                    ])
+                        }
+                      },
+                      [_vm._v("В корзину")]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12 col-md-6" }, [
+                  _c("h3", { staticClass: "text-white font-weight-bold" }, [
+                    _vm._v(_vm._s(_vm.product.price) + " грн.")
                   ])
                 ])
               ])
-            ],
-            1
-          )
-        ])
+            ])
+          ],
+          1
+        )
       ])
-    ]
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -76123,8 +76114,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

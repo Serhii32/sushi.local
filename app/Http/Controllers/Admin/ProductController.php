@@ -29,30 +29,38 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        
     	$product = new Product();
         $product->title = $request->title;
         $product->price = $request->price;
         $product->weight = $request->weight;
-        $product->category = $request->category;
+        if($request->category = "0"){
+            $product->category = null;
+        } else {
+            $product->category = $request->category;
+        }
         $product->titleSEO = $request->titleSEO;
         $product->descriptionSEO = $request->descriptionSEO;
         $product->keywordsSEO = $request->keywordsSEO;
         $product->save();
         $last_insereted_id = $product->id;
+
         if ($request->photo != null) {
             $product->photo = $request->photo->store('img/products/'.$last_insereted_id, ['disk' => 'uploaded_img']);
         }
-        if ($request->input('components') && is_string($request->input('components'))) {
+        if ($request->input('components')!=null && is_string($request->input('components'))) {
             $components = array_unique(explode(",", $request->input('components')));
-            foreach ($components as $component) {
-                $product->components()->attach($component);
+            if(!in_array("0", $components)){
+                foreach ($components as $component) {
+                    $product->components()->attach($component);
+                }
             }
         }
-        if ($request->input('attributes') && is_string($request->input('attributes'))) {
+        if ($request->input('attributes')!=null && is_string($request->input('attributes'))) {
             $attributes = array_unique(explode(",", $request->input('attributes')));
-            foreach ($attributes as $attribute) {
-                $product->attributes()->attach($attribute);
+            if(!in_array("0", $attributes)){
+                foreach ($attributes as $attribute) {
+                    $product->attributes()->attach($attribute);
+                }
             }
         }
         $product->save();
@@ -85,7 +93,11 @@ class ProductController extends Controller
         $product->title = $request->title;
         $product->price = $request->price;
         $product->weight = $request->weight;
-        $product->category = $request->category;
+        if($request->category == "0"){
+            $product->category = null;
+        } else {
+            $product->category = $request->category;
+        }
         $product->titleSEO = $request->titleSEO;
         $product->descriptionSEO = $request->descriptionSEO;
         $product->keywordsSEO = $request->keywordsSEO;
@@ -97,18 +109,22 @@ class ProductController extends Controller
             }
             $product->photo = $request->photo->store('img/products/'.$last_insereted_id, ['disk' => 'uploaded_img']);
         }
-        if ($request->input('components') && is_string($request->input('components'))) {
+        if ($request->input('components')!=null && is_string($request->input('components'))) {
             $product->components()->detach();
             $components = array_unique(explode(",", $request->input('components')));
-            foreach ($components as $component) {
-                $product->components()->attach($component);
+            if(!in_array("0", $components)){
+                foreach ($components as $component) {
+                    $product->components()->attach($component);
+                }
             }
         }
-        if ($request->input('attributes') && is_string($request->input('attributes'))) {
+        if ($request->input('attributes')!=null && is_string($request->input('attributes'))) {
             $product->attributes()->detach();
             $attributes = array_unique(explode(",", $request->input('attributes')));
-            foreach ($attributes as $attribute) {
-                $product->attributes()->attach($attribute);
+            if(!in_array("0", $attributes)){
+                foreach ($attributes as $attribute) {
+                    $product->attributes()->attach($attribute);
+                }
             }
         }
         $product->save();

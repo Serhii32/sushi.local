@@ -18401,12 +18401,27 @@ body {
   font-family: "Comfortaa", cursive;
 }
 
+#main-section {
+  background-color: black;
+  margin-left: 60px;
+  min-height: 100vh;
+  margin-right: 370px;
+}
+
 #left-sidebar {
   width: 60px;
 }
 
 #left-sidebar:hover {
   width: 230px;
+}
+
+#bottom-left-sidebar {
+  display: none;
+}
+
+#header-cart-icon {
+  display: none;
 }
 
 .left-sidebar-title {
@@ -18428,5 +18443,37 @@ body {
 
 .header-menu-link:hover {
   border-bottom: 3px solid #e16729;
+}
+
+@media only screen and (max-width: 992px) {
+  #right-sidebar {
+    display: none;
+  }
+
+  #main-section {
+    margin-right: 0px;
+  }
+
+  #header-cart-icon {
+    display: inline;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .VueCarousel-pagination {
+    display: none;
+  }
+
+  #bottom-left-sidebar {
+    display: block;
+  }
+
+  #main-section {
+    margin-left: 0px;
+  }
+
+  #left-sidebar {
+    display: none;
+  }
 }
 

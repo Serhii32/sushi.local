@@ -35,7 +35,7 @@ class StoreOrderRequest extends FormRequest
             'call' => 'nullable|integer|min:0|max:1',
             'sticks' => 'nullable|integer|min:0|max:1',
             'payment' => 'required|integer|min:0|max:1',
-            'date' => 'required|date',
+            'date' => 'required|integer',
             'time' => 'required|max:25',
             'change' => 'nullable|max:25',
             'persons' => 'nullable|integer',

@@ -37,6 +37,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::post('home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
 
 
+	Route::get('orders', ['as' => 'orders.index', 'uses' => 'OrderController@index']);
+
 	Route::get('categories', ['as' => 'categories.index', 'uses' => 'CategoryController@index']);
 	Route::post('categories', ['as' => 'categories.store', 'uses' => 'CategoryController@store']);
 	Route::get('categories/{category}/edit', ['as' => 'categories.edit', 'uses' => 'CategoryController@edit']);

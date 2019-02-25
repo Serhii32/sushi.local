@@ -9,6 +9,7 @@ use Cart;
 use App\Http\Requests\StoreOrderRequest;
 use App\Order;
 use LiqPay;
+use Auth;
 
 class PagesController extends Controller
 {
@@ -124,7 +125,7 @@ class PagesController extends Controller
         $order->save();
         $orderedProducts = Cart::content();
         foreach ($orderedProducts as $orderedProduct) {
-            $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->quantity]);
+            $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->qty]);
         }
 
     	$response = null;

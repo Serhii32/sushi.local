@@ -174,16 +174,19 @@ export default {
                         }
                     }
                     if(typeof this.categories.length === 'undefined') {
+                        this.categoriesOptions.push({text: 'Категорія не обрана' , value: 0});
                         for (let prop in this.categories) {
                             this.categoriesOptions.push({text: this.categories[prop], value: Number(prop)});
                         }
                     }
                     if(typeof this.attributes.length === 'undefined') {
+                        this.attributesOptions.push({text: 'Атрибути не обрано' , value: 0});
                         for (let prop in this.attributes) {
                             this.attributesOptions.push({text: this.attributes[prop], value: Number(prop)});
                         }
                     }
                     if(typeof this.components.length === 'undefined') {
+                        this.componentsOptions.push({text: 'Компоненти не обрано' , value: 0});
                         for (let prop in this.components) {
                             this.componentsOptions.push({text: this.components[prop], value: Number(prop)});
                         }
