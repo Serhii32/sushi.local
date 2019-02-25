@@ -58,6 +58,9 @@ body {
 	#header-cart-icon {
 		display:inline;
 	}
+	#header-social-icons {
+		display:none;
+	}
 }
 @media only screen and (max-width: 768px) {
 	.VueCarousel-pagination {
@@ -71,6 +74,9 @@ body {
 	}
 	#left-sidebar {
 	    display:none;
+	}
+	#header-phone-number {
+		display:none;
 	}
 }
 // Fonts

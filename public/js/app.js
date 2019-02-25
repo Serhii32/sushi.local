@@ -58257,15 +58257,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "p",
-                            {
-                              staticClass: "text-white card-text",
-                              staticStyle: {
-                                "text-overflow": "ellipsis",
-                                overflow: "hidden",
-                                height: "3em",
-                                "white-space": "nowrap"
-                              }
-                            },
+                            { staticClass: "text-white card-text" },
                             [
                               _c(
                                 "span",
@@ -76114,8 +76106,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

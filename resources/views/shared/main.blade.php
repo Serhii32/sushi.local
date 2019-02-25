@@ -57,54 +57,47 @@
 							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="#">Акції</a>
 						</li>
                     </ul>
-{{-- 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul> --}}
                 </div>
-                <div>
+                <div id="header-phone-number">
                     <a href="tel:+380962092020" class="nav-link text-center p-0"><p class="text-white font-weight-bold m-0">096 20 920 20</p></a>
                     <a href="tel:+380932092020" class="nav-link text-center p-0"><p class="text-white font-weight-bold m-0">093 20 920 20</p></a>
                     <p class="text-white font-weight-bold m-0 text-center">Прийом замовлень:<br>11.00-22.30</p>
                 </div>
-                <a href="https://facebook.vn.ua" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=40 src="/img/front/icons/facebook.svg"></a>
-                <a href="https://instagram.vn.ua" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=40 src="/img/front/icons/instagram.svg"></a>
+                <div id="header-social-icons">
+                    <a href="https://facebook.vn.ua" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/facebook.svg"></a>
+                    <a href="https://instagram.vn.ua" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/instagram.svg"></a>
+                </div>
                 <a id="header-cart-icon" href="javascript:void(0)" onclick="showMobileCart()" class="nav-link"><img width=40 src="/img/front/icons/cart.svg"></a>
-                <p style="font-size: 1.1rem;" class="text-white m-0">
-                    Улюблені
-                </p>
-                <p style="font-size: 1.1rem;" class="text-white m-0">
-                    Кабінет
-                </p>
+                <a href="javascript:void(0)" class="nav-link"><img width=40 src="/img/front/icons/favorite.svg"></a>
+                
+                <ul class="navbar-nav ml-auto">
+                    
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link text-white p-0 text-center" href="{{ route('login') }}">Логін</a>
+                            <a class="nav-link text-white p-0 text-center" href="{{ route('register') }}">Реєстрація</a>
+                        </li>
+                            
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
             </div>
         </nav>
         <main>

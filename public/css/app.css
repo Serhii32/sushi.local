@@ -18457,6 +18457,10 @@ body {
   #header-cart-icon {
     display: inline;
   }
+
+  #header-social-icons {
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -18473,6 +18477,10 @@ body {
   }
 
   #left-sidebar {
+    display: none;
+  }
+
+  #header-phone-number {
     display: none;
   }
 }
