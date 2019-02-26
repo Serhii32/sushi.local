@@ -58510,7 +58510,7 @@ var render = function() {
       _c("div", { staticClass: "row" }, [
         _c(
           "div",
-          { staticClass: "col-12 col-lg-4 my-auto px-5" },
+          { staticClass: "col-12 col-lg-5 my-auto px-5" },
           [
             _c("h1", { staticClass: "text-white font-weight-bold" }, [
               _vm._v("Доставка суші для істинних поціновувачів")
@@ -58567,8 +58567,10 @@ var render = function() {
                 "carousel",
                 {
                   attrs: {
+                    "pagination-color": "#e16729",
+                    "pagination-active-color": "#fff",
                     "navigation-enabled": true,
-                    "per-page-custom": [[0, 1], [768, 2], [992, 3], [1199, 4]]
+                    "per-page-custom": [[0, 1], [768, 2], [992, 3]]
                   }
                 },
                 _vm._l(category.products, function(product) {
@@ -58701,7 +58703,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12 col-lg-8" }, [
+    return _c("div", { staticClass: "col-12 col-lg-7" }, [
       _c("img", {
         staticClass: "img-fluid",
         attrs: { src: "/img/front/index-page-main.jpg" }
@@ -58883,8 +58885,9 @@ var render = function() {
               "carousel",
               {
                 attrs: {
+                  "navigation-enabled": true,
                   "pagination-enabled": false,
-                  "per-page-custom": [[768, 3], [992, 4], [1199, 6]]
+                  "per-page-custom": [[768, 2], [992, 3], [1199, 4]]
                 }
               },
               _vm._l(_vm.components, function(component) {
@@ -58911,7 +58914,10 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "p",
-                          { staticClass: "text-white text-center card-title" },
+                          {
+                            staticClass: "text-white text-center card-title",
+                            staticStyle: { "font-size": "12px" }
+                          },
                           [_vm._v(_vm._s(component.title))]
                         )
                       ]
@@ -76106,8 +76112,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -1,0 +1,18 @@
+<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1" stroke-linejoin="round" stroke-linecap="round" fill-rule="evenodd" fill="none">
+   <polyline id="svg_2" points="44.2 29 57 29 41 45 57 45" stroke-width="6.08" stroke="#e16729"/>
+   <path id="svg_3" d="m29.95357,12.79075c-2.51758,4.47596 -3.95357,9.64171 -3.95357,15.14286c0,17.08416 13.84945,30.9336 30.93361,30.9336c2.40034,0 4.73684,-0.27339 6.98003,-0.79074c-5.30094,9.42442 -15.39702,15.79074 -26.98003,15.79074c-17.08416,0 -30.93361,-13.84944 -30.93361,-30.9336c0,-14.68382 10.23111,-26.97802 23.95357,-30.14286z" stroke-width="3" stroke="#ffffff"/>
+   <polyline id="svg_4" points="50 7 61 7 50 17 61 17" stroke-width="3" stroke="#ffffff"/>
+   <polyline id="svg_5" points="67 35 75 35 67 43 75 43" stroke-width="3" stroke="#ffffff"/>
+   <path id="svg_6" transform="rotate(-9 18.76922988891595,50.49999999999999) " d="m21.53846,54c-4,-0.66667 -5.83333,-3 -5.5,-7" stroke-width="4" stroke="#ffffff"/>
+   <path id="svg_7" transform="rotate(-11 34.76923370361341,62.499999999999986) " d="m37.53846,66c-4,-0.66667 -5.83333,-3 -5.5,-7" stroke-width="4" stroke="#ffffff"/>
+  </g>
+ </g>
+</svg>

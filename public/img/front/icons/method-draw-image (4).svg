@@ -1,0 +1,20 @@
+<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_1" fill-rule="evenodd" fill="currentColor">
+   <ellipse stroke="#ffffff" transform="rotate(-18 43.37900543212892,29.49217224121093) " ry="8.088284" rx="7.213875" id="svg_9" cy="29.492172" cx="43.379009" stroke-width="0" fill="#e16729"/>
+   <path transform="rotate(-18 42.159770965576165,25.38563537597656) " id="svg_2" d="m55.078021,34.86007c0,-5.79899 -4.70101,-10.5 -10.5,-10.5c-5.79899,0 -10.5,4.70101 -10.5,10.5m18.39634,12.39634l21.5,0c1.10457,0 2,0.89543 2,2l0,17c0,1.10457 -0.89543,2 -2,2l-21.5,0c-5.79899,0 -10.5,-4.70101 -10.5,-10.5l0,0c0,-5.79899 4.70101,-10.5 10.5,-10.5z" fill-rule="nonzero" fill="none"/>
+   <polyline fill="none" id="svg_3" points="65.974360704422,63.2564098238945 65.974360704422,75.2564098238945 12.974360704421997,75.2564098238945 12.974360704421997,36.2564098238945 12.974360704421997,36.2564098238945 65.974360704422,36.2564098238945 65.974360704422,48.2564098238945 " stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke="#ffffff"/>
+   <path fill="#e16729" id="svg_4" d="m53.474361,48.25641l18.5,0l0,15l-18.5,0c-4.14214,0 -7.5,-3.35786 -7.5,-7.5l0,0c0,-4.14214 3.35786,-7.5 7.5,-7.5z" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke="#ffffff"/>
+   <path fill="none" id="svg_5" transform="rotate(-18 42.159770965576165,25.38563537597656) " d="m29.159771,9.81122l26,0c0.55229,0 1,0.44771 1,1l0,29.14883c0,0.55229 -0.44771,1 -1,1c-0.1045,0 -0.20835,-0.01638 -0.30778,-0.04854l-26,-8.41055c-0.41265,-0.13349 -0.69222,-0.51775 -0.69222,-0.95146l0,-20.73828c0,-0.55229 0.44772,-1 1,-1z" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke="#ffffff"/>
+   <path transform="rotate(-18 42.159770965576165,25.38563537597656) " fill="none" id="svg_6" d="m42.701871,9.28129c1.14589,2.91314 3.9842,4.97512 7.30411,4.97512c0.89871,0 1.76213,-0.1511 2.56623,-0.42928m-25.59785,8.32998c2.87919,-0.8179 4.98799,-3.46674 4.98799,-6.60812c0,-0.80393 -0.13811,-1.5756 -0.3919,-2.29258" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke="#ffffff"/>
+   <path fill="none" id="svg_7" transform="rotate(-23 11.008985519409167,25.327461242675778) " d="m8.514991,29.77781c2.87919,-0.8179 4.98799,-3.46674 4.98799,-6.60812c0,-0.80393 -0.13811,-1.5756 -0.3919,-2.29258" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke="#ffffff"/>
+   <path stroke="#ffffff" fill="none" id="svg_8" transform="rotate(-45 20.37385559082031,20.756410598754883) " d="m6.302791,28.60565l0.14213,-15.69848l27,0c0.55229,0 1,0.44771 1,1l0,9.04163" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+ </g>
+</svg>

@@ -64,8 +64,8 @@
                     <p class="text-white font-weight-bold m-0 text-center">Прийом замовлень:<br>11.00-22.30</p>
                 </div>
                 <div id="header-social-icons">
-                    <a href="https://facebook.vn.ua" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/facebook.svg"></a>
-                    <a href="https://instagram.vn.ua" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/instagram.svg"></a>
+                    <a href="https://www.facebook.com/sushi.win.bar" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/facebook.svg"></a>
+                    <a href="https://www.instagram.com/sushi.win.bar" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/instagram.svg"></a>
                 </div>
                 <a id="header-cart-icon" href="javascript:void(0)" onclick="showMobileCart()" class="nav-link"><img width=40 src="/img/front/icons/cart.svg"></a>
                 <a href="javascript:void(0)" class="nav-link"><img width=40 src="/img/front/icons/favorite.svg"></a>

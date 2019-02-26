@@ -2,12 +2,12 @@
     <section id="main-section">
         <div class="container-fluid p-1">
             <div class="row">
-                <div class="col-12 col-lg-4 my-auto px-5">
+                <div class="col-12 col-lg-5 my-auto px-5">
                     <h1 class="text-white font-weight-bold">Доставка суші для істинних поціновувачів</h1>
                     <p class="text-white">Замовляйте суші преміум класу для всієї компанії додому та в офіс</p>
                     <b-button class="p-3 text-uppercase font-weight-bold" style="border-radius: 20px; background: #e16729; border-color: #e16729;">Зробити замовлення</b-button>
                 </div>
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-lg-7">
                     <img class="img-fluid" src="/img/front/index-page-main.jpg">
                 </div>
             </div>
@@ -77,7 +77,7 @@
             <div class="p-2" v-for="category in categories" :key="category.id">
                 <h2 class="text-white font-weight-bold">{{category.title}}</h2>
 
-                <carousel :navigation-enabled="true" :per-page-custom="[[0, 1], [768, 2], [992, 3], [1199, 4]]">
+                <carousel pagination-color="#e16729" pagination-active-color="#fff" :navigation-enabled="true" :per-page-custom="[[0, 1], [768, 2], [992, 3]]">
                     <slide style="background-color: black;" class="product-slide px-3 card" v-for="product in category.products" :key="product.id">
                         <a class="card-link" :href="'/product/' + product.id"><img class="img-fluid card-img-top" :src="product.photo?'/'+product.photo:'/img/default.png'"></a>
                         <div class="card-body">

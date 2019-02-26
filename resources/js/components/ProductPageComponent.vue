@@ -15,10 +15,10 @@
                     <h5 class="text-white">
                         Склад:
                     </h5>
-                    <carousel :pagination-enabled="false" :per-page-custom="[[768, 3], [992, 4], [1199, 6]]">
+                    <carousel :navigation-enabled="true" :pagination-enabled="false" :per-page-custom="[[768, 2], [992, 3], [1199, 4]]">
                         <slide style="background-color: black; max-width: 105px;" class="px-3 card" v-for="component in components" :key="component.id" v-if="component.photo">
                             <img class="img-fluid card-img-top" :src="component.photo?'/'+component.photo:'/img/default.png'">
-                            <p class="text-white text-center card-title">{{component.title}}</p>
+                            <p style="font-size: 12px;" class="text-white text-center card-title">{{component.title}}</p>
                         </slide>
                     </carousel>
                     <div class="container-fluid">

@@ -18401,6 +18401,10 @@ body {
   font-family: "Comfortaa", cursive;
 }
 
+.VueCarousel-navigation-button {
+  color: #e16729 !important;
+}
+
 #main-section {
   background-color: black;
   margin-left: 60px;

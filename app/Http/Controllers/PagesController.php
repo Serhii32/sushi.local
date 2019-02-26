@@ -143,9 +143,9 @@ class PagesController extends Controller
 				'amount'=> strval(Cart::subtotal()), 
 				'currency'=>'UAH',
 				'order_id'=>strval($order->id),
-				'sandbox'=>'1',
 				'language'=>'uk',
-				'description'=>'Оплата замовлення', 
+				'description'=>'Оплата замовлення',
+				'result_url'=>'http://sushiwin.vn.ua/thank_you',
 			];
 
 			$data = base64_encode(json_encode($params));
@@ -154,31 +154,29 @@ class PagesController extends Controller
 
 			$response = ['data' => $data, 'signature' => $signature];
 
+			$order->public_key = $public_key;
+
+			$order->save();
+
 		} else {
             Cart::destroy();
         }
 		
 		return response()->json($response, 200);
 
+    }
 
-
-			// $html = $liqpay->cnb_form(array(
-			
-			// // если пользователь возжелает вернуться на сайт
-			// 'result_url'	=>	'http://mydomain.site/thank_you_page/',
-			
-			// 	если не вернулся, то Webhook LiqPay скинет нам сюда информацию из формы,
-			// 	в частонсти все тот же order_id, чтобы заказ
-			// 	 можно было обработать как оплаченый
-			
-			// 'server_url'	=>	'http://mydomain.site/liqpay_status/',
-			
-			// ));
-
-
-
-        // $order->paid = null;
-
+    public function thankYou(Request $request)
+    {
+    	$params=json_decode(base64_decode($request->data));
+    	$order = Order::findOrFail($params->order_id);
+    	if ($params->public_key == $order->public_key) {
+    		$order->paid = 1;
+    		$order->save();
+    		Cart::destroy();
+    		return view('thank-you-page', ['categories' => $this->categories]);
+    	}
+    	return abort(403);
     }
 
     public function updateQTY(Request $request)

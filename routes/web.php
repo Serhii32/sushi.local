@@ -30,6 +30,8 @@ Route::post('updateQTY', ['as' => 'updateQTY', 'uses' => 'PagesController@update
 Route::get('getCartContent', ['as' => 'getCartContent', 'uses' => 'PagesController@getCartContent']);
 Route::post('removeItemFromCart', ['as' => 'removeItemFromCart', 'uses' => 'PagesController@removeItemFromCart']);
 Route::post('makeOrder', ['as' => 'makeOrder', 'uses' => 'PagesController@makeOrder']);
+// Route::post('liqpayResponce', ['as' => 'liqpayResponce', 'uses' => 'PagesController@liqpayResponce']);
+Route::post('thank_you', ['as' => 'page.thank_you', 'uses' => 'PagesController@thankYou']);
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' => 'admin.', 'prefix'=>'admin'], function () {
 	Route::get('home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
