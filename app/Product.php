@@ -25,4 +25,9 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Order', 'order_product', 'product_id', 'order_id')->withPivot('price', 'quantity')->withTimestamps();
     }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'product_user', 'product_id', 'user_id')->withTimestamps();
+    }
 }
