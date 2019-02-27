@@ -82,6 +82,9 @@ body {
 	#header-social-icons {
 		display:none;
 	}
+	#header-phone-number {
+		display:none;
+	}
 }
 @media only screen and (max-width: 768px) {
 	.VueCarousel-pagination {
@@ -96,8 +99,13 @@ body {
 	#left-sidebar {
 	    display:none;
 	}
-	#header-phone-number {
-		display:none;
+	#logo {
+		max-width:100px;
+	}
+}
+@media only screen and (max-width: 576px) {
+	#right-sidebar {
+		height: calc(100vh - 120px) !important;
 	}
 }
 // Fonts

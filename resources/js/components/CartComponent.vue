@@ -1,5 +1,5 @@
 <template>
-   <aside id="right-sidebar" class="position-fixed p-2" style="z-index:3; background-color: black; border-left: 3px solid #e16729; width: 370px; right: 0px; overflow-y: auto; height: calc(100vh - 100px);">
+   <aside id="right-sidebar" class="position-fixed p-2" style="z-index:3; background-color: black; border-left: 3px solid #e16729; width: 370px; right: 0px; overflow-y: auto; height: calc(100vh - 100px); max-width:100%">
         <h5 class="text-white">Ваше замовлення:</h5>
         <div v-for="item in cart" :key="item.rowId" class="container-fluid my-2" style="border-bottom: 3px solid #e16729;">
             <div>

@@ -32,29 +32,29 @@
 		<nav class="navbar navbar-expand-md navbar-light navbar-laravel sticky-top" style="background-color: black; border-bottom: 3px solid #e16729;">
             <div class="container-fluid">
                 <a href="{{ route('page.index') }}">
-                    <img style="filter: brightness(4);" width="150" src="{{asset('img/logo.svg')}}">
+                    <img id="logo" style="filter: brightness(4);" width="150" src="{{asset('img/logo.svg')}}">
                 </a>
                 
                 <button style="background-color: #e16729; margin-left: auto;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 60px">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 40px">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 						<li class="nav-item text-center">
-							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/">Головна</a>
+							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1rem" href="/">Головна</a>
 						</li>
 						<li class="nav-item text-center">
-							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/menu">Меню</a>
+							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1rem" href="/menu">Меню</a>
 						</li>
 						<li class="nav-item text-center">
-							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/delivery">Доставка</a>
+							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1rem" href="/delivery">Доставка</a>
 						</li>
 						<li class="nav-item text-center">
-							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/clients">Клієнтам</a>
+							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1rem" href="/clients">Клієнтам</a>
 						</li>
 						<li class="nav-item text-center">
-							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/promotions">Акції</a>
+							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1rem" href="/promotions">Акції</a>
 						</li>
                     </ul>
                 </div>
@@ -68,7 +68,7 @@
                     <a href="https://www.instagram.com/sushi.win.bar" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/instagram.svg"></a>
                 </div>
                 <a id="header-cart-icon" href="javascript:void(0)" onclick="showMobileCart()" class="nav-link"><img width=40 src="/img/front/icons/cart.svg"></a>
-                <a href="javascript:void(0)" class="nav-link"><img width=40 src="/img/front/icons/favorite.svg"></a>
+                <a href="javascript:void(0)" class="nav-link"><img width=30 src="/img/front/icons/favorite.svg"></a>
                 
                 <ul class="navbar-nav ml-auto">
                     
