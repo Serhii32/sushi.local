@@ -3647,7 +3647,6 @@ __webpack_require__.r(__webpack_exports__);
         axios.get('/admin/components/getComponents?page=' + page).then(function (response) {
           _this.loaded = true;
           _this.components = response.data;
-          console.log(_this.components);
         }).catch(function (error) {
           _this.loaded = true;
           console.log(error);
@@ -4257,6 +4256,374 @@ __webpack_require__.r(__webpack_exports__);
           var page = _this3.products.last_page;
 
           _this3.getProducts(page);
+        }).catch(function (error) {
+          _this3.loaded = true;
+
+          if (error.response.status === 422) {
+            _this3.errors = error.response.data.errors || {};
+          }
+        });
+      }
+    },
+    previewImage: function previewImage(event) {
+      var _this4 = this;
+
+      var input = event.target;
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          _this4.uploadedImageData = e.target.result;
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    resetImage: function resetImage() {
+      this.uploadedImageData = null;
+      this.fields.photo = null;
+      this.$refs.fileinput.reset();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/promotions/EditComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/promotions/EditComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['promotion'],
+  data: function data() {
+    return {
+      errors: {},
+      success: false,
+      loaded: true,
+      fields: _objectSpread({}, this.promotion),
+      old_datas: {},
+      uploadedImageData: null
+    };
+  },
+  created: function created() {
+    this.fields.photo = null;
+    this.old_datas.title = this.promotion.title;
+    this.old_datas.photo = this.promotion.photo;
+  },
+  methods: {
+    submit: function submit() {
+      var _this = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        this.success = false;
+        this.errors = {};
+        var formData = new FormData();
+        formData.set('title', this.fields.title == null ? "" : this.fields.title);
+        formData.set('description', this.fields.description == null ? "" : this.fields.description);
+        formData.set('titleSEO', this.fields.titleSEO == null ? "" : this.fields.titleSEO);
+        formData.set('descriptionSEO', this.fields.descriptionSEO == null ? "" : this.fields.descriptionSEO);
+        formData.set('keywordsSEO', this.fields.keywordsSEO == null ? "" : this.fields.keywordsSEO);
+        formData.append('photo', this.fields.photo == null ? "" : this.fields.photo);
+        axios.post('/admin/promotions/' + this.promotion.id, formData, {
+          'Content-Type': 'multipart/form-data'
+        }).then(function (response) {
+          _this.loaded = true;
+          _this.success = true;
+          _this.old_datas.name = _this.fields.name;
+          _this.old_datas.photo = response.data.newPhoto;
+        }).catch(function (error) {
+          _this.loaded = true;
+
+          if (error.response.status === 422) {
+            _this.errors = error.response.data.errors || {};
+          }
+        });
+      }
+    },
+    previewImage: function previewImage(event) {
+      var _this2 = this;
+
+      var input = event.target;
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          _this2.uploadedImageData = e.target.result;
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
+    resetImage: function resetImage() {
+      this.uploadedImageData = null;
+      this.fields.photo = null;
+      this.$refs.fileinput.reset();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      errors: {},
+      promotions: {},
+      currentPage: 1,
+      loaded: true,
+      fields: {},
+      uploadedImageData: null
+    };
+  },
+  created: function created() {
+    this.getPromotions();
+  },
+  methods: {
+    getPromotions: function getPromotions(page) {
+      var _this = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+
+        if (typeof page === 'undefined') {
+          page = 1;
+        }
+
+        this.currentPage = page;
+        axios.get('/admin/promotions/getPromotions?page=' + page).then(function (response) {
+          _this.loaded = true;
+          _this.promotions = response.data;
+        }).catch(function (error) {
+          _this.loaded = true;
+          console.log(error);
+        });
+      }
+    },
+    showCreateModal: function showCreateModal() {
+      this.$refs.createModal.show();
+    },
+    hideCreateModal: function hideCreateModal() {
+      this.$refs.createModal.hide();
+    },
+    deletePromotion: function deletePromotion(id) {
+      var _this2 = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        axios.post('/admin/promotions/delete/' + id).then(function () {
+          _this2.loaded = true;
+
+          _this2.getPromotions(_this2.promotions.current_page);
+        }).catch(function (error) {
+          _this2.loaded = true;
+          console.log(error);
+        });
+      }
+    },
+    submit: function submit() {
+      var _this3 = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        this.errors = {};
+        var formData = new FormData();
+        formData.set('title', this.fields.title == null ? "" : this.fields.title);
+        formData.set('description', this.fields.description == null ? "" : this.fields.description);
+        formData.set('titleSEO', this.fields.titleSEO == null ? "" : this.fields.titleSEO);
+        formData.set('descriptionSEO', this.fields.descriptionSEO == null ? "" : this.fields.descriptionSEO);
+        formData.set('keywordsSEO', this.fields.keywordsSEO == null ? "" : this.fields.keywordsSEO);
+        formData.append('photo', this.fields.photo == null ? "" : this.fields.photo);
+        axios.post('/admin/promotions', formData, {
+          'Content-Type': 'multipart/form-data'
+        }).then(function (response) {
+          _this3.loaded = true;
+
+          _this3.hideCreateModal();
+
+          _this3.resetImage();
+
+          _this3.fields = {};
+          var page = _this3.promotions.last_page;
+
+          _this3.getPromotions(page);
         }).catch(function (error) {
           _this3.loaded = true;
 
@@ -58374,7 +58741,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("div", { staticClass: "card-body" }, [
                                 _c(
-                                  "h4",
+                                  "h3",
                                   { staticClass: "text-center p-2 card-title" },
                                   [
                                     _c(
@@ -58512,7 +58879,7 @@ var render = function() {
           "div",
           { staticClass: "col-12 col-lg-5 my-auto px-5" },
           [
-            _c("h1", { staticClass: "text-white font-weight-bold" }, [
+            _c("h2", { staticClass: "text-white font-weight-bold" }, [
               _vm._v("Доставка суші для істинних поціновувачів")
             ]),
             _vm._v(" "),
@@ -58548,7 +58915,7 @@ var render = function() {
       "div",
       { staticClass: "container-fluid p-3" },
       [
-        _c("h1", { staticClass: "text-white font-weight-bold" }, [
+        _c("h2", { staticClass: "text-white font-weight-bold" }, [
           _vm._v("Топ позиції")
         ]),
         _vm._v(" "),
@@ -58559,7 +58926,7 @@ var render = function() {
             "div",
             { key: category.id, staticClass: "p-2" },
             [
-              _c("h2", { staticClass: "text-white font-weight-bold" }, [
+              _c("h3", { staticClass: "text-white font-weight-bold" }, [
                 _vm._v(_vm._s(category.title))
               ]),
               _vm._v(" "),
@@ -58602,7 +58969,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "card-body" }, [
                         _c(
-                          "h4",
+                          "h5",
                           {
                             staticClass: "text-white text-center p-2 card-title"
                           },
@@ -58896,10 +59263,10 @@ var render = function() {
                       "slide",
                       {
                         key: component.id,
-                        staticClass: "px-3 card",
+                        staticClass: "mx-3 card",
                         staticStyle: {
                           "background-color": "black",
-                          "max-width": "105px"
+                          "max-width": "80px"
                         }
                       },
                       [
@@ -63666,6 +64033,1162 @@ var render = function() {
                           attrs: {
                             "label-class": "text-uppercase font-weight-bold",
                             description: "Введіть SEO ключові слова продукта",
+                            label: "SEO ключові слова:",
+                            "label-for": "keywordsSEO"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "keywordsSEO",
+                              name: "keywordsSEO",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.keywordsSEO &&
+                                  _vm.errors.keywordsSEO[0]
+                              )
+                                ? false
+                                : null,
+                              type: "text",
+                              placeholder: "SEO ключові слова"
+                            },
+                            model: {
+                              value: _vm.fields.keywordsSEO,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "keywordsSEO", $$v)
+                              },
+                              expression: "fields.keywordsSEO"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.keywordsSEO
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.keywordsSEO[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              staticClass:
+                                "btn btn-success w-100 text-uppercase font-weight-bold",
+                              attrs: { type: "submit" }
+                            },
+                            [_vm._v("Зберегти")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ])
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      !_vm.loaded
+        ? _c(
+            "div",
+            {
+              staticStyle: {
+                height: "100%",
+                width: "100%",
+                position: "fixed",
+                "z-index": "1",
+                top: "0",
+                "background-color": "rgba(0, 0, 0, 0.2)",
+                left: "0"
+              }
+            },
+            [
+              _c("img", {
+                staticStyle: {
+                  position: "relative",
+                  top: "30%",
+                  left: "50%",
+                  transform: "translateX(-50%)"
+                },
+                attrs: { src: "/gif/sushi.gif", alt: "Завантаження" }
+              })
+            ]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/promotions/EditComponent.vue?vue&type=template&id=d3facfc2&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/promotions/EditComponent.vue?vue&type=template&id=d3facfc2& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "form",
+    {
+      staticClass: "py-4",
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.submit($event)
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12 col-md-6" }, [
+            _c("div", { staticClass: "text-center" }, [
+              _vm.uploadedImageData
+                ? _c(
+                    "div",
+                    [
+                      _c("b-img", {
+                        attrs: {
+                          thumbnail: "",
+                          fluid: "",
+                          src: _vm.uploadedImageData,
+                          alt: _vm.old_datas.title
+                        }
+                      })
+                    ],
+                    1
+                  )
+                : _vm.old_datas.photo
+                  ? _c(
+                      "div",
+                      [
+                        _c("b-img", {
+                          attrs: {
+                            thumbnail: "",
+                            fluid: "",
+                            src: "/" + _vm.old_datas.photo,
+                            alt: _vm.old_datas.title
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  : _c(
+                      "div",
+                      [
+                        _c("b-img", {
+                          attrs: {
+                            thumbnail: "",
+                            fluid: "",
+                            src: "/img/default.png",
+                            alt: _vm.old_datas.title
+                          }
+                        })
+                      ],
+                      1
+                    )
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "py-4" },
+              [
+                _c(
+                  "b-form-group",
+                  {
+                    attrs: {
+                      "label-class": "text-uppercase font-weight-bold",
+                      breakpoint: "md",
+                      description: "Виберіть фото акції",
+                      label: "Фото:",
+                      "label-for": "photo"
+                    }
+                  },
+                  [
+                    _c("b-form-file", {
+                      ref: "fileinput",
+                      attrs: {
+                        state: Boolean(_vm.errors.photo) ? false : null,
+                        placeholder: "Фото",
+                        accept: "image/*"
+                      },
+                      on: { change: _vm.previewImage },
+                      model: {
+                        value: _vm.fields.photo,
+                        callback: function($$v) {
+                          _vm.$set(_vm.fields, "photo", $$v)
+                        },
+                        expression: "fields.photo"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm.errors && _vm.errors.photo
+                      ? _c(
+                          "div",
+                          [
+                            _c(
+                              "b-alert",
+                              {
+                                staticClass: "text-center",
+                                attrs: {
+                                  variant: "danger",
+                                  dismissible: "",
+                                  fade: "",
+                                  show: true
+                                }
+                              },
+                              [_vm._v(_vm._s(_vm.errors.photo[0]))]
+                            )
+                          ],
+                          1
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "btn btn-warning w-100 text-uppercase font-weight-bold my-2",
+                    on: { click: _vm.resetImage }
+                  },
+                  [_vm._v("Зкинути зображення")]
+                )
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-12 col-md-6" },
+            [
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    "label-class": "text-uppercase font-weight-bold",
+                    description: "Введіть назву акції",
+                    label: "Назва:",
+                    "label-for": "title"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "title",
+                      name: "title",
+                      state: Boolean(
+                        _vm.errors && _vm.errors.title && _vm.errors.title[0]
+                      )
+                        ? false
+                        : null,
+                      type: "text",
+                      placeholder: "Назва"
+                    },
+                    model: {
+                      value: _vm.fields.title,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "title", $$v)
+                      },
+                      expression: "fields.title"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.title
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.title[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    "label-class": "text-uppercase font-weight-bold",
+                    description: "Введіть описання акції",
+                    label: "Описання:",
+                    "label-for": "description"
+                  }
+                },
+                [
+                  _c("b-form-textarea", {
+                    attrs: {
+                      id: "description",
+                      name: "description",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.description &&
+                          _vm.errors.description[0]
+                      )
+                        ? false
+                        : null,
+                      placeholder: "Описання"
+                    },
+                    model: {
+                      value: _vm.fields.description,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "description", $$v)
+                      },
+                      expression: "fields.description"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.description
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.description[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    "label-class": "text-uppercase font-weight-bold",
+                    description: "Введіть SEO заголовок акції",
+                    label: "SEO заголовок:",
+                    "label-for": "titleSEO"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "titleSEO",
+                      name: "titleSEO",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.titleSEO &&
+                          _vm.errors.titleSEO[0]
+                      )
+                        ? false
+                        : null,
+                      type: "text",
+                      placeholder: "SEO заголовок"
+                    },
+                    model: {
+                      value: _vm.fields.titleSEO,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "titleSEO", $$v)
+                      },
+                      expression: "fields.titleSEO"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.titleSEO
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.titleSEO[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    "label-class": "text-uppercase font-weight-bold",
+                    description: "Введіть SEO описання акції",
+                    label: "SEO описання:",
+                    "label-for": "descriptionSEO"
+                  }
+                },
+                [
+                  _c("b-form-textarea", {
+                    attrs: {
+                      id: "descriptionSEO",
+                      name: "descriptionSEO",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.descriptionSEO &&
+                          _vm.errors.descriptionSEO[0]
+                      )
+                        ? false
+                        : null,
+                      placeholder: "SEO описання"
+                    },
+                    model: {
+                      value: _vm.fields.descriptionSEO,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "descriptionSEO", $$v)
+                      },
+                      expression: "fields.descriptionSEO"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.descriptionSEO
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.descriptionSEO[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    "label-class": "text-uppercase font-weight-bold",
+                    description: "Введіть SEO ключові слова акції",
+                    label: "SEO ключові слова:",
+                    "label-for": "keywordsSEO"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "keywordsSEO",
+                      name: "keywordsSEO",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.keywordsSEO &&
+                          _vm.errors.keywordsSEO[0]
+                      )
+                        ? false
+                        : null,
+                      type: "text",
+                      placeholder: "SEO ключові слова"
+                    },
+                    model: {
+                      value: _vm.fields.keywordsSEO,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "keywordsSEO", $$v)
+                      },
+                      expression: "fields.keywordsSEO"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.keywordsSEO
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.keywordsSEO[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                [
+                  _c(
+                    "b-button",
+                    {
+                      staticClass:
+                        "btn btn-success w-100 text-uppercase font-weight-bold",
+                      attrs: { type: "submit" }
+                    },
+                    [_vm._v("Зберегти")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.success
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          staticClass: "text-center",
+                          attrs: {
+                            variant: "success",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v("Дані успішно оновлено")]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      !_vm.loaded
+        ? _c(
+            "div",
+            {
+              staticStyle: {
+                height: "100%",
+                width: "100%",
+                position: "fixed",
+                "z-index": "1",
+                top: "0",
+                "background-color": "rgba(0, 0, 0, 0.2)",
+                left: "0"
+              }
+            },
+            [
+              _c("img", {
+                staticStyle: {
+                  position: "relative",
+                  top: "30%",
+                  left: "50%",
+                  transform: "translateX(-50%)"
+                },
+                attrs: { src: "/gif/sushi.gif", alt: "Завантаження" }
+              })
+            ]
+          )
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=template&id=197de6ef&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=template&id=197de6ef& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "b-button",
+        {
+          staticClass: "text-uppercase font-weight-bold my-2 w-100",
+          attrs: { variant: "success" },
+          on: {
+            click: function($event) {
+              _vm.showCreateModal()
+            }
+          }
+        },
+        [_vm._v("Додати акцію")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        _vm._l(_vm.promotions.data, function(promotion) {
+          return _c(
+            "div",
+            { key: promotion.id, staticClass: "col-12 col-md-4 mb-4" },
+            [
+              _c(
+                "b-card",
+                {
+                  staticClass: "shadow h-100",
+                  attrs: {
+                    "bg-variant": "light",
+                    "border-variant": "light",
+                    align: "center",
+                    "img-src": promotion.photo
+                      ? "/" + promotion.photo
+                      : "/img/default.png",
+                    "img-alt": promotion.title,
+                    "img-top": ""
+                  }
+                },
+                [
+                  _c("h3", { staticClass: "text-uppercase font-weight-bold" }, [
+                    _vm._v(_vm._s(promotion.title))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { attrs: { slot: "footer" }, slot: "footer" },
+                    [
+                      _c(
+                        "b-button",
+                        {
+                          staticClass:
+                            "text-uppercase font-weight-bold my-2 w-100",
+                          attrs: {
+                            variant: "warning",
+                            href: "/admin/promotions/" + promotion.id + "/edit"
+                          }
+                        },
+                        [_vm._v("Редагувати")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-button",
+                        {
+                          staticClass:
+                            "text-uppercase font-weight-bold my-2 w-100",
+                          attrs: { variant: "danger" },
+                          on: {
+                            click: function($event) {
+                              _vm.deletePromotion(promotion.id)
+                            }
+                          }
+                        },
+                        [_vm._v("Видалити")]
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _c("b-pagination", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value:
+              _vm.loaded &&
+              _vm.promotions.from &&
+              _vm.promotions.from != _vm.promotions.last_page,
+            expression:
+              "loaded && promotions.from && promotions.from != promotions.last_page"
+          }
+        ],
+        attrs: {
+          size: "lg",
+          align: "center",
+          "total-rows": _vm.promotions.total,
+          "per-page": _vm.promotions.per_page
+        },
+        on: {
+          input: function($event) {
+            _vm.getPromotions(_vm.currentPage)
+          }
+        },
+        model: {
+          value: _vm.currentPage,
+          callback: function($$v) {
+            _vm.currentPage = $$v
+          },
+          expression: "currentPage"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          ref: "createModal",
+          attrs: {
+            centered: "",
+            lazy: "",
+            "hide-footer": "",
+            size: "lg",
+            title: "Додати акцію"
+          }
+        },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "py-4",
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submit($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "container-fluid" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-12 col-md-6" }, [
+                    _c("div", { staticClass: "text-center" }, [
+                      _vm.uploadedImageData
+                        ? _c(
+                            "div",
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  thumbnail: "",
+                                  fluid: "",
+                                  src: _vm.uploadedImageData,
+                                  alt: "Завантажене фото"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _c(
+                            "div",
+                            [
+                              _c("b-img", {
+                                attrs: {
+                                  thumbnail: "",
+                                  fluid: "",
+                                  src: "/img/default.png",
+                                  alt: "Фото відсутнє"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "py-4" },
+                      [
+                        _c(
+                          "b-form-group",
+                          {
+                            attrs: {
+                              "label-class": "text-uppercase font-weight-bold",
+                              breakpoint: "md",
+                              description: "Виберіть фото акції",
+                              label: "Фото:",
+                              "label-for": "photo"
+                            }
+                          },
+                          [
+                            _c("b-form-file", {
+                              ref: "fileinput",
+                              attrs: {
+                                state: Boolean(_vm.errors.photo) ? false : null,
+                                placeholder: "Фото",
+                                accept: "image/*"
+                              },
+                              on: { change: _vm.previewImage },
+                              model: {
+                                value: _vm.fields.photo,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.fields, "photo", $$v)
+                                },
+                                expression: "fields.photo"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _vm.errors && _vm.errors.photo
+                              ? _c(
+                                  "div",
+                                  [
+                                    _c(
+                                      "b-alert",
+                                      {
+                                        staticClass: "text-center",
+                                        attrs: {
+                                          variant: "danger",
+                                          dismissible: "",
+                                          fade: "",
+                                          show: true
+                                        }
+                                      },
+                                      [_vm._v(_vm._s(_vm.errors.photo[0]))]
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "btn btn-warning w-100 text-uppercase font-weight-bold my-2",
+                            on: { click: _vm.resetImage }
+                          },
+                          [_vm._v("Зкинути зображення")]
+                        )
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-12 col-md-6" },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description: "Введіть назву акції",
+                            label: "Назва:",
+                            "label-for": "title"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "title",
+                              name: "title",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.title &&
+                                  _vm.errors.title[0]
+                              )
+                                ? false
+                                : null,
+                              type: "text",
+                              placeholder: "Назва"
+                            },
+                            model: {
+                              value: _vm.fields.title,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "title", $$v)
+                              },
+                              expression: "fields.title"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.title
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.title[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description: "Введіть описання акції",
+                            label: "Описання:",
+                            "label-for": "description"
+                          }
+                        },
+                        [
+                          _c("b-form-textarea", {
+                            attrs: {
+                              id: "description",
+                              name: "description",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.description &&
+                                  _vm.errors.description[0]
+                              )
+                                ? false
+                                : null,
+                              placeholder: "Описання"
+                            },
+                            model: {
+                              value: _vm.fields.description,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "description", $$v)
+                              },
+                              expression: "fields.description"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.description
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.description[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description: "Введіть SEO заголовок акції",
+                            label: "SEO заголовок:",
+                            "label-for": "titleSEO"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "titleSEO",
+                              name: "titleSEO",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.titleSEO &&
+                                  _vm.errors.titleSEO[0]
+                              )
+                                ? false
+                                : null,
+                              type: "text",
+                              placeholder: "SEO заголовок"
+                            },
+                            model: {
+                              value: _vm.fields.titleSEO,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "titleSEO", $$v)
+                              },
+                              expression: "fields.titleSEO"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.titleSEO
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.titleSEO[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description: "Введіть SEO описання акції",
+                            label: "SEO описання:",
+                            "label-for": "descriptionSEO"
+                          }
+                        },
+                        [
+                          _c("b-form-textarea", {
+                            attrs: {
+                              id: "descriptionSEO",
+                              name: "descriptionSEO",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.descriptionSEO &&
+                                  _vm.errors.descriptionSEO[0]
+                              )
+                                ? false
+                                : null,
+                              placeholder: "SEO описання"
+                            },
+                            model: {
+                              value: _vm.fields.descriptionSEO,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "descriptionSEO", $$v)
+                              },
+                              expression: "fields.descriptionSEO"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.descriptionSEO
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(_vm.errors.descriptionSEO[0])
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description: "Введіть SEO ключові слова акції",
                             label: "SEO ключові слова:",
                             "label-for": "keywordsSEO"
                           }
@@ -75087,6 +76610,8 @@ Vue.component('admin-attributes-index-component', __webpack_require__(/*! ./comp
 Vue.component('admin-attributes-edit-component', __webpack_require__(/*! ./components/admin/attributes/EditComponent.vue */ "./resources/js/components/admin/attributes/EditComponent.vue").default);
 Vue.component('admin-products-index-component', __webpack_require__(/*! ./components/admin/products/IndexComponent.vue */ "./resources/js/components/admin/products/IndexComponent.vue").default);
 Vue.component('admin-products-edit-component', __webpack_require__(/*! ./components/admin/products/EditComponent.vue */ "./resources/js/components/admin/products/EditComponent.vue").default);
+Vue.component('admin-promotions-index-component', __webpack_require__(/*! ./components/admin/promotions/IndexComponent.vue */ "./resources/js/components/admin/promotions/IndexComponent.vue").default);
+Vue.component('admin-promotions-edit-component', __webpack_require__(/*! ./components/admin/promotions/EditComponent.vue */ "./resources/js/components/admin/promotions/EditComponent.vue").default);
 Vue.component('index-page-component', __webpack_require__(/*! ./components/IndexPageComponent.vue */ "./resources/js/components/IndexPageComponent.vue").default);
 Vue.component('category-page-component', __webpack_require__(/*! ./components/CategoryPageComponent.vue */ "./resources/js/components/CategoryPageComponent.vue").default);
 Vue.component('product-page-component', __webpack_require__(/*! ./components/ProductPageComponent.vue */ "./resources/js/components/ProductPageComponent.vue").default);
@@ -76089,6 +77614,144 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_template_id_7872007b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_template_id_7872007b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/promotions/EditComponent.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/admin/promotions/EditComponent.vue ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditComponent_vue_vue_type_template_id_d3facfc2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditComponent.vue?vue&type=template&id=d3facfc2& */ "./resources/js/components/admin/promotions/EditComponent.vue?vue&type=template&id=d3facfc2&");
+/* harmony import */ var _EditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/promotions/EditComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditComponent_vue_vue_type_template_id_d3facfc2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditComponent_vue_vue_type_template_id_d3facfc2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/promotions/EditComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/promotions/EditComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/admin/promotions/EditComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/promotions/EditComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/promotions/EditComponent.vue?vue&type=template&id=d3facfc2&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/admin/promotions/EditComponent.vue?vue&type=template&id=d3facfc2& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditComponent_vue_vue_type_template_id_d3facfc2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditComponent.vue?vue&type=template&id=d3facfc2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/promotions/EditComponent.vue?vue&type=template&id=d3facfc2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditComponent_vue_vue_type_template_id_d3facfc2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditComponent_vue_vue_type_template_id_d3facfc2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/promotions/IndexComponent.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/admin/promotions/IndexComponent.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _IndexComponent_vue_vue_type_template_id_197de6ef___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IndexComponent.vue?vue&type=template&id=197de6ef& */ "./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=template&id=197de6ef&");
+/* harmony import */ var _IndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./IndexComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _IndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _IndexComponent_vue_vue_type_template_id_197de6ef___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _IndexComponent_vue_vue_type_template_id_197de6ef___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/promotions/IndexComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=template&id=197de6ef&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=template&id=197de6ef& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_template_id_197de6ef___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./IndexComponent.vue?vue&type=template&id=197de6ef& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/promotions/IndexComponent.vue?vue&type=template&id=197de6ef&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_template_id_197de6ef___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_IndexComponent_vue_vue_type_template_id_197de6ef___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

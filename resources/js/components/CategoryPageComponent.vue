@@ -34,7 +34,7 @@
                         <div style="background-color: black;" class="px-3 card col-12 col-md-4" v-for="product in products" :key="product.id" v-if="product.attributes.length && product.attributes.filter(attribute => attribute.id == tabIndex).length">
                             <a class="card-link" :href="'/product/' + product.id"><img class="img-fluid card-img-top" :src="product.photo?'/'+product.photo:'/img/default.png'"></a>
                             <div class="card-body">
-                                <h4 class="text-center p-2 card-title"><a class="text-white card-link" :href="'/product/' + product.id">{{product.title}}</a></h4>
+                                <h3 class="text-center p-2 card-title"><a class="text-white card-link" :href="'/product/' + product.id">{{product.title}}</a></h3>
                                 <p class="text-white card-text" style="text-overflow: ellipsis; overflow: hidden; height: 3em; white-space: nowrap;">
                                     <span class="font-weight-bold" style="color: #e16729">{{product.weight}}</span> - <span class="text-lowercase" v-for="component in product.components" :key="component.id">{{component.title}}, </span> 
                                 </p>

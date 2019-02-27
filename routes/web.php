@@ -24,13 +24,13 @@ Route::get('clients', ['as' => 'page.clients', 'uses' => 'PagesController@client
 Route::get('getCategories', ['as' => 'page.getCategories', 'uses' => 'PagesController@getCategories']);
 Route::get('category/{id}', ['as' => 'page.category', 'uses' => 'PagesController@category']);
 Route::get('product/{id}', ['as' => 'page.product', 'uses' => 'PagesController@product']);
-
+Route::get('promotions', ['as' => 'page.promotions', 'uses' => 'PagesController@promotions']);
+Route::get('promotion/{id}', ['as' => 'page.promotion', 'uses' => 'PagesController@promotion']);
 Route::post('addToCart', ['as' => 'addToCart', 'uses' => 'PagesController@addToCart']);
 Route::post('updateQTY', ['as' => 'updateQTY', 'uses' => 'PagesController@updateQTY']);
 Route::get('getCartContent', ['as' => 'getCartContent', 'uses' => 'PagesController@getCartContent']);
 Route::post('removeItemFromCart', ['as' => 'removeItemFromCart', 'uses' => 'PagesController@removeItemFromCart']);
 Route::post('makeOrder', ['as' => 'makeOrder', 'uses' => 'PagesController@makeOrder']);
-// Route::post('liqpayResponce', ['as' => 'liqpayResponce', 'uses' => 'PagesController@liqpayResponce']);
 Route::post('thank_you', ['as' => 'page.thank_you', 'uses' => 'PagesController@thankYou']);
 
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' => 'admin.', 'prefix'=>'admin'], function () {
@@ -77,6 +77,13 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::post('products/delete/{product}', ['as' => 'products.destroy', 'uses' => 'ProductController@destroy']);
 	Route::get('products/getProducts', ['as' => 'products.getProducts', 'uses' => 'ProductController@getProducts']);
 
+	Route::get('promotions', ['as' => 'promotions.index', 'uses' => 'PromotionController@index']);
+	Route::post('promotions', ['as' => 'promotions.store', 'uses' => 'PromotionController@store']);
+	Route::get('promotions/{promotion}/edit', ['as' => 'promotions.edit', 'uses' => 'PromotionController@edit']);
+	Route::post('promotions/{promotion}', ['as' => 'promotions.update', 'uses' => 'PromotionController@update']);
+
+	Route::post('promotions/delete/{promotion}', ['as' => 'promotions.destroy', 'uses' => 'PromotionController@destroy']);
+	Route::get('promotions/getPromotions', ['as' => 'promotions.getPromotions', 'uses' => 'PromotionController@getPromotions']);
 });
 
 // Route::group(['namespace' => 'User', 'middleware' => ['auth', 'isUser'], 'as' => 'user.', 'prefix'=>'user'], function () {
@@ -89,7 +96,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 
 //Check that manage order can only user that create order by id with policies
-//check method put in vue formdata
-//add attributes type tabs and checkboxes not subcategories
+//add attributes checkboxes in categories
 //add products in categories in admin panel
 //delete menu in admin panel

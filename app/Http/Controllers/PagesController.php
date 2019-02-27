@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
+use App\Promotion;
 use Cart;
 use App\Http\Requests\StoreOrderRequest;
 use App\Order;
@@ -67,6 +68,18 @@ class PagesController extends Controller
     	$tabs = json_encode(array_unique($tabs));
     	$checkboxes = json_encode(array_unique($checkboxes));
     	return view('category-page', compact('category', 'tabs', 'checkboxes', 'products'), ['categories' => $this->categories]);
+    }
+
+    public function promotions()
+    {
+    	$promotions = Promotion::paginate(12);
+    	return view('promotions-page', compact('promotions'), ['categories' => $this->categories]);
+    }
+
+    public function promotion(int $id)
+    {
+    	$promotion = Promotion::findOrFail($id);
+    	return view('promotion-page', compact('promotion'), ['categories' => $this->categories]);
     }
 
     public function product(int $id)

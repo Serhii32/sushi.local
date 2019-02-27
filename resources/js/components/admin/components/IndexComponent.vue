@@ -84,7 +84,6 @@ export default {
                 axios.get('/admin/components/getComponents?page=' + page).then(response => {
                     this.loaded = true;
                     this.components = response.data;
-                    console.log(this.components);
                 }).catch(error => {
                     this.loaded = true;
                     console.log(error);

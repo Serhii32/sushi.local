@@ -54,7 +54,7 @@
 							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/clients">Клієнтам</a>
 						</li>
 						<li class="nav-item text-center">
-							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="#">Акції</a>
+							<a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1.1rem" href="/promotions">Акції</a>
 						</li>
                     </ul>
                 </div>
@@ -64,8 +64,8 @@
                     <p class="text-white font-weight-bold m-0 text-center">Прийом замовлень:<br>11.00-22.30</p>
                 </div>
                 <div id="header-social-icons">
-                    <a href="https://www.facebook.com/sushi.win.bar" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/facebook.svg"></a>
-                    <a href="https://www.instagram.com/sushi.win.bar" style="filter: brightness(3);" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/instagram.svg"></a>
+                    <a href="https://www.facebook.com/sushi.win.bar" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/facebook.svg"></a>
+                    <a href="https://www.instagram.com/sushi.win.bar" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/instagram.svg"></a>
                 </div>
                 <a id="header-cart-icon" href="javascript:void(0)" onclick="showMobileCart()" class="nav-link"><img width=40 src="/img/front/icons/cart.svg"></a>
                 <a href="javascript:void(0)" class="nav-link"><img width=40 src="/img/front/icons/favorite.svg"></a>
@@ -80,21 +80,7 @@
                             
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
-                            </div>
+                            <a id="navbarDropdown" class="nav-link text-white p-0 text-center" href="{{ route(Auth::user()->role()->first()->name.'.home.index') }}">{{ Auth::user()->name }}</a>
                         </li>
                     @endguest
                 </ul>

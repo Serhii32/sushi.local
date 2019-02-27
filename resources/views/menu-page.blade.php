@@ -4,7 +4,7 @@
 
 	<section id="main-section">
 		<div class="container-fluid">
-			<div class="row">
+			<div class="row justify-content-center">
 				@foreach($categories as $category)
 					<div style="background-color: black;" class="p-3 card col-12 col-sm-6 col-md-4">
 						<a class="card-link" href="{{route('page.category', $category->id)}}">

@@ -25,6 +25,9 @@
                 <a class="nav-link text-dark font-weight-bold text-uppercase text-center" href="{{route('admin.products.index')}}">Продукти</a>
             </li>
             <li class="list-group-item list-group-item-action p-0">
+                <a class="nav-link text-dark font-weight-bold text-uppercase text-center" href="{{route('admin.promotions.index')}}">Акції</a>
+            </li>
+            <li class="list-group-item list-group-item-action p-0">
                 <a class="nav-link text-dark font-weight-bold text-uppercase text-center" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Вийти</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
             </li>

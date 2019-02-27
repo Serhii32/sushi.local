@@ -3,7 +3,7 @@
         <div class="container-fluid p-1">
             <div class="row">
                 <div class="col-12 col-lg-5 my-auto px-5">
-                    <h1 class="text-white font-weight-bold">Доставка суші для істинних поціновувачів</h1>
+                    <h2 class="text-white font-weight-bold">Доставка суші для істинних поціновувачів</h2>
                     <p class="text-white">Замовляйте суші преміум класу для всієї компанії додому та в офіс</p>
                     <b-button class="p-3 text-uppercase font-weight-bold" style="border-radius: 20px; background: #e16729; border-color: #e16729;">Зробити замовлення</b-button>
                 </div>
@@ -69,19 +69,19 @@
             </div>
         </div>
         <div class="container-fluid p-3">
-            <h1 class="text-white font-weight-bold">Топ позиції</h1>
+            <h2 class="text-white font-weight-bold">Топ позиції</h2>
             <div class="row">
                 <p class="col-12 col-md-6 text-white">В асортименті SushiWin представлені роли, суші, сети і напої на будь-який смак. Ми рекомендуємо обов'язково спробувати топ позиції нашого меню!</p>
             </div>
 
             <div class="p-2" v-for="category in categories" :key="category.id">
-                <h2 class="text-white font-weight-bold">{{category.title}}</h2>
+                <h3 class="text-white font-weight-bold">{{category.title}}</h3>
 
                 <carousel pagination-color="#e16729" pagination-active-color="#fff" :navigation-enabled="true" :per-page-custom="[[0, 1], [768, 2], [992, 3]]">
                     <slide style="background-color: black;" class="product-slide px-3 card" v-for="product in category.products" :key="product.id">
                         <a class="card-link" :href="'/product/' + product.id"><img class="img-fluid card-img-top" :src="product.photo?'/'+product.photo:'/img/default.png'"></a>
                         <div class="card-body">
-                            <h4 class="text-white text-center p-2 card-title"><a class="text-white card-link" :href="'/product/' + product.id">{{product.title}}</a></h4>
+                            <h5 class="text-white text-center p-2 card-title"><a class="text-white card-link" :href="'/product/' + product.id">{{product.title}}</a></h5>
                             <p class="text-white card-text">
                                 <span class="font-weight-bold" style="color: #e16729">{{product.weight}}</span> - <span class="text-lowercase" v-for="component in product.components" :key="component.id">{{component.title}}, </span> 
                             </p>

@@ -18,6 +18,24 @@ body {
 .VueCarousel-navigation-button {
 	color: #e16729 !important;
 }
+.pagination {
+	justify-content: center !important;
+	font-size: 20px !important;
+}
+.pagination .page-link {
+	border-radius: 0px !important;
+	background-color: transparent !important;
+	color: #e16729 !important;
+}
+.pagination .page-link:hover {
+	color: #fff !important;
+	background-color: #e16729 !important;
+}
+.pagination .page-item.active .page-link {
+	color: #fff !important;
+	background-color: #e16729 !important;
+	border-color: #e16729 !important;
+}
 #main-section {
 	background-color: black;
 	margin-left: 60px;
