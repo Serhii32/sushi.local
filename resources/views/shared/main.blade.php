@@ -68,7 +68,7 @@
                     <a href="https://www.instagram.com/sushi.win.bar" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/instagram.svg"></a>
                 </div>
                 <a id="header-cart-icon" href="javascript:void(0)" onclick="showMobileCart()" class="nav-link"><img width=40 src="/img/front/icons/cart.svg"></a>
-                <a href="javascript:void(0)" class="nav-link"><img width=30 src="/img/front/icons/favorite.svg"></a>
+                {{-- <a href="javascript:void(0)" class="nav-link"><img width=30 src="/img/front/icons/favorite.svg"></a> --}}
                 
                 <ul class="navbar-nav ml-auto">
                     
@@ -102,7 +102,6 @@
                         <li class="left-sidebar-nav nav-item text-center py-2">
                             <a class="nav-link text-left" href="{{route('page.category', $category->id)}}">
                                 <img width=40 class="left-sidebar-img img-fluid" src="{{$category->icon ? asset($category->icon) : asset('img/default.svg')}}" alt="{{$category->title}}">
-                                <span class="left-sidebar-title text-white font-weight-bold pl-3">{{$category->title}}</span>
                             </a>
                         </li>
                     @endforeach

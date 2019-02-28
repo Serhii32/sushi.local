@@ -10,7 +10,11 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::orderBy('status')->paginate(12);
-        // return view('admin.orders.orders-index', compact(['orders']));
+        $orders = Order::all();
+        foreach ($orders as $order) {
+    		$order->products = $order->products()->get();
+    	}
+    	$orders = $orders->toJson();
+        return view('admin.orders.index', compact(['orders']));
     }
 }

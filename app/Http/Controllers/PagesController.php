@@ -29,9 +29,18 @@ class PagesController extends Controller
     public function getCategories()
     {
     	$categories = Category::all();
+        $userFavorites = Auth::user()->favorites()->get();
+        $userFavoriteIds = [];
+        foreach ($userFavorites as $userFavorite) {
+            $userFavoriteIds[] = $userFavorite->id;
+        }
     	foreach ($categories as $category) {
     		$category->products = $category->products()->get();
     		foreach ($category->products as $product) {
+                $product->isFavorite = false;
+                if (in_array($product->id, $userFavoriteIds)) {
+                    $product->isFavorite = true;
+                }
     			$product->components = $product->components()->get();
     		}
     	}
@@ -104,6 +113,17 @@ class PagesController extends Controller
     	$product = Product::findOrFail($request->id);
     	Cart::add($product->id, $product->title, 1, $product->price, ['photo' => $product->photo]);
     	return response()->json(null, 200);
+    }
+
+    public function addToFavorites(Request $request)
+    {
+        $response = ['redirect'=>'/login'];
+    	if(Auth::check()) {
+    		$user = Auth::user();
+    		$user->favorites()->attach($request->id);
+            $response = null;
+    	}
+    	return response()->json($response, 200);
     }
 
     public function makeOrder(StoreOrderRequest $request)

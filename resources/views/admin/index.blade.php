@@ -51,6 +51,14 @@
 	                                </a>
 	                            </div>
 	                        </div>
+	                        <div class="col-12 col-md-6 my-2">
+	                            <div class="card h-100 shadow">
+	                                <a class="card-link text-secondary p-1" href="{{route('admin.orders.index')}}">
+	                                	<h1 class="display-1 text-center"><i class="fas fa-shopping-cart"></i></h1>
+	                                    <h4 class="text-center text-uppercase">Замовлення</h4>
+	                                </a>
+	                            </div>
+	                        </div>
 	                    </div>
 	                </div>
                 </div>

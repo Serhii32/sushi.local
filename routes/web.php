@@ -27,6 +27,7 @@ Route::get('product/{id}', ['as' => 'page.product', 'uses' => 'PagesController@p
 Route::get('promotions', ['as' => 'page.promotions', 'uses' => 'PagesController@promotions']);
 Route::get('promotion/{id}', ['as' => 'page.promotion', 'uses' => 'PagesController@promotion']);
 Route::post('addToCart', ['as' => 'addToCart', 'uses' => 'PagesController@addToCart']);
+Route::post('addToFavorites', ['as' => 'addToFavorites', 'uses' => 'PagesController@addToFavorites']);
 Route::post('updateQTY', ['as' => 'updateQTY', 'uses' => 'PagesController@updateQTY']);
 Route::get('getCartContent', ['as' => 'getCartContent', 'uses' => 'PagesController@getCartContent']);
 Route::post('removeItemFromCart', ['as' => 'removeItemFromCart', 'uses' => 'PagesController@removeItemFromCart']);
@@ -86,12 +87,14 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::get('promotions/getPromotions', ['as' => 'promotions.getPromotions', 'uses' => 'PromotionController@getPromotions']);
 });
 
-// Route::group(['namespace' => 'User', 'middleware' => ['auth', 'isUser'], 'as' => 'user.', 'prefix'=>'user'], function () {
-// 	Route::get('home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
-// 	Route::get('home/edit', ['as' => 'home.edit', 'uses' => 'HomeController@edit']);
-// 	Route::match(['put', 'patch'], 'home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
-// 	Route::delete('home/destroy', ['as' => 'home.destroy', 'uses' => 'HomeController@destroy']);
-// });
+Route::group(['namespace' => 'User', 'middleware' => ['auth', 'isUser'], 'as' => 'user.', 'prefix'=>'user'], function () {
+
+	Route::get('home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
+	Route::post('home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
+
+	// Route::match(['put', 'patch'], 'home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
+	// Route::delete('home/destroy', ['as' => 'home.destroy', 'uses' => 'HomeController@destroy']);
+});
 
 
 

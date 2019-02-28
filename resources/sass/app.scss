@@ -36,6 +36,9 @@ body {
 	background-color: #e16729 !important;
 	border-color: #e16729 !important;
 }
+#favorite-button:hover {
+	filter: brightness(3);
+}
 #main-section {
 	background-color: black;
 	margin-left: 60px;

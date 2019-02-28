@@ -18427,6 +18427,11 @@ body {
   border-color: #e16729 !important;
 }
 
+#favorite-button:hover {
+  -webkit-filter: brightness(3);
+          filter: brightness(3);
+}
+
 #main-section {
   background-color: black;
   margin-left: 60px;

@@ -88,6 +88,7 @@
                         </div>
                         <div class="card-footer">
                             <div>
+                                <img id="favorite-button" style="position: absolute; width: 30px; top: 0px; left: 0px;" :src="product.isFavorite?'/img/front/icons/favorite-filled.svg':'/img/front/icons/favorite.svg'" @click="addToFavorites(product)">
                                 <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id)">В корзину</b-button>
                             </div>
                             <div class="p-2">
@@ -134,6 +135,22 @@ export default {
 
                     this.$root.$emit('cartUpdated');
 
+                }).catch(error => {
+                    this.loaded = true;
+                });
+            }
+        },
+        addToFavorites(product){
+            if (this.loaded) {
+                this.loaded = false;
+
+                product.isFavorite = product.isFavorite?false:true;
+    
+                axios.post('/addToFavorites', {id:product.id}).then(response => {
+                    this.loaded = true;
+                    if (typeof response.data.redirect !== 'undefined') {
+                        window.location.href = response.data.redirect;
+                    }
                 }).catch(error => {
                     this.loaded = true;
                 });

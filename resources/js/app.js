@@ -37,9 +37,11 @@ Vue.component('admin-attributes-index-component', require('./components/admin/at
 Vue.component('admin-attributes-edit-component', require('./components/admin/attributes/EditComponent.vue').default);
 Vue.component('admin-products-index-component', require('./components/admin/products/IndexComponent.vue').default);
 Vue.component('admin-products-edit-component', require('./components/admin/products/EditComponent.vue').default);
-
 Vue.component('admin-promotions-index-component', require('./components/admin/promotions/IndexComponent.vue').default);
 Vue.component('admin-promotions-edit-component', require('./components/admin/promotions/EditComponent.vue').default);
+Vue.component('admin-orders-index-component', require('./components/admin/orders/IndexComponent.vue').default);
+
+Vue.component('user-home-component', require('./components/user/HomeComponent.vue').default);
 
 Vue.component('index-page-component', require('./components/IndexPageComponent.vue').default);
 Vue.component('category-page-component', require('./components/CategoryPageComponent.vue').default);

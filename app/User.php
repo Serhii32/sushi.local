@@ -33,6 +33,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+
     public function favorites()
     {
         return $this->belongsToMany('App\Product', 'product_user', 'user_id', 'product_id')->withTimestamps();

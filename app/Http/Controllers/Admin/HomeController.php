@@ -30,6 +30,15 @@ class HomeController extends Controller
         $admin->name = $request->name;
         $admin->phone = $request->phone;
         $admin->gender = $request->gender;
+
+        $admin->street = $request->street;
+        $admin->building = $request->building;
+        $admin->entrance = $request->entrance;
+        $admin->house = $request->house;
+        $admin->apartment = $request->apartment;
+        $admin->floor = $request->floor;
+
+
         if ($admin->email != $request->email) {
             $admin->email_verified_at = null;
         }

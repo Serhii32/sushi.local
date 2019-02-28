@@ -57,6 +57,46 @@
                             <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.gender[0] }}</b-alert>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <b-form-group class="col-12 col-md-6" description="Введіть назву вулиці">
+                            <b-form-input id="street" name="street" :state="Boolean(errors && errors.street && errors.street[0])?false:null" type="text" placeholder="Вулиця" v-model="fields.street"></b-form-input>
+                            <div v-if="errors && errors.street">
+                                <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.street[0] }}</b-alert>
+                            </div>
+                        </b-form-group>
+                        <b-form-group class="col-12 col-md-6" description="Введіть номер будинку">
+                            <b-form-input id="building" name="building" :state="Boolean(errors && errors.building && errors.building[0])?false:null" type="text" placeholder="Будинок" v-model="fields.building"></b-form-input>
+                            <div v-if="errors && errors.building">
+                                <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.building[0] }}</b-alert>
+                            </div>
+                        </b-form-group>
+                        <b-form-group class="col-12 col-md-6" description="Введіть номер під'їзду">
+                            <b-form-input id="entrance" name="entrance" :state="Boolean(errors && errors.entrance && errors.entrance[0])?false:null" type="text" placeholder="Під'їзд" v-model="fields.entrance"></b-form-input>
+                            <div v-if="errors && errors.entrance">
+                                <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.entrance[0] }}</b-alert>
+                            </div>
+                        </b-form-group>
+                        <b-form-group class="col-12 col-md-6" description="Введіть номер корпусу">
+                            <b-form-input id="house" name="house" :state="Boolean(errors && errors.house && errors.house[0])?false:null" type="text" placeholder="Корпус" v-model="fields.house"></b-form-input>
+                            <div v-if="errors && errors.house">
+                                <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.house[0] }}</b-alert>
+                            </div>
+                        </b-form-group>
+                        <b-form-group class="col-12 col-md-6" description="Введіть номер квартири">
+                            <b-form-input id="apartment" name="apartment" :state="Boolean(errors && errors.apartment && errors.apartment[0])?false:null" type="text" placeholder="Квартира" v-model="fields.apartment"></b-form-input>
+                            <div v-if="errors && errors.apartment">
+                                <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.apartment[0] }}</b-alert>
+                            </div>
+                        </b-form-group>
+                        <b-form-group class="col-12 col-md-6" description="Введіть номер поверху">
+                            <b-form-input id="floor" name="floor" :state="Boolean(errors && errors.floor && errors.floor[0])?false:null" type="text" placeholder="Поверх" v-model="fields.floor"></b-form-input>
+                            <div v-if="errors && errors.floor">
+                                <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.floor[0] }}</b-alert>
+                            </div>
+                        </b-form-group>
+                    </div>
+
                     <div class="form-group">
                         <label for="current_password" class="text-uppercase font-weight-bold">Поточний пароль:</label>
                         <input id="current_password" type="password" name="current_password" placeholder="Поточний пароль" class="form-control" v-model="fields.current_password" v-bind:class="{ 'is-invalid': errors && errors.current_password && errors.current_password[0] }">
@@ -125,6 +165,14 @@ export default {
                 formData.set('email', this.fields.email == null?"":this.fields.email);
                 formData.set('phone', this.fields.phone == null?"":this.fields.phone);
                 formData.set('gender', this.fields.gender == null?"":this.fields.gender);
+
+                formData.set('street', this.fields.street == null?"":this.fields.street);
+                formData.set('building', this.fields.building == null?"":this.fields.building);
+                formData.set('entrance', this.fields.entrance == null?"":this.fields.entrance);
+                formData.set('house', this.fields.house == null?"":this.fields.house);
+                formData.set('apartment', this.fields.apartment == null?"":this.fields.apartment);
+                formData.set('floor', this.fields.floor == null?"":this.fields.floor);
+                
                 formData.append('avatar', this.fields.avatar == null?"":this.fields.avatar);
                 formData.set('current_password', this.fields.current_password == null?"":this.fields.current_password);
                 formData.set('password', this.fields.password == null?"":this.fields.password);
