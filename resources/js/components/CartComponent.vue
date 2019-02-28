@@ -81,7 +81,8 @@
                 
                 <div class="row">
                     <b-form-group class="col-12 col-md-6" description="Виберіть дату доставки">
-                        <b-form-select id="date" name="date" :state="Boolean(errors && errors.date && errors.date[0])?false:null" v-model="fields.date" :options="dateOptions"></b-form-select>
+                        <b-form-input id="date" name="date" :state="Boolean(errors && errors.date && errors.date[0])?false:null" type="date" placeholder="Дата" v-model="fields.date"></b-form-input>
+                        <!-- <b-form-select id="date" name="date" :state="Boolean(errors && errors.date && errors.date[0])?false:null" v-model="fields.date" :options="dateOptions"></b-form-select> -->
                         <div v-if="errors && errors.date">
                             <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.date[0] }}</b-alert>
                         </div>
@@ -138,10 +139,14 @@
                 <p class="text-white">Мінімальне замовлення 150 грн.<br>Від 150 грн. до 250 грн. + доставка 25  грн</p>
                 <h5 class="text-white">Всього: {{totalSum}} <span v-if="totalSum >= 150 && totalSum < 250">+ доставка 25 грн.</span></h5>
                 <b-form-group>
-                    <b-button :disabled="totalSum < 150" type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
+                    <b-button :disabled="totalSum < 150" type="submit" v-b-modal.thankYouModal class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
                 </b-form-group>
             </div>
         </form>
+
+        <b-modal id="thankYouModal" title="Дякуємо за покупку" hide-footer>
+            <p class="my-4">Ваше замовлення буде оброблено нашими менеджерами</p>
+        </b-modal>
 
     </aside>
 </template>
@@ -327,7 +332,7 @@ export default {
                         form.submit();
                     }
 
-
+                    this.getCartContent();
 
                 }).catch(error => {
                     this.loaded = true;

@@ -29,11 +29,14 @@ class PagesController extends Controller
     public function getCategories()
     {
     	$categories = Category::all();
-        $userFavorites = Auth::user()->favorites()->get();
         $userFavoriteIds = [];
-        foreach ($userFavorites as $userFavorite) {
-            $userFavoriteIds[] = $userFavorite->id;
+        if (Auth::check()) {
+            $userFavorites = Auth::user()->favorites()->get();
+            foreach ($userFavorites as $userFavorite) {
+                $userFavoriteIds[] = $userFavorite->id;
+            }
         }
+        
     	foreach ($categories as $category) {
     		$category->products = $category->products()->get();
     		foreach ($category->products as $product) {
@@ -120,7 +123,12 @@ class PagesController extends Controller
         $response = ['redirect'=>'/login'];
     	if(Auth::check()) {
     		$user = Auth::user();
-    		$user->favorites()->attach($request->id);
+            if($user->favorites->contains($request->id))
+            {
+                $user->favorites()->detach($request->id);
+            } else {
+                $user->favorites()->attach($request->id);
+            }
             $response = null;
     	}
     	return response()->json($response, 200);

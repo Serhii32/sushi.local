@@ -1910,6 +1910,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2306,6 +2311,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['category', 'tabs', 'checkboxes', 'products'],
   data: function data() {
@@ -2327,6 +2333,25 @@ __webpack_require__.r(__webpack_exports__);
           _this.$root.$emit('cartUpdated');
         }).catch(function (error) {
           _this.loaded = true;
+        });
+      }
+    },
+    addToFavorites: function addToFavorites(product) {
+      var _this2 = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        product.isFavorite = product.isFavorite ? false : true;
+        axios.post('/addToFavorites', {
+          id: product.id
+        }).then(function (response) {
+          _this2.loaded = true;
+
+          if (typeof response.data.redirect !== 'undefined') {
+            window.location.href = response.data.redirect;
+          }
+        }).catch(function (error) {
+          _this2.loaded = true;
         });
       }
     }
@@ -2560,6 +2585,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['product', 'components'],
   data: function data() {
@@ -2581,6 +2607,25 @@ __webpack_require__.r(__webpack_exports__);
           _this.$root.$emit('cartUpdated');
         }).catch(function (error) {
           _this.loaded = true;
+        });
+      }
+    },
+    addToFavorites: function addToFavorites(product) {
+      var _this2 = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        product.isFavorite = product.isFavorite ? false : true;
+        axios.post('/addToFavorites', {
+          id: product.id
+        }).then(function (response) {
+          _this2.loaded = true;
+
+          if (typeof response.data.redirect !== 'undefined') {
+            window.location.href = response.data.redirect;
+          }
+        }).catch(function (error) {
+          _this2.loaded = true;
         });
       }
     }
@@ -58572,7 +58617,7 @@ var render = function() {
                       attrs: { description: "Виберіть дату доставки" }
                     },
                     [
-                      _c("b-form-select", {
+                      _c("b-form-input", {
                         attrs: {
                           id: "date",
                           name: "date",
@@ -58581,7 +58626,8 @@ var render = function() {
                           )
                             ? false
                             : null,
-                          options: _vm.dateOptions
+                          type: "date",
+                          placeholder: "Дата"
                         },
                         model: {
                           value: _vm.fields.date,
@@ -58964,6 +59010,13 @@ var render = function() {
                   _c(
                     "b-button",
                     {
+                      directives: [
+                        {
+                          name: "b-modal",
+                          rawName: "v-b-modal.thankYouModal",
+                          modifiers: { thankYouModal: true }
+                        }
+                      ],
                       staticClass:
                         "btn btn-success w-100 text-uppercase font-weight-bold",
                       attrs: { disabled: _vm.totalSum < 150, type: "submit" }
@@ -58976,6 +59029,22 @@ var render = function() {
             ],
             1
           )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            id: "thankYouModal",
+            title: "Дякуємо за покупку",
+            "hide-footer": ""
+          }
+        },
+        [
+          _c("p", { staticClass: "my-4" }, [
+            _vm._v("Ваше замовлення буде оброблено нашими менеджерами")
+          ])
         ]
       )
     ],
@@ -59214,15 +59283,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c(
                                   "p",
-                                  {
-                                    staticClass: "text-white card-text",
-                                    staticStyle: {
-                                      "text-overflow": "ellipsis",
-                                      overflow: "hidden",
-                                      height: "3em",
-                                      "white-space": "nowrap"
-                                    }
-                                  },
+                                  { staticClass: "text-white card-text" },
                                   [
                                     _c(
                                       "span",
@@ -59254,6 +59315,26 @@ var render = function() {
                                 _c(
                                   "div",
                                   [
+                                    _c("img", {
+                                      staticStyle: {
+                                        position: "absolute",
+                                        width: "30px",
+                                        top: "0px",
+                                        left: "0px"
+                                      },
+                                      attrs: {
+                                        id: "favorite-button",
+                                        src: product.isFavorite
+                                          ? "/img/front/icons/favorite-filled.svg"
+                                          : "/img/front/icons/favorite.svg"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.addToFavorites(product)
+                                        }
+                                      }
+                                    }),
+                                    _vm._v(" "),
                                     _c(
                                       "b-button",
                                       {
@@ -59688,6 +59769,26 @@ var render = function() {
               src: _vm.product.photo
                 ? "/" + _vm.product.photo
                 : "/img/default.png"
+            }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            staticStyle: {
+              position: "absolute",
+              width: "30px",
+              top: "0px",
+              left: "0px"
+            },
+            attrs: {
+              id: "favorite-button",
+              src: _vm.product.isFavorite
+                ? "/img/front/icons/favorite-filled.svg"
+                : "/img/front/icons/favorite.svg"
+            },
+            on: {
+              click: function($event) {
+                _vm.addToFavorites(_vm.product)
+              }
             }
           })
         ]),
@@ -80226,8 +80327,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
