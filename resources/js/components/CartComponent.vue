@@ -136,8 +136,10 @@
                         <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.comment[0] }}</b-alert>
                     </div>
                 </b-form-group>
-                <p class="text-white">Мінімальне замовлення 150 грн.<br>Від 150 грн. до 250 грн. + доставка 25  грн</p>
+                <p class="text-white">Мінімальне замовлення 150 грн.<br>Від 150 грн. до 250 грн. + доставка 25 грн.</p>
+                <p class="text-white">Час очікування замовлення 60 хв. при великій завантаженості 90 хв.</p>
                 <h5 class="text-white">Всього: {{totalSum}} <span v-if="totalSum >= 150 && totalSum < 250">+ доставка 25 грн.</span></h5>
+
                 <b-form-group>
                     <b-button :disabled="totalSum < 150" type="submit" v-b-modal.thankYouModal class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
                 </b-form-group>

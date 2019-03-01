@@ -1,4 +1,4 @@
-<aside id="left-sidebar" class="position-fixed p-0" style="background-color: black; border-right: 3px solid #e16729; min-height: 100vh; left: 0px; z-index: 1">
+<aside id="left-sidebar" class="position-fixed p-0" style="background-color: black; border-right: 3px solid #e16729; min-height: 100vh; left: 0px; z-index: 2">
 	<div class="py-3">
 		<ul class="nav flex-column">
             @foreach($categories as $category)

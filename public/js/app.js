@@ -1915,6 +1915,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2229,6 +2231,8 @@ __webpack_require__.r(__webpack_exports__);
             document.body.appendChild(form);
             form.submit();
           }
+
+          _this5.getCartContent();
         }).catch(function (error) {
           _this5.loaded = true;
 
@@ -2312,11 +2316,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['category', 'tabs', 'checkboxes', 'products'],
   data: function data() {
     return {
-      loaded: true
+      loaded: true,
+      reactiveProducts: this.products
     };
   },
   methods: {
@@ -2590,7 +2596,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ['product', 'components'],
   data: function data() {
     return {
-      loaded: true
+      loaded: true,
+      reactiveProduct: this.product
     };
   },
   methods: {
@@ -58997,6 +59004,12 @@ var render = function() {
               _vm._v(" "),
               _vm._m(0),
               _vm._v(" "),
+              _c("p", { staticClass: "text-white" }, [
+                _vm._v(
+                  "Час очікування замовлення 60 хв. при великій завантаженості 90 хв."
+                )
+              ]),
+              _vm._v(" "),
               _c("h5", { staticClass: "text-white" }, [
                 _vm._v("Всього: " + _vm._s(_vm.totalSum) + " "),
                 _vm.totalSum >= 150 && _vm.totalSum < 250
@@ -59059,7 +59072,7 @@ var staticRenderFns = [
     return _c("p", { staticClass: "text-white" }, [
       _vm._v("Мінімальне замовлення 150 грн."),
       _c("br"),
-      _vm._v("Від 150 грн. до 250 грн. + доставка 25  грн")
+      _vm._v("Від 150 грн. до 250 грн. + доставка 25 грн.")
     ])
   }
 ]
@@ -59103,7 +59116,7 @@ var render = function() {
                 _c(
                   "div",
                   { staticClass: "row" },
-                  _vm._l(_vm.products, function(product) {
+                  _vm._l(_vm.reactiveProducts, function(product) {
                     return _c(
                       "div",
                       {
@@ -59178,6 +59191,26 @@ var render = function() {
                           _c(
                             "div",
                             [
+                              _c("img", {
+                                staticStyle: {
+                                  position: "absolute",
+                                  width: "30px",
+                                  top: "0px",
+                                  left: "0px"
+                                },
+                                attrs: {
+                                  id: "favorite-button",
+                                  src: product.isFavorite
+                                    ? "/img/front/icons/favorite-filled.svg"
+                                    : "/img/front/icons/favorite.svg"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.addToFavorites(product)
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
                               _c(
                                 "b-button",
                                 {
@@ -59232,7 +59265,7 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "row" },
-                    _vm._l(_vm.products, function(product) {
+                    _vm._l(_vm.reactiveProducts, function(product) {
                       return product.attributes.length &&
                         product.attributes.filter(function(attribute) {
                           return attribute.id == tabIndex
@@ -59781,13 +59814,13 @@ var render = function() {
             },
             attrs: {
               id: "favorite-button",
-              src: _vm.product.isFavorite
+              src: _vm.reactiveProduct.isFavorite
                 ? "/img/front/icons/favorite-filled.svg"
                 : "/img/front/icons/favorite.svg"
             },
             on: {
               click: function($event) {
-                _vm.addToFavorites(_vm.product)
+                _vm.addToFavorites(_vm.reactiveProduct)
               }
             }
           })
@@ -80327,8 +80360,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

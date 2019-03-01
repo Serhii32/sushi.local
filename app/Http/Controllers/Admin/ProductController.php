@@ -33,7 +33,7 @@ class ProductController extends Controller
         $product->title = $request->title;
         $product->price = $request->price;
         $product->weight = $request->weight;
-        if($request->category = "0"){
+        if($request->category == "0"){
             $product->category = null;
         } else {
             $product->category = $request->category;

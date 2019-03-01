@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-12 col-md-6">
                     <img class="img-fluid" :src="product.photo?'/'+product.photo:'/img/default.png'">
-                    <img id="favorite-button" style="position: absolute; width: 30px; top: 0px; left: 0px;" :src="product.isFavorite?'/img/front/icons/favorite-filled.svg':'/img/front/icons/favorite.svg'" @click="addToFavorites(product)">
+                    <img id="favorite-button" style="position: absolute; width: 30px; top: 0px; left: 0px;" :src="reactiveProduct.isFavorite?'/img/front/icons/favorite-filled.svg':'/img/front/icons/favorite.svg'" @click="addToFavorites(reactiveProduct)">
                 </div>
                 <div class="col-12 col-md-6">
                     <h1 class="text-white font-weight-bold">
@@ -46,6 +46,7 @@ export default {
     data() {
         return {
             loaded: true,
+            reactiveProduct: this.product
         }
     },
     methods: {

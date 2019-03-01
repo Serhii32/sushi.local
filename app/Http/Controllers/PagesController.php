@@ -62,7 +62,19 @@ class PagesController extends Controller
     	$tabs = [];
     	$checkboxes = [];
     	
+        $userFavoriteIds = [];
+        if (Auth::check()) {
+            $userFavorites = Auth::user()->favorites()->get();
+            foreach ($userFavorites as $userFavorite) {
+                $userFavoriteIds[] = $userFavorite->id;
+            }
+        }
+
     	foreach ($products as $product) {
+            $product->isFavorite = false;
+            if (in_array($product->id, $userFavoriteIds)) {
+                $product->isFavorite = true;
+            }
     		$product->components = $product->components()->get();
     		// if (count($product->attributes()->get())) {
     			$product->attributes = $product->attributes()->get();
@@ -96,7 +108,18 @@ class PagesController extends Controller
 
     public function product(int $id)
     {
+        $userFavoriteIds = [];
+        if (Auth::check()) {
+            $userFavorites = Auth::user()->favorites()->get();
+            foreach ($userFavorites as $userFavorite) {
+                $userFavoriteIds[] = $userFavorite->id;
+            }
+        }
     	$product = Product::findOrFail($id);
+        $product->isFavorite = false;
+        if (in_array($product->id, $userFavoriteIds)) {
+            $product->isFavorite = true;
+        }
     	$components = $product->components()->get();
     	return view('product-page', compact('product', 'components'), ['categories' => $this->categories]);
     }
@@ -211,12 +234,17 @@ class PagesController extends Controller
     {
     	$params=json_decode(base64_decode($request->data));
     	$order = Order::findOrFail($params->order_id);
-    	if ($params->public_key == $order->public_key) {
+    	if ($params->public_key == $order->public_key && $params->status != "failure") {
     		$order->paid = 1;
     		$order->save();
     		Cart::destroy();
     		return view('thank-you-page', ['categories' => $this->categories]);
-    	}
+    	} elseif ($params->public_key == $order->public_key) {
+            $order->paid = 0;
+            $order->save();
+            Cart::destroy();
+            return view('thank-you-page', ['categories' => $this->categories]);
+        }
     	return abort(403);
     }
 
