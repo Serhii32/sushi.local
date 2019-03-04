@@ -6,16 +6,30 @@
                 Замовлення {{order.id}}
             </h3>
 
-            <h4 class="text-left text-uppercase">Имя: {{order.name}}</h4>
-            <h4 class="text-left" style="word-break: break-word;"><span class="text-uppercase">Email:</span> {{order.email}}</h4>
-            <h4 class="text-left text-uppercase">Телефон: {{order.phone}}</h4>
+            <h6 class="text-left text-uppercase">Ім'я: {{order.name}}</h6>
+            <h6 class="text-left" style="word-break: break-word;"><span class="text-uppercase">Email:</span> {{order.email}}</h6>
+            <h6 class="text-left text-uppercase">Телефон: {{order.phone}}</h6>
 
-            <h4 class="text-left text-uppercase">Вулиця: {{order.street}}</h4>
-            <h4 class="text-left text-uppercase">Будинок: {{order.building}}</h4>
-            <h4 class="text-left text-uppercase">Під'їзд: {{order.entrance}}</h4>
-            <h4 class="text-left text-uppercase">Корпус: {{order.house}}</h4>
-            <h4 class="text-left text-uppercase">Квартира: {{order.apartment}}</h4>
-            <h4 class="text-left text-uppercase">Поверх: {{order.floor}}</h4>
+            <h6 class="text-left text-uppercase">Вулиця: {{order.street}}</h6>
+            <h6 class="text-left text-uppercase">Будинок: {{order.building}}</h6>
+            <h6 class="text-left text-uppercase">Під'їзд: {{order.entrance}}</h6>
+            <h6 class="text-left text-uppercase">Корпус: {{order.house}}</h6>
+            <h6 class="text-left text-uppercase">Квартира: {{order.apartment}}</h6>
+            <h6 class="text-left text-uppercase">Поверх: {{order.floor}}</h6>
+
+            <h6 class="text-left text-uppercase">Дзвінок в двері: {{order.call}}</h6>
+
+            <h6 class="text-left text-uppercase">Дата: {{order.date}}</h6>
+            <h6 class="text-left text-uppercase">Час: {{order.time}}</h6>
+
+            <h6 class="text-left text-uppercase">Оплата: {{order.payment}}</h6>
+            <h6 class="text-left text-uppercase">Підготувати решту з: {{order.change}}</h6>
+            <h6 class="text-left text-uppercase">Статус онлайн оплати: {{order.paid}}</h6>
+
+            <h6 class="text-left text-uppercase">Кількість персон: {{order.persons}}</h6>
+            <h6 class="text-left text-uppercase">Тип паличок: {{order.sticks}}</h6>
+            <h6 class="text-left text-uppercase">Коментар: {{order.comment}}</h6>
+
            
             <div v-for="product in order.products">
                 <div class="row border-bottom p-1">
@@ -42,15 +56,49 @@
             </div>
 
             <h4 class="text-left text-uppercase">Всього: {{order.totalSum}}</h4>
-
+            <b-button variant="danger" class="text-uppercase font-weight-bold my-2 w-100" @click="deleteOrder(order.id)">Видалити</b-button>
         </div>
     </div>
 
 </template>
 <script>
 export default {
-    props: [
-        'orders',
-    ],
+    data() {
+        return {
+            loaded: true,
+            orders:{},
+        }
+    },
+    created() {
+        this.getOrders();
+    },
+    methods: {
+        getOrders(){
+            if (this.loaded) {
+                this.loaded = false;
+                axios.get('/admin/orders/getOrders').then(response => {
+                    this.loaded = true;
+                    this.orders = response.data.orders;
+                }).catch(error => {
+                    this.loaded = true;
+                    console.log(error);
+                });
+            }
+        },
+        deleteOrder (id) {
+            if (this.loaded) {
+                this.loaded = false;
+
+                axios.post('/admin/orders/delete/'+id).then(() => {
+                    this.loaded = true;
+                    this.getOrders();
+                }).catch(error => {
+                    this.loaded = true;
+                    console.log(error);
+                });
+
+            }
+        },
+    }
 }
 </script>

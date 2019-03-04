@@ -39,8 +39,9 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::get('home/edit', ['as' => 'home.edit', 'uses' => 'HomeController@edit']);
 	Route::post('home/store', ['as' => 'home.update', 'uses' => 'HomeController@update']);
 
-
 	Route::get('orders', ['as' => 'orders.index', 'uses' => 'OrderController@index']);
+	Route::get('orders/getOrders', ['as' => 'orders.getOrders', 'uses' => 'OrderController@getOrders']);
+	Route::post('orders/delete/{order}', ['as' => 'orders.destroy', 'uses' => 'OrderController@destroy']);
 
 	Route::get('categories', ['as' => 'categories.index', 'uses' => 'CategoryController@index']);
 	Route::post('categories', ['as' => 'categories.store', 'uses' => 'CategoryController@store']);
@@ -50,6 +51,13 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::post('categories/delete/{category}', ['as' => 'categories.destroy', 'uses' => 'CategoryController@destroy']);
 	Route::get('categories/getCategories', ['as' => 'categories.getCategories', 'uses' => 'CategoryController@getCategories']);
 
+	Route::get('discounts', ['as' => 'discounts.index', 'uses' => 'DiscountController@index']);
+	Route::post('discounts', ['as' => 'discounts.store', 'uses' => 'DiscountController@store']);
+	Route::get('discounts/{discount}/edit', ['as' => 'discounts.edit', 'uses' => 'DiscountController@edit']);
+	Route::post('discounts/{discount}', ['as' => 'discounts.update', 'uses' => 'DiscountController@update']);
+
+	Route::post('discounts/delete/{category}', ['as' => 'discounts.destroy', 'uses' => 'DiscountController@destroy']);
+	Route::get('discounts/getDiscounts', ['as' => 'discounts.getCategories', 'uses' => 'DiscountController@getDiscounts']);
 
 	Route::get('components', ['as' => 'components.index', 'uses' => 'ComponentController@index']);
 	Route::post('components', ['as' => 'components.store', 'uses' => 'ComponentController@store']);

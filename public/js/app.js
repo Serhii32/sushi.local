@@ -2128,6 +2128,9 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    showThankYouModal: function showThankYouModal() {
+      this.$refs.thankYouModal.show();
+    },
     getCartContent: function getCartContent() {
       var _this2 = this;
 
@@ -2231,6 +2234,8 @@ __webpack_require__.r(__webpack_exports__);
             document.body.appendChild(form);
             form.submit();
           }
+
+          _this5.showThankYouModal();
 
           _this5.getCartContent();
         }).catch(function (error) {
@@ -3906,8 +3911,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['orders']
+  data: function data() {
+    return {
+      loaded: true,
+      orders: {}
+    };
+  },
+  created: function created() {
+    this.getOrders();
+  },
+  methods: {
+    getOrders: function getOrders() {
+      var _this = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        axios.get('/admin/orders/getOrders').then(function (response) {
+          _this.loaded = true;
+          _this.orders = response.data.orders;
+        }).catch(function (error) {
+          _this.loaded = true;
+          console.log(error);
+        });
+      }
+    },
+    deleteOrder: function deleteOrder(id) {
+      var _this2 = this;
+
+      if (this.loaded) {
+        this.loaded = false;
+        axios.post('/admin/orders/delete/' + id).then(function () {
+          _this2.loaded = true;
+
+          _this2.getOrders();
+        }).catch(function (error) {
+          _this2.loaded = true;
+          console.log(error);
+        });
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -59023,13 +59081,6 @@ var render = function() {
                   _c(
                     "b-button",
                     {
-                      directives: [
-                        {
-                          name: "b-modal",
-                          rawName: "v-b-modal.thankYouModal",
-                          modifiers: { thankYouModal: true }
-                        }
-                      ],
                       staticClass:
                         "btn btn-success w-100 text-uppercase font-weight-bold",
                       attrs: { disabled: _vm.totalSum < 150, type: "submit" }
@@ -59048,6 +59099,7 @@ var render = function() {
       _c(
         "b-modal",
         {
+          ref: "thankYouModal",
           attrs: {
             id: "thankYouModal",
             title: "Дякуємо за покупку",
@@ -63487,12 +63539,12 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-left text-uppercase" }, [
-            _vm._v("Имя: " + _vm._s(order.name))
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Ім'я: " + _vm._s(order.name))
           ]),
           _vm._v(" "),
           _c(
-            "h4",
+            "h6",
             {
               staticClass: "text-left",
               staticStyle: { "word-break": "break-word" }
@@ -63503,32 +63555,68 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-left text-uppercase" }, [
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
             _vm._v("Телефон: " + _vm._s(order.phone))
           ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-left text-uppercase" }, [
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
             _vm._v("Вулиця: " + _vm._s(order.street))
           ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-left text-uppercase" }, [
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
             _vm._v("Будинок: " + _vm._s(order.building))
           ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-left text-uppercase" }, [
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
             _vm._v("Під'їзд: " + _vm._s(order.entrance))
           ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-left text-uppercase" }, [
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
             _vm._v("Корпус: " + _vm._s(order.house))
           ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-left text-uppercase" }, [
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
             _vm._v("Квартира: " + _vm._s(order.apartment))
           ]),
           _vm._v(" "),
-          _c("h4", { staticClass: "text-left text-uppercase" }, [
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
             _vm._v("Поверх: " + _vm._s(order.floor))
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Дзвінок в двері: " + _vm._s(order.call))
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Дата: " + _vm._s(order.date))
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Час: " + _vm._s(order.time))
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Оплата: " + _vm._s(order.payment))
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Підготувати решту з: " + _vm._s(order.change))
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Статус онлайн оплати: " + _vm._s(order.paid))
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Кількість персон: " + _vm._s(order.persons))
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Тип паличок: " + _vm._s(order.sticks))
+          ]),
+          _vm._v(" "),
+          _c("h6", { staticClass: "text-left text-uppercase" }, [
+            _vm._v("Коментар: " + _vm._s(order.comment))
           ]),
           _vm._v(" "),
           _vm._l(order.products, function(product) {
@@ -63615,7 +63703,21 @@ var render = function() {
           _vm._v(" "),
           _c("h4", { staticClass: "text-left text-uppercase" }, [
             _vm._v("Всього: " + _vm._s(order.totalSum))
-          ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "b-button",
+            {
+              staticClass: "text-uppercase font-weight-bold my-2 w-100",
+              attrs: { variant: "danger" },
+              on: {
+                click: function($event) {
+                  _vm.deleteOrder(order.id)
+                }
+              }
+            },
+            [_vm._v("Видалити")]
+          )
         ],
         2
       )
@@ -80360,8 +80462,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

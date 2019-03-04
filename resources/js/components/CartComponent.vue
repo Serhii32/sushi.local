@@ -141,12 +141,12 @@
                 <h5 class="text-white">Всього: {{totalSum}} <span v-if="totalSum >= 150 && totalSum < 250">+ доставка 25 грн.</span></h5>
 
                 <b-form-group>
-                    <b-button :disabled="totalSum < 150" type="submit" v-b-modal.thankYouModal class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
+                    <b-button :disabled="totalSum < 150" type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
                 </b-form-group>
             </div>
         </form>
 
-        <b-modal id="thankYouModal" title="Дякуємо за покупку" hide-footer>
+        <b-modal id="thankYouModal" ref="thankYouModal" title="Дякуємо за покупку" hide-footer>
             <p class="my-4">Ваше замовлення буде оброблено нашими менеджерами</p>
         </b-modal>
 
@@ -242,6 +242,9 @@ export default {
         });
     },
     methods: {
+        showThankYouModal(){
+            this.$refs.thankYouModal.show();
+        },
         getCartContent(){
             if (this.loaded) {
                 this.loaded = false;
@@ -333,7 +336,7 @@ export default {
                         document.body.appendChild(form);
                         form.submit();
                     }
-
+                    this.showThankYouModal();
                     this.getCartContent();
 
                 }).catch(error => {

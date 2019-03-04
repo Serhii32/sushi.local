@@ -10,11 +10,21 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::all();
+        return view('admin.orders.index');
+    }
+    public function getOrders()
+    {
+    	$orders = Order::all();
         foreach ($orders as $order) {
     		$order->products = $order->products()->get();
     	}
-    	$orders = $orders->toJson();
-        return view('admin.orders.index', compact(['orders']));
+    	return response()->json(['orders' => $orders], 200);
+    }
+    public function destroy(int $id)
+    {
+    	$order = Order::findOrFail($id);
+        $order->products()->detach();
+        $order->delete();
+        return response()->json(null, 200);
     }
 }
