@@ -95,6 +95,9 @@
         	@yield('content')
 	        
         </main>
+        <footer class="text-center p-4" style="background-color: black; border-top: 3px solid #e16729;">
+            <a class="text-white card-link" href="{{route('page.agreement')}}">Договір оферти<br>SushiWin</a>
+        </footer>
         <div id="bottom-left-sidebar" style="position: fixed; z-index: 2; bottom: 0px; color: white; width: 100%; text-align: center; border-top: 3px solid #e16729; background-color: black;">
             <div>
                 <ul class="nav" style="justify-content: center;">

@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/', ['as' => 'page.index', 'uses' => 'PagesController@index']);
 Route::get('menu', ['as' => 'page.menu', 'uses' => 'PagesController@menu']);
 Route::get('delivery', ['as' => 'page.delivery', 'uses' => 'PagesController@delivery']);
+Route::get('agreement', ['as' => 'page.agreement', 'uses' => 'PagesController@agreement']);
 Route::get('clients', ['as' => 'page.clients', 'uses' => 'PagesController@clients']);
 Route::get('getCategories', ['as' => 'page.getCategories', 'uses' => 'PagesController@getCategories']);
 Route::get('category/{id}', ['as' => 'page.category', 'uses' => 'PagesController@category']);
@@ -58,6 +59,14 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 	Route::post('discounts/delete/{category}', ['as' => 'discounts.destroy', 'uses' => 'DiscountController@destroy']);
 	Route::get('discounts/getDiscounts', ['as' => 'discounts.getCategories', 'uses' => 'DiscountController@getDiscounts']);
+
+	Route::get('modals', ['as' => 'modals.index', 'uses' => 'ModalsController@index']);
+	Route::post('modals', ['as' => 'modals.store', 'uses' => 'ModalsController@store']);
+	Route::get('modals/{modal}/edit', ['as' => 'modals.edit', 'uses' => 'ModalsController@edit']);
+	Route::post('modals/{modal}', ['as' => 'modals.update', 'uses' => 'ModalsController@update']);
+
+	Route::post('modals/delete/{modal}', ['as' => 'modals.destroy', 'uses' => 'ModalsController@destroy']);
+	Route::get('modals/getModals', ['as' => 'modals.getModals', 'uses' => 'ModalsController@getModals']);
 
 	Route::get('components', ['as' => 'components.index', 'uses' => 'ComponentController@index']);
 	Route::post('components', ['as' => 'components.store', 'uses' => 'ComponentController@store']);

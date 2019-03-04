@@ -17,17 +17,17 @@
             <h6 class="text-left text-uppercase">Квартира: {{order.apartment}}</h6>
             <h6 class="text-left text-uppercase">Поверх: {{order.floor}}</h6>
 
-            <h6 class="text-left text-uppercase">Дзвінок в двері: {{order.call}}</h6>
+            <h6 class="text-left text-uppercase">Дзвінок в двері: {{order.call?'Так':'Ні'}}</h6>
 
             <h6 class="text-left text-uppercase">Дата: {{order.date}}</h6>
             <h6 class="text-left text-uppercase">Час: {{order.time}}</h6>
 
-            <h6 class="text-left text-uppercase">Оплата: {{order.payment}}</h6>
-            <h6 class="text-left text-uppercase">Підготувати решту з: {{order.change}}</h6>
-            <h6 class="text-left text-uppercase">Статус онлайн оплати: {{order.paid}}</h6>
+            <h6 class="text-left text-uppercase">Оплата: {{order.payment?'Готівкою':'Онлайн картою'}}</h6>
+            <h6 v-if="order.payment" class="text-left text-uppercase">Підготувати решту з: {{order.change}}</h6>
+            <h6 v-else class="text-left text-uppercase">Статус онлайн оплати: {{order.paid?'Оплачено':'Не оплачено'}}</h6>
 
             <h6 class="text-left text-uppercase">Кількість персон: {{order.persons}}</h6>
-            <h6 class="text-left text-uppercase">Тип паличок: {{order.sticks}}</h6>
+            <h6 class="text-left text-uppercase">Тип паличок: {{order.sticks?'Звичайні':'Навчальні'}}</h6>
             <h6 class="text-left text-uppercase">Коментар: {{order.comment}}</h6>
 
            

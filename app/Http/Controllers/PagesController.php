@@ -129,6 +129,11 @@ class PagesController extends Controller
     	return view('clients-page', ['categories' => $this->categories]);
     }
 
+    public function agreement()
+    {
+        return view('agreement-page', ['categories' => $this->categories]);
+    }
+
     public function delivery()
     {
     	return view('delivery-page', ['categories' => $this->categories]);

@@ -319,7 +319,7 @@ export default {
 
                         let form = document.createElement("form");
                         form.setAttribute("method", "post");
-                        form.setAttribute("action", "https://www.liqpay.com/api/3/checkout");
+                        form.setAttribute("action", "https://www.liqpay.com/api/3/checkout");//https://www.liqpay.ua/uk/checkout/i94485343771
 
                         let data = document.createElement("input");
                         data.setAttribute("type", "hidden");
