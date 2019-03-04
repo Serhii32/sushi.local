@@ -11,7 +11,7 @@ class ModalController extends Controller
 {
     public function index()
     {
-        return view('admin.modal.index');
+        return view('admin.modals.index');
     }
 
     public function getModals() 

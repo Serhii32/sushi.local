@@ -150,6 +150,10 @@
             <p class="my-4">Ваше замовлення буде оброблено нашими менеджерами</p>
         </b-modal>
 
+        <b-modal v-if="messageModal" id="messageModal" ref="messageModal" :title="messageModal.title" hide-footer>
+            <p class="my-4">{{messageModal.description}}</p>
+        </b-modal>
+
     </aside>
 </template>
 <script>
@@ -161,6 +165,8 @@ export default {
             errors: {},
             fields: {},
             totalSum: 0,
+            messageModal: null
+
             dateOptions: [
                 { value: Date.now(), text: 'Сьогодні' },
                 { value: Date.now()+86400000, text: 'Завтра' },
@@ -251,6 +257,7 @@ export default {
                 axios.get('/getCartContent').then(response => {
                     this.loaded = true;
                     this.cart = response.data.cart;
+                    this.messageModal = response.data.messageModal;
                     this.getTotalSum();
                 }).catch(error => {
                     this.loaded = true;

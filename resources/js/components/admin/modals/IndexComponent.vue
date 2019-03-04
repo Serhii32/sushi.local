@@ -6,7 +6,7 @@
                 <b-card bg-variant="light" border-variant="light" class="shadow h-100" align="center">
                     <h3 class="text-uppercase font-weight-bold">{{modal.title}}</h3>
                     <div slot="footer">
-                        <b-button variant="warning" class="text-uppercase font-weight-bold my-2 w-100" :href="'/admin/components/' + modal.id + '/edit'">Редагувати</b-button>
+                        <b-button variant="warning" class="text-uppercase font-weight-bold my-2 w-100" :href="'/admin/modals/' + modal.id + '/edit'">Редагувати</b-button>
                         <b-button variant="danger" class="text-uppercase font-weight-bold my-2 w-100" @click="deleteModal(modal.id)">Видалити</b-button>
                     </div>
                 </b-card>
@@ -62,7 +62,7 @@ export default {
         getModals() {
             if (this.loaded) {
                 this.loaded = false;
-                axios.get('/admin/components/getModals').then(response => {
+                axios.get('/admin/modals/getModals').then(response => {
                     this.loaded = true;
                     this.modals = response.data;
                 }).catch(error => {

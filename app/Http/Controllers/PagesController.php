@@ -9,6 +9,7 @@ use App\Promotion;
 use Cart;
 use App\Http\Requests\StoreOrderRequest;
 use App\Order;
+use App\Modal;
 use LiqPay;
 use Auth;
 
@@ -268,7 +269,15 @@ class PagesController extends Controller
     public function getCartContent()
     {
         $cart = Cart::content();
-    	return response()->json(['cart' => $cart], 200); 
+        $messageModal = null;
+        $modals = Modal::all();
+        foreach ($modals as $modal) {
+            if ($modal->status == 1) {
+                $messageModal = $modal;
+                break;
+            }
+        }
+    	return response()->json(['cart' => $cart, 'messageModal' => $messageModal], 200); 
     }
 
 }

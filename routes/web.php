@@ -60,13 +60,13 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::post('discounts/delete/{category}', ['as' => 'discounts.destroy', 'uses' => 'DiscountController@destroy']);
 	Route::get('discounts/getDiscounts', ['as' => 'discounts.getCategories', 'uses' => 'DiscountController@getDiscounts']);
 
-	Route::get('modals', ['as' => 'modals.index', 'uses' => 'ModalsController@index']);
-	Route::post('modals', ['as' => 'modals.store', 'uses' => 'ModalsController@store']);
-	Route::get('modals/{modal}/edit', ['as' => 'modals.edit', 'uses' => 'ModalsController@edit']);
-	Route::post('modals/{modal}', ['as' => 'modals.update', 'uses' => 'ModalsController@update']);
+	Route::get('modals', ['as' => 'modals.index', 'uses' => 'ModalController@index']);
+	Route::post('modals', ['as' => 'modals.store', 'uses' => 'ModalController@store']);
+	Route::get('modals/{modal}/edit', ['as' => 'modals.edit', 'uses' => 'ModalController@edit']);
+	Route::post('modals/{modal}', ['as' => 'modals.update', 'uses' => 'ModalController@update']);
 
-	Route::post('modals/delete/{modal}', ['as' => 'modals.destroy', 'uses' => 'ModalsController@destroy']);
-	Route::get('modals/getModals', ['as' => 'modals.getModals', 'uses' => 'ModalsController@getModals']);
+	Route::post('modals/delete/{modal}', ['as' => 'modals.destroy', 'uses' => 'ModalController@destroy']);
+	Route::get('modals/getModals', ['as' => 'modals.getModals', 'uses' => 'ModalController@getModals']);
 
 	Route::get('components', ['as' => 'components.index', 'uses' => 'ComponentController@index']);
 	Route::post('components', ['as' => 'components.store', 'uses' => 'ComponentController@store']);

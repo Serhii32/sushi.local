@@ -12,9 +12,9 @@ class DiscountController extends Controller
 {
     public function index()
     {
-        $date = new Carbon();
-        $date->setTimezone('Europe/Kiev');
-        dd($date);
+        // $date = new Carbon();
+        // $date->setTimezone('Europe/Kiev');
+        // dd(Carbon::createFromTimestamp(323223)->toDateTimeString());
         return view('admin.discounts.index');
     }
 
@@ -34,6 +34,7 @@ class DiscountController extends Controller
         $discount->endDate = $request->endDate;
         $discount->endTime = $request->endTime;
         $discount->status = $request->status;
+        $discount->dayOfWeek = $request->dayOfWeek;
         $discount->save();
 
         return response()->json(null, 200);
