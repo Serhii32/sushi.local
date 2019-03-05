@@ -24,7 +24,6 @@ class ModalController extends Controller
     {
     	$modal = new Modal();
         $modal->title = $request->title;
-        $modal->status = $request->status;
         if($request->status)
         {
         	$modals = Modal::all();
@@ -33,6 +32,7 @@ class ModalController extends Controller
         		$modal->save();
         	}
         }
+        $modal->status = $request->status;
         $modal->description= $request->description;
         $modal->save();
         return response()->json(null, 200);
@@ -48,7 +48,6 @@ class ModalController extends Controller
     {
     	$modal = Modal::findOrFail($id);
         $modal->title = $request->title;
-        $modal->status = $request->status;
         if($request->status)
         {
         	$modals = Modal::all();
@@ -57,6 +56,7 @@ class ModalController extends Controller
         		$modal->save();
         	}
         }
+        $modal->status = $request->status;
         $modal->description= $request->description;
         $modal->save();
         

@@ -92,7 +92,12 @@ class PagesController extends Controller
     	}
     	$tabs = json_encode(array_unique($tabs));
     	$checkboxes = json_encode(array_unique($checkboxes));
-    	return view('category-page', compact('category', 'tabs', 'checkboxes', 'products'), ['categories' => $this->categories]);
+
+        $pageTitle = $category->titleSEO;
+        $pageDescription = $category->descriptionSEO;
+        $pageKeywords = $category->keywordsSEO;
+
+    	return view('category-page', compact('category', 'tabs', 'checkboxes', 'products', 'pageTitle', 'pageDescription', 'pageKeywords'), ['categories' => $this->categories]);
     }
 
     public function promotions()
@@ -104,7 +109,10 @@ class PagesController extends Controller
     public function promotion(int $id)
     {
     	$promotion = Promotion::findOrFail($id);
-    	return view('promotion-page', compact('promotion'), ['categories' => $this->categories]);
+        $pageTitle = $promotion->titleSEO;
+        $pageDescription = $promotion->descriptionSEO;
+        $pageKeywords = $promotion->keywordsSEO;
+    	return view('promotion-page', compact('promotion', 'pageTitle', 'pageDescription', 'pageKeywords'), ['categories' => $this->categories]);
     }
 
     public function product(int $id)
@@ -122,7 +130,11 @@ class PagesController extends Controller
             $product->isFavorite = true;
         }
     	$components = $product->components()->get();
-    	return view('product-page', compact('product', 'components'), ['categories' => $this->categories]);
+
+        $pageTitle = $product->titleSEO;
+        $pageDescription = $product->descriptionSEO;
+        $pageKeywords = $product->keywordsSEO;
+    	return view('product-page', compact('product', 'components', 'pageTitle', 'pageDescription', 'pageKeywords'), ['categories' => $this->categories]);
     }
 
     public function clients()
@@ -231,6 +243,26 @@ class PagesController extends Controller
 		} else {
             Cart::destroy();
         }
+        
+        $messageAdmin = "Клієнт " . $order->name . " зробив замовлення на сайті sushiwin.vn.ua</h4>
+        <h4>Вулиця: " . $order->street . "</h4>
+        <h4>Будинок: " . $order->building . "</h4>
+        <h4>Під'їзд: " . $order->entrance . "</h4>
+        <h4>Корпус: " . $order->house . "</h4>
+        <h4>Квартира: " . $order->apartment . "</h4>
+        <h4>Поверх: " . $order->floor . "</h4>
+        <h4>Дата: " . $order->date . "</h4>
+        <h4>Час: " . $order->time . "</h4>
+        <h4>Коментар: " . $order->comment . "</h4>
+        <h4>Сума: " . $order->totalSum . "</h4>
+        <h4>Дзвонити в двері: " . ($order->call ? "Так" : "Ні") . "</h4>
+        <h4>Тип оплати: " . ($order->payment ? "Готівкою" : "Онлайн картою") . "</h4>
+        <h4>Підготувати здачу з: " . $order->change . "</h4>
+        <h4>Кількість персон: " . $order->persons . "</h4>
+        <h4>Тип паличок: " . ($order->sticks ? "Звичайні" : "Навчальні") . "</h4>
+        <h4>Телефон: " . $order->phone . "</h4>";
+        $headersAdmin = "Content-type:text/html;charset=UTF-8";
+        mail("sushiwin18@gmail.com ", "Зроблено нове замовлення на сайте sushiwin.vn.ua", $messageAdmin, $headersAdmin);
 		
 		return response()->json($response, 200);
 

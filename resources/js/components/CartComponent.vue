@@ -150,8 +150,12 @@
             <p class="my-4">Ваше замовлення буде оброблено нашими менеджерами</p>
         </b-modal>
 
-        <b-modal v-if="messageModal" id="messageModal" ref="messageModal" :title="messageModal.title" hide-footer>
-            <p class="my-4">{{messageModal.description}}</p>
+       <!--  <b-modal id="messageModal" ref="messageModal" title="test" hide-footer>
+            <p class="my-4">test</p>
+        </b-modal> -->
+
+        <b-modal id="messageModalTemplate" ref="messageModalTemplate" :title="messageModal?messageModal.title:''" hide-footer>
+            <p class="my-4">{{messageModal?messageModal.description:''}}</p>
         </b-modal>
 
     </aside>
@@ -165,7 +169,7 @@ export default {
             errors: {},
             fields: {},
             totalSum: 0,
-            messageModal: null
+            messageModal: null,
 
             dateOptions: [
                 { value: Date.now(), text: 'Сьогодні' },
@@ -242,7 +246,7 @@ export default {
     created() {
         this.getCartContent();
     },
-    mounted: function () { 
+    mounted: function () {
         this.$root.$on('cartUpdated', () => {
             this.getCartContent();
         });
@@ -251,6 +255,9 @@ export default {
         showThankYouModal(){
             this.$refs.thankYouModal.show();
         },
+        showMessageModal(){
+            this.$refs.messageModalTemplate.show();
+        },
         getCartContent(){
             if (this.loaded) {
                 this.loaded = false;
@@ -258,6 +265,9 @@ export default {
                     this.loaded = true;
                     this.cart = response.data.cart;
                     this.messageModal = response.data.messageModal;
+                    if (this.messageModal) {
+                        this.showMessageModal();
+                    }
                     this.getTotalSum();
                 }).catch(error => {
                     this.loaded = true;

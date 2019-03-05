@@ -7,9 +7,23 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ isset($pageTitle) ? 'SushiWin | ' . $pageTitle : 'SushiWin' }}</title>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-134456724-1"></script>
+    <meta name="description" content="{{ isset($pageDescription) ? $pageDescription : 'Замовити суші' }}"/>
+    <meta name="author" content="serhii.bondarenko.ria@gmail.com">
+    <meta name="keywords" content="{{ isset($pageKeywords) ? $pageKeywords : 'Замовити суші' }}">
+    <link rel="canonical" href="{{ URL::current() }}"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async 
+    src="https://www.googletagmanager.com/gtag/js?id=UA-134456724-1"></script>
+    <script>
+       window.dataLayer = window.dataLayer || [];
+       function gtag(){dataLayer.push(arguments);}
+       gtag('js', new Date());
+
+       gtag('config', 'UA-134456724-1');
+    </script>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -63,6 +77,31 @@
                     <a href="tel:+380932092020" class="nav-link text-center p-0"><p class="text-white font-weight-bold m-0">093 20 920 20</p></a>
                     <p class="text-white font-weight-bold m-0 text-center">Прийом замовлень:<br>11.00-22.30</p>
                 </div>
+
+                {{-- <button id="header-phone-number-mobile" style="background-color: #e16729; margin-left: auto;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#phoneNumbers" aria-controls="phoneNumbers" aria-expanded="false" aria-label="Телефони">
+                    <img width=30 src="/img/front/icons/phone.svg">
+                </button>
+
+                <div class="collapse navbar-collapse" id="phoneNumbers" style="margin-left: 40px">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item text-center">
+                            <a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1rem" href="tel:+380962092020">380962092020</a>
+                        </li>
+                        <li class="nav-item text-center">
+                            <a class="header-menu-link nav-link text-white font-weight-bold" style="font-size: 1rem" href="tel:+380932092020">380932092020</a>
+                        </li>
+                    </ul>
+                </div> --}}
+
+                <div id="header-phone-number-mobile" class="p-1" style="cursor: pointer">
+                    {{-- <a href="tel:+380962092020" class="nav-link p-1"> --}}<img width=30 src="/img/front/icons/phone.svg">{{-- </a> --}}
+                </div>
+
+                <b-popover ref="popover" target="header-phone-number-mobile" placement="bottom">
+                        <a class="header-menu-link nav-link text-dark font-weight-bold" style="font-size: 1rem" href="tel:+380962092020">380962092020</a>
+                        <a class="header-menu-link nav-link text-dark font-weight-bold" style="font-size: 1rem" href="tel:+380932092020">380932092020</a>
+                </b-popover>
+
                 <div id="header-social-icons">
                     <a href="https://www.facebook.com/sushi.win.bar" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/facebook.svg"></a>
                     <a href="https://www.instagram.com/sushi.win.bar" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/instagram.svg"></a>

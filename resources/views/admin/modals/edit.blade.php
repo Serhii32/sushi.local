@@ -8,7 +8,7 @@
             <div class="col-12 col-md-9 p-2">
                 <div class="py-4 bg-white border rounded border-light shadow">
                 	<h2 class="text-center font-weight-bold text-uppercase pb-5">Редагувати модальне вікно</h2>
-					<admin-modals-edit-component :promotion="{{$promotion}}"></admin-modals-edit-component>
+					<admin-modals-edit-component :modal="{{$modal}}"></admin-modals-edit-component>
                 </div>
             </div>
         </div>

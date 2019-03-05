@@ -2,7 +2,7 @@
     <div>
         <b-button variant="success" class="text-uppercase font-weight-bold my-2 w-100" @click="showCreateModal()">Додати модальне вікно</b-button>
         <div class="row">
-            <div class="col-12 col-md-4 mb-4" v-for="modal in modals.data" :key="modal.id">
+            <div class="col-12 col-md-4 mb-4" v-for="modal in modals" :key="modal.id">
                 <b-card bg-variant="light" border-variant="light" class="shadow h-100" align="center">
                     <h3 class="text-uppercase font-weight-bold">{{modal.title}}</h3>
                     <div slot="footer">
@@ -29,7 +29,7 @@
                         </div>
                     </b-form-group>
                     <b-form-group>
-                        <b-form-checkbox id="status" class="text-white" name="status" :state="Boolean(errors && errors.status && errors.status[0])?false:null" v-model="fields.status" value="1" unchecked-value="null">Статус</b-form-checkbox>
+                        <b-form-checkbox id="status" name="status" :state="Boolean(errors && errors.status && errors.status[0])?false:null" v-model="fields.status" value="1" unchecked-value="null">Статус</b-form-checkbox>
                         <div v-if="errors && errors.call">
                             <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.status[0] }}</b-alert>
                         </div>

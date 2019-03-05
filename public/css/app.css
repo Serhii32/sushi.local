@@ -18476,6 +18476,10 @@ body {
   border-bottom: 3px solid #e16729;
 }
 
+#header-phone-number-mobile {
+  display: none;
+}
+
 @media only screen and (max-width: 992px) {
   #right-sidebar {
     display: none;
@@ -18495,6 +18499,10 @@ body {
 
   #header-phone-number {
     display: none;
+  }
+
+  #header-phone-number-mobile {
+    display: inline;
   }
 }
 
