@@ -10,6 +10,7 @@ use Cart;
 use App\Http\Requests\StoreOrderRequest;
 use App\Order;
 use App\Modal;
+use App\Discount;
 use LiqPay;
 use Auth;
 
@@ -244,6 +245,12 @@ class PagesController extends Controller
             Cart::destroy();
         }
         
+        $sentMailProducts = "";
+
+        foreach ($orderedProducts as $orderedProduct) {
+            $sentMailProducts .= "<h4>" . $orderedProduct->name . "</h4>";
+        }
+
         $messageAdmin = "Клієнт " . $order->name . " зробив замовлення на сайті sushiwin.vn.ua</h4>
         <h4>Вулиця: " . $order->street . "</h4>
         <h4>Будинок: " . $order->building . "</h4>
@@ -260,10 +267,13 @@ class PagesController extends Controller
         <h4>Підготувати здачу з: " . $order->change . "</h4>
         <h4>Кількість персон: " . $order->persons . "</h4>
         <h4>Тип паличок: " . ($order->sticks ? "Звичайні" : "Навчальні") . "</h4>
-        <h4>Телефон: " . $order->phone . "</h4>";
+
+        <h4>Замовлені продукти:</h4>". $sentMailProducts .
+
+        "<h4>Телефон: " . $order->phone . "</h4>";
         $headersAdmin = "Content-type:text/html;charset=UTF-8";
         mail("sushiwin18@gmail.com ", "Зроблено нове замовлення на сайте sushiwin.vn.ua", $messageAdmin, $headersAdmin);
-		
+
 		return response()->json($response, 200);
 
     }
@@ -302,6 +312,7 @@ class PagesController extends Controller
     {
         $cart = Cart::content();
         $messageModal = null;
+        $cartDiscount = null;
         $modals = Modal::all();
         foreach ($modals as $modal) {
             if ($modal->status == 1) {
@@ -309,7 +320,14 @@ class PagesController extends Controller
                 break;
             }
         }
-    	return response()->json(['cart' => $cart, 'messageModal' => $messageModal], 200); 
+        $discounts = Discount::all();
+        foreach ($discounts as $discount) {
+            if ($discount->status == 1) {
+                $cartDiscount = $discount;
+                break;
+            }
+        }
+    	return response()->json(['cart' => $cart, 'messageModal' => $messageModal, 'cartDiscount' => $cartDiscount], 200); 
     }
 
 }

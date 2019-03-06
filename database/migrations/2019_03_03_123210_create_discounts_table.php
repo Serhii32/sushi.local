@@ -15,6 +15,14 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title');
+            $table->boolean('status')->nullable();
+            $table->integer('percent');
+            $table->integer('dayOfWeek')->nullable();
+            $table->string('startDate')->nullable();
+            $table->string('startTime')->nullable();
+            $table->string('endDate')->nullable();
+            $table->string('endTime')->nullable();
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@
                         Склад:
                     </h5>
                     <carousel :navigation-enabled="true" :pagination-enabled="false" :per-page-custom="[[768, 2], [992, 3], [1199, 4]]">
-                        <slide style="background-color: black; max-width: 80px;" class="mx-3 card" v-for="component in components" :key="component.id" v-if="component.photo">
+                        <slide style="background-color: black; max-width: 85px;" class="mx-3 card" v-for="component in components" :key="component.id" v-if="component.photo">
                             <img class="img-fluid card-img-top" :src="component.photo?'/'+component.photo:'/img/default.png'">
                             <p style="font-size: 12px;" class="text-white text-center card-title">{{component.title}}</p>
                         </slide>

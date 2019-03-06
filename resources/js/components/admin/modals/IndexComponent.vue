@@ -29,7 +29,7 @@
                         </div>
                     </b-form-group>
                     <b-form-group>
-                        <b-form-checkbox id="status" name="status" :state="Boolean(errors && errors.status && errors.status[0])?false:null" v-model="fields.status" value="1" unchecked-value="null">Статус</b-form-checkbox>
+                        <b-form-checkbox id="status" name="status" :state="Boolean(errors && errors.status && errors.status[0])?false:null" v-model="fields.status" value="1" unchecked-value="0">Статус</b-form-checkbox>
                         <div v-if="errors && errors.call">
                             <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.status[0] }}</b-alert>
                         </div>

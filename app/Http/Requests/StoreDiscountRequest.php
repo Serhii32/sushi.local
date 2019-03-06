@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StoreDiscountRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreDiscountRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Gate::allows('adminBusiness') ? true : false;
     }
 
     /**
@@ -24,7 +25,14 @@ class StoreDiscountRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|max:255',
+            'percent' => 'required|integer',
+            'status' => 'nullable|integer|min:0|max:1',
+            'startDate' => 'nullable|date',
+            'startTime' => 'nullable|max:25',
+            'endDate' => 'nullable|date',
+            'endTime' => 'nullable|max:25',
+            'dayOfWeek' => 'nullable|integer|min:1|max:7'
         ];
     }
 }

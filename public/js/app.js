@@ -1925,6 +1925,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1934,6 +1935,7 @@ __webpack_require__.r(__webpack_exports__);
       fields: {},
       totalSum: 0,
       messageModal: null,
+      cartDiscount: null,
       dateOptions: [{
         value: Date.now(),
         text: 'Сьогодні'
@@ -2152,6 +2154,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.loaded = true;
           _this2.cart = response.data.cart;
           _this2.messageModal = response.data.messageModal;
+          _this2.cartDiscount = response.data.cartDiscount; // Vue.set(vm.discount, 'b', 2)
 
           if (_this2.messageModal) {
             _this2.showMessageModal();
@@ -3910,6 +3913,58 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['discount'],
   data: function data() {
@@ -3917,7 +3972,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       errors: {},
       success: false,
       loaded: true,
-      fields: _objectSpread({}, this.component)
+      fields: _objectSpread({}, this.discount)
     };
   },
   methods: {
@@ -3930,6 +3985,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.errors = {};
         var formData = new FormData();
         formData.set('title', this.fields.title == null ? "" : this.fields.title);
+        formData.set('status', this.fields.status == null ? "" : this.fields.status);
+        formData.set('percent', this.fields.percent == null ? "" : this.fields.percent);
+        formData.set('startDate', this.fields.startDate == null ? "" : this.fields.startDate);
+        formData.set('startTime', this.fields.startTime == null ? "" : this.fields.startTime);
+        formData.set('endDate', this.fields.endDate == null ? "" : this.fields.endDate);
+        formData.set('endTime', this.fields.endTime == null ? "" : this.fields.endTime);
+        formData.set('dayOfWeek', this.fields.dayOfWeek == null ? "" : this.fields.dayOfWeek);
         axios.post('/admin/discounts/' + this.discount.id, formData).then(function (response) {
           _this.loaded = true;
           _this.success = true;
@@ -3956,6 +4018,62 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4051,6 +4169,13 @@ __webpack_require__.r(__webpack_exports__);
         this.errors = {};
         var formData = new FormData();
         formData.set('title', this.fields.title == null ? "" : this.fields.title);
+        formData.set('status', this.fields.status == null ? "" : this.fields.status);
+        formData.set('percent', this.fields.percent == null ? "" : this.fields.percent);
+        formData.set('startDate', this.fields.startDate == null ? "" : this.fields.startDate);
+        formData.set('startTime', this.fields.startTime == null ? "" : this.fields.startTime);
+        formData.set('endDate', this.fields.endDate == null ? "" : this.fields.endDate);
+        formData.set('endTime', this.fields.endTime == null ? "" : this.fields.endTime);
+        formData.set('dayOfWeek', this.fields.dayOfWeek == null ? "" : this.fields.dayOfWeek);
         axios.post('/admin/discounts', formData).then(function (response) {
           _this3.loaded = true;
 
@@ -59520,6 +59645,15 @@ var render = function() {
                   : _vm._e()
               ]),
               _vm._v(" "),
+              _vm.cartDiscount
+                ? _c("p", { staticClass: "text-white" }, [
+                    _vm._v(
+                      "Знижка: " +
+                        _vm._s(_vm.cartDiscount ? _vm.cartDiscount.percent : "")
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c(
                 "b-form-group",
                 [
@@ -60389,7 +60523,7 @@ var render = function() {
                         staticClass: "mx-3 card",
                         staticStyle: {
                           "background-color": "black",
-                          "max-width": "80px"
+                          "max-width": "85px"
                         }
                       },
                       [
@@ -64000,109 +64134,503 @@ var render = function() {
       }
     },
     [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c(
-          "div",
-          { staticClass: "col-12 col-md-6" },
-          [
-            _c(
-              "b-form-group",
-              {
+      _c(
+        "div",
+        { staticClass: "container-fluid" },
+        [
+          _c(
+            "b-form-group",
+            {
+              attrs: {
+                "label-class": "text-uppercase font-weight-bold",
+                description: "Введіть назву знижки",
+                label: "Назва:",
+                "label-for": "title"
+              }
+            },
+            [
+              _c("b-form-input", {
                 attrs: {
-                  "label-class": "text-uppercase font-weight-bold",
-                  description: "Введіть назву знижки",
-                  label: "Назва:",
-                  "label-for": "title"
+                  id: "title",
+                  name: "title",
+                  state: Boolean(
+                    _vm.errors && _vm.errors.title && _vm.errors.title[0]
+                  )
+                    ? false
+                    : null,
+                  type: "text",
+                  placeholder: "Назва"
+                },
+                model: {
+                  value: _vm.fields.title,
+                  callback: function($$v) {
+                    _vm.$set(_vm.fields, "title", $$v)
+                  },
+                  expression: "fields.title"
                 }
-              },
-              [
-                _c("b-form-input", {
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.title
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          staticClass: "text-center",
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.title[0]))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-form-group",
+            {
+              attrs: {
+                "label-class": "text-uppercase font-weight-bold",
+                description: "Введіть процент продукта",
+                label: "Процент:",
+                "label-for": "percent"
+              }
+            },
+            [
+              _c("b-form-input", {
+                attrs: {
+                  id: "percent",
+                  name: "percent",
+                  state: Boolean(
+                    _vm.errors && _vm.errors.percent && _vm.errors.percent[0]
+                  )
+                    ? false
+                    : null,
+                  type: "number",
+                  placeholder: "Процент",
+                  step: "1"
+                },
+                model: {
+                  value: _vm.fields.percent,
+                  callback: function($$v) {
+                    _vm.$set(_vm.fields, "percent", $$v)
+                  },
+                  expression: "fields.percent"
+                }
+              }),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.percent
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          staticClass: "text-center",
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.percent[0]))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "row" },
+            [
+              _c(
+                "b-form-group",
+                {
+                  staticClass: "col-12 col-md-6",
+                  attrs: { description: "Виберіть дату початку дії знижки" }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "startDate",
+                      name: "startDate",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.startDate &&
+                          _vm.errors.startDate[0]
+                      )
+                        ? false
+                        : null,
+                      type: "date",
+                      placeholder: "Дата початку"
+                    },
+                    model: {
+                      value: _vm.fields.startDate,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "startDate", $$v)
+                      },
+                      expression: "fields.startDate"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.startDate
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.startDate[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  staticClass: "col-12 col-md-6",
+                  attrs: { description: "Виберіть час початку дії знижки" }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "startTime",
+                      name: "startTime",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.startTime &&
+                          _vm.errors.startTime[0]
+                      )
+                        ? false
+                        : null
+                    },
+                    model: {
+                      value: _vm.fields.startTime,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "startTime", $$v)
+                      },
+                      expression: "fields.startTime"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.startTime
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.startTime[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  staticClass: "col-12 col-md-6",
+                  attrs: { description: "Виберіть дату закінчення дії знижки" }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "endDate",
+                      name: "endDate",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.endDate &&
+                          _vm.errors.endDate[0]
+                      )
+                        ? false
+                        : null,
+                      type: "date",
+                      placeholder: "Дата кінця"
+                    },
+                    model: {
+                      value: _vm.fields.endDate,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "endDate", $$v)
+                      },
+                      expression: "fields.endDate"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.endDate
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.endDate[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  staticClass: "col-12 col-md-6",
+                  attrs: { description: "Виберіть час закінчення дії знижки" }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "endTime",
+                      name: "endTime",
+                      state: Boolean(
+                        _vm.errors &&
+                          _vm.errors.endTime &&
+                          _vm.errors.endTime[0]
+                      )
+                        ? false
+                        : null
+                    },
+                    model: {
+                      value: _vm.fields.endTime,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "endTime", $$v)
+                      },
+                      expression: "fields.endTime"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.endTime
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.endTime[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-form-group",
+            [
+              _c(
+                "b-form-radio-group",
+                {
+                  staticClass: "text-white",
                   attrs: {
-                    id: "title",
-                    name: "title",
+                    stacked: "",
+                    id: "dayOfWeek",
                     state: Boolean(
-                      _vm.errors && _vm.errors.title && _vm.errors.title[0]
+                      _vm.errors &&
+                        _vm.errors.dayOfWeek &&
+                        _vm.errors.dayOfWeek[0]
                     )
                       ? false
                       : null,
-                    type: "text",
-                    placeholder: "Назва"
+                    name: "dayOfWeek"
                   },
                   model: {
-                    value: _vm.fields.title,
+                    value: _vm.fields.dayOfWeek,
                     callback: function($$v) {
-                      _vm.$set(_vm.fields, "title", $$v)
+                      _vm.$set(_vm.fields, "dayOfWeek", $$v)
                     },
-                    expression: "fields.title"
+                    expression: "fields.dayOfWeek"
                   }
-                }),
-                _vm._v(" "),
-                _vm.errors && _vm.errors.title
-                  ? _c(
-                      "div",
-                      [
-                        _c(
-                          "b-alert",
-                          {
-                            staticClass: "text-center",
-                            attrs: {
-                              variant: "danger",
-                              dismissible: "",
-                              fade: "",
-                              show: true
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.errors.title[0]))]
-                        )
-                      ],
-                      1
+                },
+                [
+                  _c("b-form-radio", { attrs: { value: "1" } }, [
+                    _vm._v("Понеділок")
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-radio", { attrs: { value: "2" } }, [
+                    _vm._v("Вівторок")
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-radio", { attrs: { value: "3" } }, [
+                    _vm._v("Середа")
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-radio", { attrs: { value: "4" } }, [
+                    _vm._v("Четвер")
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-radio", { attrs: { value: "5" } }, [
+                    _vm._v("П'ятниця")
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-radio", { attrs: { value: "6" } }, [
+                    _vm._v("Субота")
+                  ]),
+                  _vm._v(" "),
+                  _c("b-form-radio", { attrs: { value: "7" } }, [
+                    _vm._v("Неділя")
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.dayOfWeek
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          staticClass: "text-center",
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.dayOfWeek[0]))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-form-group",
+            [
+              _c(
+                "b-form-checkbox",
+                {
+                  attrs: {
+                    id: "status",
+                    name: "status",
+                    state: Boolean(
+                      _vm.errors && _vm.errors.status && _vm.errors.status[0]
                     )
-                  : _vm._e()
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "b-form-group",
-              [
-                _c(
-                  "b-button",
-                  {
-                    staticClass:
-                      "btn btn-success w-100 text-uppercase font-weight-bold",
-                    attrs: { type: "submit" }
+                      ? false
+                      : null,
+                    value: "1",
+                    "unchecked-value": "0"
                   },
-                  [_vm._v("Зберегти")]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm.success
-              ? _c(
-                  "div",
-                  [
-                    _c(
-                      "b-alert",
-                      {
-                        staticClass: "text-center",
-                        attrs: {
-                          variant: "success",
-                          dismissible: "",
-                          fade: "",
-                          show: true
-                        }
-                      },
-                      [_vm._v("Дані успішно оновлено")]
-                    )
-                  ],
-                  1
-                )
-              : _vm._e()
-          ],
-          1
-        )
-      ]),
+                  model: {
+                    value: _vm.fields.status,
+                    callback: function($$v) {
+                      _vm.$set(_vm.fields, "status", $$v)
+                    },
+                    expression: "fields.status"
+                  }
+                },
+                [_vm._v("Статус")]
+              ),
+              _vm._v(" "),
+              _vm.errors && _vm.errors.call
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "b-alert",
+                        {
+                          staticClass: "text-center",
+                          attrs: {
+                            variant: "danger",
+                            dismissible: "",
+                            fade: "",
+                            show: true
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.errors.status[0]))]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-form-group",
+            [
+              _c(
+                "b-button",
+                {
+                  staticClass:
+                    "btn btn-success w-100 text-uppercase font-weight-bold",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("Зберегти")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       !_vm.loaded
         ? _c(
@@ -64176,7 +64704,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "row" },
-        _vm._l(_vm.discounts.data, function(discount) {
+        _vm._l(_vm.discounts, function(discount) {
           return _c(
             "div",
             { key: discount.id, staticClass: "col-12 col-md-4 mb-4" },
@@ -64318,6 +64846,435 @@ var render = function() {
                                   }
                                 },
                                 [_vm._v(_vm._s(_vm.errors.title[0]))]
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      attrs: {
+                        "label-class": "text-uppercase font-weight-bold",
+                        description: "Введіть процент продукта",
+                        label: "Процент:",
+                        "label-for": "percent"
+                      }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          id: "percent",
+                          name: "percent",
+                          state: Boolean(
+                            _vm.errors &&
+                              _vm.errors.percent &&
+                              _vm.errors.percent[0]
+                          )
+                            ? false
+                            : null,
+                          type: "number",
+                          placeholder: "Процент",
+                          step: "1"
+                        },
+                        model: {
+                          value: _vm.fields.percent,
+                          callback: function($$v) {
+                            _vm.$set(_vm.fields, "percent", $$v)
+                          },
+                          expression: "fields.percent"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.percent
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-alert",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: {
+                                    variant: "danger",
+                                    dismissible: "",
+                                    fade: "",
+                                    show: true
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.errors.percent[0]))]
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "row" },
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          staticClass: "col-12 col-md-6",
+                          attrs: {
+                            description: "Виберіть дату початку дії знижки"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "startDate",
+                              name: "startDate",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.startDate &&
+                                  _vm.errors.startDate[0]
+                              )
+                                ? false
+                                : null,
+                              type: "date",
+                              placeholder: "Дата початку"
+                            },
+                            model: {
+                              value: _vm.fields.startDate,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "startDate", $$v)
+                              },
+                              expression: "fields.startDate"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.startDate
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.startDate[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          staticClass: "col-12 col-md-6",
+                          attrs: {
+                            description: "Виберіть час початку дії знижки"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "startTime",
+                              name: "startTime",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.startTime &&
+                                  _vm.errors.startTime[0]
+                              )
+                                ? false
+                                : null
+                            },
+                            model: {
+                              value: _vm.fields.startTime,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "startTime", $$v)
+                              },
+                              expression: "fields.startTime"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.startTime
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.startTime[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          staticClass: "col-12 col-md-6",
+                          attrs: {
+                            description: "Виберіть дату закінчення дії знижки"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "endDate",
+                              name: "endDate",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.endDate &&
+                                  _vm.errors.endDate[0]
+                              )
+                                ? false
+                                : null,
+                              type: "date",
+                              placeholder: "Дата кінця"
+                            },
+                            model: {
+                              value: _vm.fields.endDate,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "endDate", $$v)
+                              },
+                              expression: "fields.endDate"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.endDate
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.endDate[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          staticClass: "col-12 col-md-6",
+                          attrs: {
+                            description: "Виберіть час закінчення дії знижки"
+                          }
+                        },
+                        [
+                          _c("b-form-input", {
+                            attrs: {
+                              id: "endTime",
+                              name: "endTime",
+                              state: Boolean(
+                                _vm.errors &&
+                                  _vm.errors.endTime &&
+                                  _vm.errors.endTime[0]
+                              )
+                                ? false
+                                : null
+                            },
+                            model: {
+                              value: _vm.fields.endTime,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "endTime", $$v)
+                              },
+                              expression: "fields.endTime"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.endTime
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.endTime[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    [
+                      _c(
+                        "b-form-radio-group",
+                        {
+                          attrs: {
+                            stacked: "",
+                            id: "dayOfWeek",
+                            state: Boolean(
+                              _vm.errors &&
+                                _vm.errors.dayOfWeek &&
+                                _vm.errors.dayOfWeek[0]
+                            )
+                              ? false
+                              : null,
+                            name: "dayOfWeek"
+                          },
+                          model: {
+                            value: _vm.fields.dayOfWeek,
+                            callback: function($$v) {
+                              _vm.$set(_vm.fields, "dayOfWeek", $$v)
+                            },
+                            expression: "fields.dayOfWeek"
+                          }
+                        },
+                        [
+                          _c("b-form-radio", { attrs: { value: "1" } }, [
+                            _vm._v("Понеділок")
+                          ]),
+                          _vm._v(" "),
+                          _c("b-form-radio", { attrs: { value: "2" } }, [
+                            _vm._v("Вівторок")
+                          ]),
+                          _vm._v(" "),
+                          _c("b-form-radio", { attrs: { value: "3" } }, [
+                            _vm._v("Середа")
+                          ]),
+                          _vm._v(" "),
+                          _c("b-form-radio", { attrs: { value: "4" } }, [
+                            _vm._v("Четвер")
+                          ]),
+                          _vm._v(" "),
+                          _c("b-form-radio", { attrs: { value: "5" } }, [
+                            _vm._v("П'ятниця")
+                          ]),
+                          _vm._v(" "),
+                          _c("b-form-radio", { attrs: { value: "6" } }, [
+                            _vm._v("Субота")
+                          ]),
+                          _vm._v(" "),
+                          _c("b-form-radio", { attrs: { value: "7" } }, [
+                            _vm._v("Неділя")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.dayOfWeek
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-alert",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: {
+                                    variant: "danger",
+                                    dismissible: "",
+                                    fade: "",
+                                    show: true
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.errors.dayOfWeek[0]))]
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    [
+                      _c(
+                        "b-form-checkbox",
+                        {
+                          attrs: {
+                            id: "status",
+                            name: "status",
+                            state: Boolean(
+                              _vm.errors &&
+                                _vm.errors.status &&
+                                _vm.errors.status[0]
+                            )
+                              ? false
+                              : null,
+                            value: "1",
+                            "unchecked-value": "0"
+                          },
+                          model: {
+                            value: _vm.fields.status,
+                            callback: function($$v) {
+                              _vm.$set(_vm.fields, "status", $$v)
+                            },
+                            expression: "fields.status"
+                          }
+                        },
+                        [_vm._v("Статус")]
+                      ),
+                      _vm._v(" "),
+                      _vm.errors && _vm.errors.call
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "b-alert",
+                                {
+                                  staticClass: "text-center",
+                                  attrs: {
+                                    variant: "danger",
+                                    dismissible: "",
+                                    fade: "",
+                                    show: true
+                                  }
+                                },
+                                [_vm._v(_vm._s(_vm.errors.status[0]))]
                               )
                             ],
                             1
@@ -64545,7 +65502,7 @@ var render = function() {
                       ? false
                       : null,
                     value: "1",
-                    "unchecked-value": "null"
+                    "unchecked-value": "0"
                   },
                   model: {
                     value: _vm.fields.status,
@@ -64917,7 +65874,7 @@ var render = function() {
                               ? false
                               : null,
                             value: "1",
-                            "unchecked-value": "null"
+                            "unchecked-value": "0"
                           },
                           model: {
                             value: _vm.fields.status,

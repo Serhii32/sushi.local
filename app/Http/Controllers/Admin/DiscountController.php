@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Discount;
 use App\Http\Requests\StoreDiscountRequest;
-use Carbon\Carbon;
+// use Carbon\Carbon;
 
 class DiscountController extends Controller
 {
@@ -33,6 +33,14 @@ class DiscountController extends Controller
         $discount->startTime = $request->startTime;
         $discount->endDate = $request->endDate;
         $discount->endTime = $request->endTime;
+        if($request->status)
+        {
+            $discounts = Discount::all();
+            foreach ($discounts as $discount) {
+                $discount->status = 0;
+                $discount->save();
+            }
+        }
         $discount->status = $request->status;
         $discount->dayOfWeek = $request->dayOfWeek;
         $discount->save();
@@ -40,35 +48,41 @@ class DiscountController extends Controller
         return response()->json(null, 200);
     }
 
-    // public function edit(int $id)
-    // {
-    //     $component = Component::findOrFail($id);
-    //     // $pageTitle = 'Редактировать ' . $category->title;
-    //     return view('admin.components.edit', compact(['component']));
-    // }
+    public function edit(int $id)
+    {
+        $discount = Discount::findOrFail($id);
+        return view('admin.discounts.edit', compact(['discount']));
+    }
 
-    // public function update(StoreComponentRequest $request, int $id)
-    // {
-    // 	$component = Component::findOrFail($id);
-    //     $component->title = $request->title;
-    //     $component->save();
-    //     $last_insereted_id = $component->id;
-    //     if ($request->photo != null) {
-    //         if($component->photo) {
-    //             Storage::disk('uploaded_img')->delete($component->photo);
-    //         }
-    //         $component->photo = $request->photo->store('img/components/'.$last_insereted_id, ['disk' => 'uploaded_img']);
-    //     }
-        
-    //     $component->save();
-    //     return response()->json(['newPhoto' => $component->photo], 200);
-    // }
+    public function update(StoreDiscountRequest $request, int $id)
+    {
+    	$discount = Discount::findOrFail($id);
+        $discount->title = $request->title;
+        $discount->percent = $request->percent;
+        $discount->startDate = $request->startDate;
+        $discount->startTime = $request->startTime;
+        $discount->endDate = $request->endDate;
+        $discount->endTime = $request->endTime;
+        if($request->status)
+        {
+            $discounts = Discount::all();
+            foreach ($discounts as $discount) {
+                $discount->status = 0;
+                $discount->save();
+            }
+        }
+        $discount->status = $request->status;
+        $discount->dayOfWeek = $request->dayOfWeek;
+        $discount->save();
 
-    // public function destroy(int $id)
-    // {
-    // 	$component = Component::findOrFail($id);
-    //     Storage::disk('uploaded_img')->deleteDirectory('img/components/' . $id);
-    //     $component->delete();
-    //     return response()->json(null, 200);
-    // }
+       
+        return response()->json(null, 200);
+    }
+
+    public function destroy(int $id)
+    {
+    	$discount = Discount::findOrFail($id);
+        $discount->delete();
+        return response()->json(null, 200);
+    }
 }
