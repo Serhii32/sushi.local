@@ -43,8 +43,15 @@
                 </b-form-group>
             </div>
 
-            <b-form-group>
-                <b-form-radio-group stacked class="text-white" id="dayOfWeek" :state="Boolean(errors && errors.dayOfWeek && errors.dayOfWeek[0])?false:null" v-model="fields.dayOfWeek" name="dayOfWeek">
+            <b-form-group description="Виберіть активні дні знижки" label="Активні дні:" label-for="dayOfWeek">
+                <b-form-select multiple id="dayOfWeek" name="dayOfWeek" :state="Boolean(errors && errors.dayOfWeek && errors.dayOfWeek[0])?false:null" v-model="fields.dayOfWeek" :options="dayOfWeekOptions"></b-form-select>
+                <div v-if="errors && errors.dayOfWeek">
+                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.dayOfWeek[0] }}</b-alert>
+                </div>
+            </b-form-group>
+
+           <!--  <b-form-group>
+                <b-form-radio-group stacked id="dayOfWeek" :state="Boolean(errors && errors.dayOfWeek && errors.dayOfWeek[0])?false:null" v-model="fields.dayOfWeek" name="dayOfWeek">
                     <b-form-radio value=1>Понеділок</b-form-radio>
                     <b-form-radio value=2>Вівторок</b-form-radio>
                     <b-form-radio value=3>Середа</b-form-radio>
@@ -56,7 +63,7 @@
                 <div v-if="errors && errors.dayOfWeek">
                     <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.dayOfWeek[0] }}</b-alert>
                 </div>
-            </b-form-group>
+            </b-form-group> -->
 
             <b-form-group>
                 <b-form-checkbox id="status" name="status" :state="Boolean(errors && errors.status && errors.status[0])?false:null" v-model="fields.status" value="1" unchecked-value="0">Статус</b-form-checkbox>
@@ -91,6 +98,15 @@ export default {
             success: false,
             loaded: true,
             fields: {...this.discount},
+            dayOfWeekOptions: [
+                { value: '1', text: 'Понеділок' },
+                { value: '2', text: 'Вівторок' },
+                { value: '3', text: 'Середа' },
+                { value: '4', text: 'Четвер' },
+                { value: '5', text: 'П\'ятниця' },
+                { value: '6', text: 'Субота' },
+                { value: '7', text: 'Неділя' },
+            ],
         }
     },
     methods: {

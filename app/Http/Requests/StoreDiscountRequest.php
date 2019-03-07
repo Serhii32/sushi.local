@@ -29,9 +29,9 @@ class StoreDiscountRequest extends FormRequest
             'percent' => 'required|integer',
             'status' => 'nullable|integer|min:0|max:1',
             'startDate' => 'nullable|date',
-            'startTime' => 'nullable|max:25',
+            'startTime' => 'nullable|date_format:"H:i"',
             'endDate' => 'nullable|date',
-            'endTime' => 'nullable|max:25',
+            'endTime' => 'nullable|date_format:"H:i"',
             'dayOfWeek' => 'nullable|integer|min:1|max:7'
         ];
     }

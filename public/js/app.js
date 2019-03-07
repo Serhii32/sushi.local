@@ -2154,7 +2154,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.loaded = true;
           _this2.cart = response.data.cart;
           _this2.messageModal = response.data.messageModal;
-          _this2.cartDiscount = response.data.cartDiscount; // Vue.set(vm.discount, 'b', 2)
+          _this2.cartDiscount = response.data.cartDiscount;
 
           if (_this2.messageModal) {
             _this2.showMessageModal();
@@ -2208,6 +2208,14 @@ __webpack_require__.r(__webpack_exports__);
 
       for (var index in this.cart) {
         this.totalSum += parseInt(this.cart[index].qty) * parseFloat(this.cart[index].price);
+      }
+
+      if (this.cartDiscount) {
+        var discountSum = this.totalSum * parseInt(this.cartDiscount.percent) / 100;
+        console.log(this.totalSum);
+        console.log(this.cartDiscount.percent);
+        console.log(discountSum);
+        this.totalSum -= discountSum;
       }
     },
     submit: function submit() {
@@ -3887,6 +3895,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -59638,21 +59650,24 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
+              _vm.cartDiscount
+                ? _c("p", { staticClass: "text-white" }, [
+                    _vm._v(
+                      "Діє знижка: " +
+                        _vm._s(
+                          _vm.cartDiscount ? _vm.cartDiscount.percent : ""
+                        ) +
+                        " %"
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _c("h5", { staticClass: "text-white" }, [
                 _vm._v("Всього: " + _vm._s(_vm.totalSum) + " "),
                 _vm.totalSum >= 150 && _vm.totalSum < 250
                   ? _c("span", [_vm._v("+ доставка 25 грн.")])
                   : _vm._e()
               ]),
-              _vm._v(" "),
-              _vm.cartDiscount
-                ? _c("p", { staticClass: "text-white" }, [
-                    _vm._v(
-                      "Знижка: " +
-                        _vm._s(_vm.cartDiscount ? _vm.cartDiscount.percent : "")
-                    )
-                  ])
-                : _vm._e(),
               _vm._v(" "),
               _c(
                 "b-form-group",
@@ -64482,7 +64497,6 @@ var render = function() {
               _c(
                 "b-form-radio-group",
                 {
-                  staticClass: "text-white",
                   attrs: {
                     stacked: "",
                     id: "dayOfWeek",
@@ -64627,7 +64641,29 @@ var render = function() {
               )
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _vm.success
+            ? _c(
+                "div",
+                [
+                  _c(
+                    "b-alert",
+                    {
+                      staticClass: "text-center",
+                      attrs: {
+                        variant: "success",
+                        dismissible: "",
+                        fade: "",
+                        show: true
+                      }
+                    },
+                    [_vm._v("Дані успішно оновлено")]
+                  )
+                ],
+                1
+              )
+            : _vm._e()
         ],
         1
       ),
@@ -65492,7 +65528,6 @@ var render = function() {
               _c(
                 "b-form-checkbox",
                 {
-                  staticClass: "text-white",
                   attrs: {
                     id: "status",
                     name: "status",

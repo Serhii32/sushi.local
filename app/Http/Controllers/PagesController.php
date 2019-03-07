@@ -13,6 +13,8 @@ use App\Modal;
 use App\Discount;
 use LiqPay;
 use Auth;
+use Carbon\Carbon;
+use DateTime;
 
 class PagesController extends Controller
 {
@@ -197,6 +199,16 @@ class PagesController extends Controller
     	$order->comment = $request->comment;
     	$order->status = 1;
     	$order->totalSum = Cart::subtotal();
+
+        $discounts = Discount::all();
+        foreach ($discounts as $discount) {
+            if ($discount->status == 1) {
+                $discountSum = ($order->totalSum * $discount->percent)/100;
+                $order->totalSum -= $discountSum;
+                break;
+            }
+        }
+
     	if($order->totalSum < 250) {
     		$order->totalSum+=25;
     	}
@@ -321,10 +333,27 @@ class PagesController extends Controller
             }
         }
         $discounts = Discount::all();
+
+        $date = new Carbon();
+        $date->setTimezone('Europe/Kiev');
+
         foreach ($discounts as $discount) {
             if ($discount->status == 1) {
-                $cartDiscount = $discount;
-                break;
+
+                $dateChecker = Carbon::parse($discount->startDate)->format('Y-m-d') >= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') <= $date->format('Y-m-d');
+
+                if ($dateChecker) {
+                    $timeChecker = Carbon::parse($discount->startTime)->format('H:i') >= $date->format('H:i') && Carbon::parse($discount->endTime)->format('H:i') <= $date->format('H:i');
+                    if ($timeChecker) {
+                        $cartDiscount = $discount;
+                        break;
+                    }
+                }
+                                
+                return $date->format('Y-m-d');
+
+                // return $date->dayOfWeek;
+               
             }
         }
     	return response()->json(['cart' => $cart, 'messageModal' => $messageModal, 'cartDiscount' => $cartDiscount], 200); 

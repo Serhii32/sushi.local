@@ -138,8 +138,8 @@
                 </b-form-group>
                 <p class="text-white">Мінімальне замовлення 150 грн.<br>Від 150 грн. до 250 грн. + доставка 25 грн.</p>
                 <p class="text-white">Час очікування замовлення 60 хв. при великій завантаженості 90 хв.</p>
+                <p v-if="cartDiscount" class="text-white">Діє знижка: {{cartDiscount?cartDiscount.percent:''}} %</p>
                 <h5 class="text-white">Всього: {{totalSum}} <span v-if="totalSum >= 150 && totalSum < 250">+ доставка 25 грн.</span></h5>
-                <p v-if="cartDiscount" class="text-white">Знижка: {{cartDiscount?cartDiscount.percent:''}}</p>
 
                 <b-form-group>
                     <b-button :disabled="totalSum < 150" type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
@@ -268,7 +268,6 @@ export default {
                     this.cart = response.data.cart;
                     this.messageModal = response.data.messageModal;
                     this.cartDiscount = response.data.cartDiscount;
-                    // Vue.set(vm.discount, 'b', 2)
                     if (this.messageModal) {
                         this.showMessageModal();
                     }
@@ -308,6 +307,10 @@ export default {
             this.totalSum = 0;
             for(var index in this.cart){
                 this.totalSum += parseInt(this.cart[index].qty) * parseFloat(this.cart[index].price);
+            }
+            if (this.cartDiscount) {
+                let discountSum = (this.totalSum * parseInt(this.cartDiscount.percent))/100;
+                this.totalSum -= discountSum;
             }
         },
         submit() {

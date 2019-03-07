@@ -6,15 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Discount;
 use App\Http\Requests\StoreDiscountRequest;
-// use Carbon\Carbon;
 
 class DiscountController extends Controller
 {
     public function index()
     {
-        // $date = new Carbon();
-        // $date->setTimezone('Europe/Kiev');
-        // dd(Carbon::createFromTimestamp(323223)->toDateTimeString());
         return view('admin.discounts.index');
     }
 
@@ -36,12 +32,20 @@ class DiscountController extends Controller
         if($request->status)
         {
             $discounts = Discount::all();
-            foreach ($discounts as $discount) {
-                $discount->status = 0;
-                $discount->save();
+            foreach ($discounts as $iterableDiscount) {
+                $iterableDiscount->status = 0;
+                $iterableDiscount->save();
             }
         }
         $discount->status = $request->status;
+        if ($request->input('dayOfWeek')!=null && is_string($request->input('components'))) {
+            $components = array_unique(explode(",", $request->input('components')));
+            if(!in_array("0", $components)){
+                foreach ($components as $component) {
+                    $product->components()->attach($component);
+                }
+            }
+        }
         $discount->dayOfWeek = $request->dayOfWeek;
         $discount->save();
 
@@ -57,6 +61,7 @@ class DiscountController extends Controller
     public function update(StoreDiscountRequest $request, int $id)
     {
     	$discount = Discount::findOrFail($id);
+        // return dd($request);
         $discount->title = $request->title;
         $discount->percent = $request->percent;
         $discount->startDate = $request->startDate;
@@ -66,9 +71,9 @@ class DiscountController extends Controller
         if($request->status)
         {
             $discounts = Discount::all();
-            foreach ($discounts as $discount) {
-                $discount->status = 0;
-                $discount->save();
+            foreach ($discounts as $iterableDiscount) {
+                $iterableDiscount->status = 0;
+                $iterableDiscount->save();
             }
         }
         $discount->status = $request->status;
