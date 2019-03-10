@@ -2212,9 +2212,6 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.cartDiscount) {
         var discountSum = this.totalSum * parseInt(this.cartDiscount.percent) / 100;
-        console.log(this.totalSum);
-        console.log(this.cartDiscount.percent);
-        console.log(discountSum);
         this.totalSum -= discountSum;
       }
     },
@@ -3977,6 +3974,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['discount'],
   data: function data() {
@@ -3984,8 +3988,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       errors: {},
       success: false,
       loaded: true,
-      fields: _objectSpread({}, this.discount)
+      fields: _objectSpread({}, this.discount),
+      dayOfWeekOptions: [{
+        value: '0',
+        text: 'Усі дні'
+      }, {
+        value: '1',
+        text: 'Понеділок'
+      }, {
+        value: '2',
+        text: 'Вівторок'
+      }, {
+        value: '3',
+        text: 'Середа'
+      }, {
+        value: '4',
+        text: 'Четвер'
+      }, {
+        value: '5',
+        text: 'П\'ятниця'
+      }, {
+        value: '6',
+        text: 'Субота'
+      }, {
+        value: '7',
+        text: 'Неділя'
+      }]
     };
+  },
+  created: function created() {
+    console.log(this.discount);
+    this.fields.dayOfWeek = this.fields.dayOfWeek.split(',');
   },
   methods: {
     submit: function submit() {
@@ -4003,7 +4036,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.set('startTime', this.fields.startTime == null ? "" : this.fields.startTime);
         formData.set('endDate', this.fields.endDate == null ? "" : this.fields.endDate);
         formData.set('endTime', this.fields.endTime == null ? "" : this.fields.endTime);
-        formData.set('dayOfWeek', this.fields.dayOfWeek == null ? "" : this.fields.dayOfWeek);
+        formData.set('dayOfWeek', this.fields.dayOfWeek == null || this.fields.dayOfWeek.length == 0 ? "" : this.fields.dayOfWeek); // formData.set('dayOfWeek', this.fields.dayOfWeek == null?"":this.fields.dayOfWeek);
+
         axios.post('/admin/discounts/' + this.discount.id, formData).then(function (response) {
           _this.loaded = true;
           _this.success = true;
@@ -4125,13 +4159,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       errors: {},
       discounts: {},
       loaded: true,
-      fields: {}
+      fields: {},
+      dayOfWeekOptions: [{
+        value: '0',
+        text: 'Усі дні'
+      }, {
+        value: '1',
+        text: 'Понеділок'
+      }, {
+        value: '2',
+        text: 'Вівторок'
+      }, {
+        value: '3',
+        text: 'Середа'
+      }, {
+        value: '4',
+        text: 'Четвер'
+      }, {
+        value: '5',
+        text: 'П\'ятниця'
+      }, {
+        value: '6',
+        text: 'Субота'
+      }, {
+        value: '7',
+        text: 'Неділя'
+      }]
     };
   },
   created: function created() {
@@ -4187,7 +4253,7 @@ __webpack_require__.r(__webpack_exports__);
         formData.set('startTime', this.fields.startTime == null ? "" : this.fields.startTime);
         formData.set('endDate', this.fields.endDate == null ? "" : this.fields.endDate);
         formData.set('endTime', this.fields.endTime == null ? "" : this.fields.endTime);
-        formData.set('dayOfWeek', this.fields.dayOfWeek == null ? "" : this.fields.dayOfWeek);
+        formData.set('dayOfWeek', this.fields.dayOfWeek == null || this.fields.dayOfWeek.length == 0 ? "" : this.fields.dayOfWeek);
         axios.post('/admin/discounts', formData).then(function (response) {
           _this3.loaded = true;
 
@@ -64493,61 +64559,36 @@ var render = function() {
           _vm._v(" "),
           _c(
             "b-form-group",
+            {
+              attrs: {
+                description: "Виберіть активні дні знижки",
+                label: "Активні дні:",
+                "label-for": "dayOfWeek"
+              }
+            },
             [
-              _c(
-                "b-form-radio-group",
-                {
-                  attrs: {
-                    stacked: "",
-                    id: "dayOfWeek",
-                    state: Boolean(
-                      _vm.errors &&
-                        _vm.errors.dayOfWeek &&
-                        _vm.errors.dayOfWeek[0]
-                    )
-                      ? false
-                      : null,
-                    name: "dayOfWeek"
-                  },
-                  model: {
-                    value: _vm.fields.dayOfWeek,
-                    callback: function($$v) {
-                      _vm.$set(_vm.fields, "dayOfWeek", $$v)
-                    },
-                    expression: "fields.dayOfWeek"
-                  }
+              _c("b-form-select", {
+                attrs: {
+                  multiple: "",
+                  id: "dayOfWeek",
+                  name: "dayOfWeek",
+                  state: Boolean(
+                    _vm.errors &&
+                      _vm.errors.dayOfWeek &&
+                      _vm.errors.dayOfWeek[0]
+                  )
+                    ? false
+                    : null,
+                  options: _vm.dayOfWeekOptions
                 },
-                [
-                  _c("b-form-radio", { attrs: { value: "1" } }, [
-                    _vm._v("Понеділок")
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-radio", { attrs: { value: "2" } }, [
-                    _vm._v("Вівторок")
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-radio", { attrs: { value: "3" } }, [
-                    _vm._v("Середа")
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-radio", { attrs: { value: "4" } }, [
-                    _vm._v("Четвер")
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-radio", { attrs: { value: "5" } }, [
-                    _vm._v("П'ятниця")
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-radio", { attrs: { value: "6" } }, [
-                    _vm._v("Субота")
-                  ]),
-                  _vm._v(" "),
-                  _c("b-form-radio", { attrs: { value: "7" } }, [
-                    _vm._v("Неділя")
-                  ])
-                ],
-                1
-              ),
+                model: {
+                  value: _vm.fields.dayOfWeek,
+                  callback: function($$v) {
+                    _vm.$set(_vm.fields, "dayOfWeek", $$v)
+                  },
+                  expression: "fields.dayOfWeek"
+                }
+              }),
               _vm._v(" "),
               _vm.errors && _vm.errors.dayOfWeek
                 ? _c(
@@ -65184,61 +65225,36 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "b-form-group",
+                    {
+                      attrs: {
+                        description: "Виберіть активні дні знижки",
+                        label: "Активні дні:",
+                        "label-for": "dayOfWeek"
+                      }
+                    },
                     [
-                      _c(
-                        "b-form-radio-group",
-                        {
-                          attrs: {
-                            stacked: "",
-                            id: "dayOfWeek",
-                            state: Boolean(
-                              _vm.errors &&
-                                _vm.errors.dayOfWeek &&
-                                _vm.errors.dayOfWeek[0]
-                            )
-                              ? false
-                              : null,
-                            name: "dayOfWeek"
-                          },
-                          model: {
-                            value: _vm.fields.dayOfWeek,
-                            callback: function($$v) {
-                              _vm.$set(_vm.fields, "dayOfWeek", $$v)
-                            },
-                            expression: "fields.dayOfWeek"
-                          }
+                      _c("b-form-select", {
+                        attrs: {
+                          multiple: "",
+                          id: "dayOfWeek",
+                          name: "dayOfWeek",
+                          state: Boolean(
+                            _vm.errors &&
+                              _vm.errors.dayOfWeek &&
+                              _vm.errors.dayOfWeek[0]
+                          )
+                            ? false
+                            : null,
+                          options: _vm.dayOfWeekOptions
                         },
-                        [
-                          _c("b-form-radio", { attrs: { value: "1" } }, [
-                            _vm._v("Понеділок")
-                          ]),
-                          _vm._v(" "),
-                          _c("b-form-radio", { attrs: { value: "2" } }, [
-                            _vm._v("Вівторок")
-                          ]),
-                          _vm._v(" "),
-                          _c("b-form-radio", { attrs: { value: "3" } }, [
-                            _vm._v("Середа")
-                          ]),
-                          _vm._v(" "),
-                          _c("b-form-radio", { attrs: { value: "4" } }, [
-                            _vm._v("Четвер")
-                          ]),
-                          _vm._v(" "),
-                          _c("b-form-radio", { attrs: { value: "5" } }, [
-                            _vm._v("П'ятниця")
-                          ]),
-                          _vm._v(" "),
-                          _c("b-form-radio", { attrs: { value: "6" } }, [
-                            _vm._v("Субота")
-                          ]),
-                          _vm._v(" "),
-                          _c("b-form-radio", { attrs: { value: "7" } }, [
-                            _vm._v("Неділя")
-                          ])
-                        ],
-                        1
-                      ),
+                        model: {
+                          value: _vm.fields.dayOfWeek,
+                          callback: function($$v) {
+                            _vm.$set(_vm.fields, "dayOfWeek", $$v)
+                          },
+                          expression: "fields.dayOfWeek"
+                        }
+                      }),
                       _vm._v(" "),
                       _vm.errors && _vm.errors.dayOfWeek
                         ? _c(
@@ -83246,8 +83262,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/project3.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/project3.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

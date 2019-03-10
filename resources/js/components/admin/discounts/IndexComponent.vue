@@ -109,6 +109,7 @@ export default {
             loaded: true,
             fields: {},
             dayOfWeekOptions: [
+                { value: '0', text: 'Усі дні' },
                 { value: '1', text: 'Понеділок' },
                 { value: '2', text: 'Вівторок' },
                 { value: '3', text: 'Середа' },
@@ -167,7 +168,7 @@ export default {
                 formData.set('startTime', this.fields.startTime == null?"":this.fields.startTime);
                 formData.set('endDate', this.fields.endDate == null?"":this.fields.endDate);
                 formData.set('endTime', this.fields.endTime == null?"":this.fields.endTime);
-                formData.set('dayOfWeek', this.fields.dayOfWeek == null?"":this.fields.dayOfWeek);
+                formData.set('dayOfWeek', this.fields.dayOfWeek == null || this.fields.dayOfWeek.length == 0?"":this.fields.dayOfWeek);
 
                 axios.post('/admin/discounts', formData).then(response => {
                     this.loaded = true;

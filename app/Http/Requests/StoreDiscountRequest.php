@@ -32,7 +32,7 @@ class StoreDiscountRequest extends FormRequest
             'startTime' => 'nullable|date_format:"H:i"',
             'endDate' => 'nullable|date',
             'endTime' => 'nullable|date_format:"H:i"',
-            'dayOfWeek' => 'nullable|integer|min:1|max:7'
+            'dayOfWeek' => 'required|max:25'
         ];
     }
 }

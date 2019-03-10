@@ -340,20 +340,20 @@ class PagesController extends Controller
         foreach ($discounts as $discount) {
             if ($discount->status == 1) {
 
-                $dateChecker = Carbon::parse($discount->startDate)->format('Y-m-d') >= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') <= $date->format('Y-m-d');
+                $dayOfWeek = explode(",", $discount->dayOfWeek);
 
-                if ($dateChecker) {
-                    $timeChecker = Carbon::parse($discount->startTime)->format('H:i') >= $date->format('H:i') && Carbon::parse($discount->endTime)->format('H:i') <= $date->format('H:i');
-                    if ($timeChecker) {
-                        $cartDiscount = $discount;
-                        break;
+                if (in_array($date->dayOfWeekIso, $dayOfWeek)||in_array('0', $dayOfWeek)) {
+
+                    $dateChecker = $discount->startDate==null || $discount->endDate==null || Carbon::parse($discount->startDate)->format('Y-m-d') >= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') <= $date->format('Y-m-d');
+
+                    if ($dateChecker) {
+                        $timeChecker = $discount->startTime==null || $discount->endTime==null || Carbon::parse($discount->startTime)->format('H:i') >= $date->format('H:i') && Carbon::parse($discount->endTime)->format('H:i') <= $date->format('H:i');
+                        if ($timeChecker) {
+                            $cartDiscount = $discount;
+                            break;
+                        }
                     }
                 }
-                                
-                return $date->format('Y-m-d');
-
-                // return $date->dayOfWeek;
-               
             }
         }
     	return response()->json(['cart' => $cart, 'messageModal' => $messageModal, 'cartDiscount' => $cartDiscount], 200); 

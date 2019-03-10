@@ -50,21 +50,6 @@
                 </div>
             </b-form-group>
 
-           <!--  <b-form-group>
-                <b-form-radio-group stacked id="dayOfWeek" :state="Boolean(errors && errors.dayOfWeek && errors.dayOfWeek[0])?false:null" v-model="fields.dayOfWeek" name="dayOfWeek">
-                    <b-form-radio value=1>Понеділок</b-form-radio>
-                    <b-form-radio value=2>Вівторок</b-form-radio>
-                    <b-form-radio value=3>Середа</b-form-radio>
-                    <b-form-radio value=4>Четвер</b-form-radio>
-                    <b-form-radio value=5>П'ятниця</b-form-radio>
-                    <b-form-radio value=6>Субота</b-form-radio>
-                    <b-form-radio value=7>Неділя</b-form-radio>
-                </b-form-radio-group>
-                <div v-if="errors && errors.dayOfWeek">
-                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.dayOfWeek[0] }}</b-alert>
-                </div>
-            </b-form-group> -->
-
             <b-form-group>
                 <b-form-checkbox id="status" name="status" :state="Boolean(errors && errors.status && errors.status[0])?false:null" v-model="fields.status" value="1" unchecked-value="0">Статус</b-form-checkbox>
                 <div v-if="errors && errors.call">
@@ -99,6 +84,7 @@ export default {
             loaded: true,
             fields: {...this.discount},
             dayOfWeekOptions: [
+                { value: '0', text: 'Усі дні' },
                 { value: '1', text: 'Понеділок' },
                 { value: '2', text: 'Вівторок' },
                 { value: '3', text: 'Середа' },
@@ -108,6 +94,9 @@ export default {
                 { value: '7', text: 'Неділя' },
             ],
         }
+    },
+    created() {
+        this.fields.dayOfWeek = this.fields.dayOfWeek.split(',');
     },
     methods: {
         submit() {
@@ -123,7 +112,8 @@ export default {
                 formData.set('startTime', this.fields.startTime == null?"":this.fields.startTime);
                 formData.set('endDate', this.fields.endDate == null?"":this.fields.endDate);
                 formData.set('endTime', this.fields.endTime == null?"":this.fields.endTime);
-                formData.set('dayOfWeek', this.fields.dayOfWeek == null?"":this.fields.dayOfWeek);
+                formData.set('dayOfWeek', this.fields.dayOfWeek == null || this.fields.dayOfWeek.length == 0?"":this.fields.dayOfWeek);
+                // formData.set('dayOfWeek', this.fields.dayOfWeek == null?"":this.fields.dayOfWeek);
 
                 axios.post('/admin/discounts/'+this.discount.id, formData).then(response => {
                     this.loaded = true;

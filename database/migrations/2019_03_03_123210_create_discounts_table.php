@@ -18,7 +18,7 @@ class CreateDiscountsTable extends Migration
             $table->string('title');
             $table->boolean('status')->nullable();
             $table->integer('percent');
-            $table->integer('dayOfWeek')->nullable();
+            $table->string('dayOfWeek');
             $table->string('startDate')->nullable();
             $table->string('startTime')->nullable();
             $table->string('endDate')->nullable();

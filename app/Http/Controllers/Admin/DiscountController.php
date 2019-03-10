@@ -38,14 +38,6 @@ class DiscountController extends Controller
             }
         }
         $discount->status = $request->status;
-        if ($request->input('dayOfWeek')!=null && is_string($request->input('components'))) {
-            $components = array_unique(explode(",", $request->input('components')));
-            if(!in_array("0", $components)){
-                foreach ($components as $component) {
-                    $product->components()->attach($component);
-                }
-            }
-        }
         $discount->dayOfWeek = $request->dayOfWeek;
         $discount->save();
 
@@ -61,7 +53,6 @@ class DiscountController extends Controller
     public function update(StoreDiscountRequest $request, int $id)
     {
     	$discount = Discount::findOrFail($id);
-        // return dd($request);
         $discount->title = $request->title;
         $discount->percent = $request->percent;
         $discount->startDate = $request->startDate;
