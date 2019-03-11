@@ -82,8 +82,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 	Route::get('galleries/{gallery}/edit', ['as' => 'galleries.edit', 'uses' => 'GalleryController@edit']);
 	Route::post('galleries/{gallery}', ['as' => 'galleries.update', 'uses' => 'GalleryController@update']);
 
-	Route::post('galleries/delete/{gallery}', ['as' => 'galleries.destroy', 'uses' => 'ComponentController@destroy']);
-	Route::get('galleries/getGalleries', ['as' => 'galleries.getGalleries', 'uses' => 'ComponentController@getGalleries']);
+	Route::post('galleries/delete/{gallery}', ['as' => 'galleries.destroy', 'uses' => 'GalleryController@destroy']);
+	Route::get('galleries/getGalleries', ['as' => 'galleries.getGalleries', 'uses' => 'GalleryController@getGalleries']);
 
 
 	Route::get('attributes', ['as' => 'attributes.index', 'uses' => 'AttributeController@index']);

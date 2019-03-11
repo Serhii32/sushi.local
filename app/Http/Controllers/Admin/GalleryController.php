@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Gallery;
+use App\Photo;
 use App\Http\Requests\StoreGalleryRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,25 +22,38 @@ class GalleryController extends Controller
     	return response()->json($galleries);
     }
 
-    // public function store(StoreComponentRequest $request)
-    // {
-    // 	$component = new Component();
-    //     $component->title = $request->title;
-    //     $component->save();
-    //     $last_insereted_id = $component->id;
-    //     if ($request->photo != null) {
-    //         $component->photo = $request->photo->store('img/components/'.$last_insereted_id, ['disk' => 'uploaded_img']);
-    //     }
-    //     $component->save();
-    //     return response()->json(null, 200);
-    // }
+    public function store(StoreGalleryRequest $request)
+    {
+    	$gallery = new Gallery();
+        $gallery->title = $request->title;
+        $gallery->save();
+        $last_insereted_id = $gallery->id;
 
-    // public function edit(int $id)
-    // {
-    //     $component = Component::findOrFail($id);
-    //     // $pageTitle = 'Редактировать ' . $category->title;
-    //     return view('admin.components.edit', compact(['component']));
-    // }
+        if ($request->photo != null) {
+            $gallery->photo = $request->photo->store('img/galleries/'.$last_insereted_id, ['disk' => 'uploaded_img']);
+        } 
+        
+        $i = 0;
+        while (true) {
+            if ($request->{'photos_'.$i} != null) {
+                $photo = new Photo();
+                $photo->gallery_id = $last_insereted_id;
+                $photo->url = $request->{'photos_'.$i}->store('img/galleries/'.$last_insereted_id.'/photos', ['disk' => 'uploaded_img']);
+                $photo->save();
+            } else {
+                break;
+            }
+            $i++;
+        }
+        $gallery->save();
+        return response()->json(null, 200);
+    }
+
+    public function edit(int $id)
+    {
+        $gallery = Gallery::findOrFail($id);
+        return view('admin.galleries.edit', compact(['gallery']));
+    }
 
     // public function update(StoreComponentRequest $request, int $id)
     // {

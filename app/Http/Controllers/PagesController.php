@@ -201,11 +201,30 @@ class PagesController extends Controller
     	$order->totalSum = Cart::subtotal();
 
         $discounts = Discount::all();
+
+        $mailDiscount = null;
+
         foreach ($discounts as $discount) {
             if ($discount->status == 1) {
-                $discountSum = ($order->totalSum * $discount->percent)/100;
-                $order->totalSum -= $discountSum;
-                break;
+
+                $dayOfWeek = explode(",", $discount->dayOfWeek);
+
+                if (in_array($date->dayOfWeekIso, $dayOfWeek)||in_array('0', $dayOfWeek)) {
+
+                    $dateChecker = $discount->startDate==null || $discount->endDate==null || Carbon::parse($discount->startDate)->format('Y-m-d') >= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') <= $date->format('Y-m-d');
+
+                    if ($dateChecker) {
+                        $timeChecker = $discount->startTime==null || $discount->endTime==null || Carbon::parse($discount->startTime)->format('H:i') >= $date->format('H:i') && Carbon::parse($discount->endTime)->format('H:i') <= $date->format('H:i');
+                        if ($timeChecker) {
+
+                            $mailDiscount = $discount->percent;
+                            $discountSum = ($order->totalSum * $discount->percent)/100;
+                            $order->totalSum -= $discountSum;
+
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -279,6 +298,8 @@ class PagesController extends Controller
         <h4>Підготувати здачу з: " . $order->change . "</h4>
         <h4>Кількість персон: " . $order->persons . "</h4>
         <h4>Тип паличок: " . ($order->sticks ? "Звичайні" : "Навчальні") . "</h4>
+
+        <h4>Діє знижка: " . ($mailDiscount ? $mailDiscount : "Ні") . "</h4>
 
         <h4>Замовлені продукти:</h4>". $sentMailProducts .
 

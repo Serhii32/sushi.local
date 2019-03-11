@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="py-4">
-                                <b-form-group label-class="text-uppercase font-weight-bold" breakpoint="md" description="Виберіть фото галереї" label="Фото:" label-for="photo">
+                                <b-form-group label-class="text-uppercase font-weight-bold" breakpoint="md" description="Виберіть головне фото галереї" label="Фото:" label-for="photo">
                                     <b-form-file v-model="fields.photo" :state="Boolean(errors.photo)?false:null" placeholder="Фото" @change="previewImage" accept="image/*" ref="fileinput"></b-form-file>
                                     <div v-if="errors && errors.photo">
                                         <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.photo[0] }}</b-alert>
@@ -45,6 +45,14 @@
                                     <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.title[0] }}</b-alert>
                                 </div>
                             </b-form-group>
+
+                            <b-form-group label-class="text-uppercase font-weight-bold" breakpoint="md" description="Виберіть фото для наповнення галереї" label="Фото:" label-for="photos">
+                                <b-form-file :multiple="true" v-model="fields.photos" :state="Boolean(errors.photos)?false:null" placeholder="Фото" accept="image/*"></b-form-file>
+                                <div v-if="errors && errors.photos">
+                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.photos[0] }}</b-alert>
+                                </div>
+                            </b-form-group>
+
                             <b-form-group>
                                 <b-button type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Зберегти</b-button>
                             </b-form-group>
@@ -81,7 +89,7 @@ export default {
                     page = 1;
                 }
                 this.currentPage = page;
-                axios.get('/admin/components/getGalleries?page=' + page).then(response => {
+                axios.get('/admin/galleries/getGalleries?page=' + page).then(response => {
                     this.loaded = true;
                     this.galleries = response.data;
                 }).catch(error => {
@@ -117,6 +125,23 @@ export default {
                 let formData = new FormData();
                 formData.set('title', this.fields.title == null?"":this.fields.title);
                 formData.append('photo', this.fields.photo == null?"":this.fields.photo);
+
+                // this.fields.photos.forEach(function(element) {
+                //     console.log(element.name);
+                //     formData.set('photos[]', element?"":element);
+                // });
+
+                // for (let prop in this.fields.photos) {
+                //     console.log(this.fields.photos[prop]);
+                //     formData.append('photos[]', this.fields.photos[prop]?"":this.fields.photos[prop]);
+                // }
+                
+                if (typeof this.fields.photos != 'undefined') {
+                    for (let i = 0; i < this.fields.photos.length; i++) {
+                        formData.set('photos_'+i, this.fields.photos[i]==null?"":this.fields.photos[i]);
+                    }
+                }
+
                 axios.post('/admin/galleries', formData, {'Content-Type': 'multipart/form-data'}).then(response => {
                     this.loaded = true;
                     this.hideCreateModal();

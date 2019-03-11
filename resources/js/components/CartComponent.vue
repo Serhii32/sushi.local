@@ -141,7 +141,7 @@
                 <p v-if="cartDiscount" class="text-white">Діє знижка: {{cartDiscount?cartDiscount.percent:''}} %</p>
                 <h5 class="text-white">Всього: {{totalSum}} <span v-if="totalSum >= 150 && totalSum < 250">+ доставка 25 грн.</span></h5>
 
-                <b-form-group>
+                <b-form-group style="margin-bottom: 4rem;">
                     <b-button :disabled="totalSum < 150" type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Оформити</b-button>
                 </b-form-group>
             </div>

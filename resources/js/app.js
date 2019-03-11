@@ -17,6 +17,10 @@ import VueCarousel from 'vue-carousel';
 
 Vue.use(VueCarousel);
 
+import VueGallery from 'vue-gallery';
+
+Vue.use(VueGallery);
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -44,6 +48,8 @@ Vue.component('admin-modals-index-component', require('./components/admin/modals
 Vue.component('admin-modals-edit-component', require('./components/admin/modals/EditComponent.vue').default);
 Vue.component('admin-discount-index-component', require('./components/admin/discounts/IndexComponent.vue').default);
 Vue.component('admin-discount-edit-component', require('./components/admin/discounts/EditComponent.vue').default);
+Vue.component('admin-galleries-index-component', require('./components/admin/galleries/IndexComponent.vue').default);
+Vue.component('admin-galleries-edit-component', require('./components/admin/galleries/EditComponent.vue').default);
 Vue.component('user-home-component', require('./components/user/HomeComponent.vue').default);
 
 Vue.component('index-page-component', require('./components/IndexPageComponent.vue').default);

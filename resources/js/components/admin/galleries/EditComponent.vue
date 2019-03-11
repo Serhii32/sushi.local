@@ -32,6 +32,13 @@
                         </div>
                     </b-form-group>
 
+                    <b-form-group label-class="text-uppercase font-weight-bold" breakpoint="md" description="Виберіть фото для наповнення галереї" label="Фото:" label-for="photos">
+                        <b-form-file :multiple="true" v-model="fields.photos" :state="Boolean(errors.photos)?false:null" placeholder="Фото" accept="image/*"></b-form-file>
+                        <div v-if="errors && errors.photos">
+                            <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.photos[0] }}</b-alert>
+                        </div>
+                    </b-form-group>
+
                     <b-form-group>
                         <b-button type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Зберегти</b-button>
                     </b-form-group>
@@ -77,6 +84,8 @@ export default {
                 let formData = new FormData();
                 formData.set('title', this.fields.title == null?"":this.fields.title);
                 formData.append('photo', this.fields.photo == null?"":this.fields.photo);
+
+                formData.append('photos', this.fields.photos == null?"":this.fields.photos);
 
                 axios.post('/admin/galleries/'+this.gallery.id, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
                     this.loaded = true;
