@@ -28,7 +28,10 @@ class PagesController extends Controller
 
     public function index()
     {
-    	return view('index-page', ['categories' => $this->categories]);
+        $pageTitle = "Суші-бар Sushiwin | замовити смачні суші з доставкою у Вінниці ";
+        $pageDescription = "Замовляйте суші, роли, сети в суші-барі Sushiwin сушивин з доставкою. Також можливий самовивіз";
+        $pageKeywords = "суши, суші, сушивін, доставка суши винница, доставка суші вінниця";
+    	return view('index-page', compact('pageTitle', 'pageDescription', 'pageKeywords'), ['categories' => $this->categories]);
     }
 
     public function getCategories()
@@ -57,7 +60,10 @@ class PagesController extends Controller
 
     public function menu()
     {
-        return view('menu-page', ['categories' => $this->categories]);
+        $pageTitle = "Меню суші-бар  Sushiwin | замовити суші смачні суші з доставкою у Вінниці";
+        $pageDescription = "Меню Сушивін Sushiwin - роли, сети, нігірі, гункани, салати та напої з доставкою додому м.Вінниця або самовивіз";
+        $pageKeywords = "меню суши, доставка суши, сушивін, сушивин, Sushiwin, суши бар Сушивін, Винница, суши в Виннице";
+        return view('menu-page', compact('pageTitle', 'pageDescription', 'pageKeywords'), ['categories' => $this->categories]);
     }
 
     public function category(int $id)
@@ -115,7 +121,10 @@ class PagesController extends Controller
     public function promotions()
     {
     	$promotions = Promotion::paginate(12);
-    	return view('promotions-page', compact('promotions'), ['categories' => $this->categories]);
+        $pageTitle = "Акції суші-бар  Sushiwin | замовити суші смачні суші з доставкою у Вінниці";
+        $pageDescription = "Акції в суші барі Sushiwin  - сети, нігірі, гункани, салати та напої у м.Вінниця. зі знижкою Безкоштовна доставка від 250 грн";
+        $pageKeywords = "Акції, суші зі знижками, клієнтам, доставка суші,  Sushiwin, сушівін, суші у вінниці з доставкою, суши купить с доставкой, постійні знижки на роли";
+    	return view('promotions-page', compact('promotions', 'pageTitle', 'pageDescription', 'pageKeywords'), ['categories' => $this->categories]);
     }
 
     public function promotion(int $id)
@@ -151,8 +160,11 @@ class PagesController extends Controller
 
     public function clients()
     {
+        $pageTitle = "Клієнтам суші-бар  Sushiwin | замовити суші смачні суші з доставкою у Вінниці";
+        $pageDescription = "Клієнтам Sushiwin  - замовити роли сети, нігірі, гункани, салати та напої у м.Вінниця. Безкоштовна доставка від 250 грн";
+        $pageKeywords = "клієнтам, доставка суші,  Sushiwin, сушівін, суші у вінниці з доставкою, суши купить с доставкой";
         $galleries = Gallery::all();
-    	return view('clients-page', compact('galleries'), ['categories' => $this->categories]);
+    	return view('clients-page', compact('galleries', 'pageTitle', 'pageDescription', 'pageKeywords'), ['categories' => $this->categories]);
     }
 
     public function agreement()
@@ -162,7 +174,10 @@ class PagesController extends Controller
 
     public function delivery()
     {
-    	return view('delivery-page', ['categories' => $this->categories]);
+        $pageTitle = "Доставка суші-бар  Sushiwin | замовити суші смачні суші з доставкою у Вінниці";
+        $pageDescription = "Доставка суші від Sushiwin  - замовити роли сети, нігірі, гункани, салати та напої у м.Вінниця. Безкоштовна доставка від 250 грн";
+        $pageKeywords = "доставка, суші, доставка Sushiwin, сушівін, суші у вінниці з доставкою, безкоштовна доставка суші";
+    	return view('delivery-page', compact('pageTitle', 'pageDescription', 'pageKeywords'), ['categories' => $this->categories]);
     }
 
     public function addToCart(Request $request)
@@ -391,6 +406,12 @@ class PagesController extends Controller
             }
         }
     	return response()->json(['cart' => $cart, 'messageModal' => $messageModal, 'cartDiscount' => $cartDiscount], 200); 
+    }
+
+    public function getCartContentNumber()
+    {
+        $counter = Cart::count();
+        return response()->json(['counter' => $counter], 200);
     }
 
 }

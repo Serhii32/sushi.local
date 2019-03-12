@@ -47,7 +47,7 @@ Vue.component('admin-discount-edit-component', require('./components/admin/disco
 Vue.component('admin-galleries-index-component', require('./components/admin/galleries/IndexComponent.vue').default);
 Vue.component('admin-galleries-edit-component', require('./components/admin/galleries/EditComponent.vue').default);
 Vue.component('user-home-component', require('./components/user/HomeComponent.vue').default);
-
+Vue.component('cart-header-counter-component', require('./components/CartHeaderCounterComponent.vue').default);
 Vue.component('index-page-component', require('./components/IndexPageComponent.vue').default);
 Vue.component('category-page-component', require('./components/CategoryPageComponent.vue').default);
 Vue.component('product-page-component', require('./components/ProductPageComponent.vue').default);

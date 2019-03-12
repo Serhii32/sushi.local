@@ -32,6 +32,7 @@ Route::post('addToCart', ['as' => 'addToCart', 'uses' => 'PagesController@addToC
 Route::post('addToFavorites', ['as' => 'addToFavorites', 'uses' => 'PagesController@addToFavorites']);
 Route::post('updateQTY', ['as' => 'updateQTY', 'uses' => 'PagesController@updateQTY']);
 Route::get('getCartContent', ['as' => 'getCartContent', 'uses' => 'PagesController@getCartContent']);
+Route::get('getCartContentNumber', ['as' => 'getCartContentNumber', 'uses' => 'PagesController@getCartContentNumber']);
 Route::post('removeItemFromCart', ['as' => 'removeItemFromCart', 'uses' => 'PagesController@removeItemFromCart']);
 Route::post('makeOrder', ['as' => 'makeOrder', 'uses' => 'PagesController@makeOrder']);
 Route::post('thank_you', ['as' => 'page.thank_you', 'uses' => 'PagesController@thankYou']);

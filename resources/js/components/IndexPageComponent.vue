@@ -5,7 +5,7 @@
                 <div class="col-12 col-lg-5 my-auto px-5">
                     <h2 class="text-white font-weight-bold">Доставка суші для істинних поціновувачів</h2>
                     <p class="text-white">Замовляйте суші преміум класу для всієї компанії додому та в офіс</p>
-                    <b-button class="p-3 text-uppercase font-weight-bold" style="border-radius: 20px; background: #e16729; border-color: #e16729;">Зробити замовлення</b-button>
+                    <b-button href="/menu" class="p-3 text-uppercase font-weight-bold" style="border-radius: 20px; background: #e16729; border-color: #e16729;">Зробити замовлення</b-button>
                 </div>
                 <div class="col-12 col-lg-7">
                     <img class="img-fluid" src="/img/front/index-page-main.jpg">
@@ -46,7 +46,7 @@
                             <img class="img-fluid" src="/img/front/icons/icon3.svg">
                         </div>
                         <div class="col-9 col-lg-12 text-white">
-                            <h4>Якісні інгрідієнти</h4>
+                            <h4>Якісні інгредієнти</h4>
                             <p>
                                 Ми не використовуємо підсилювачі смаку. Всі продукти закуповуємо у перевірених постачальників
                             </p>
@@ -83,7 +83,7 @@
                         <div class="card-body">
                             <h5 class="text-white text-center p-2 card-title"><a class="text-white card-link" :href="'/product/' + product.id">{{product.title}}</a></h5>
                             <p class="text-white card-text">
-                                <span class="font-weight-bold" style="color: #e16729">{{product.weight}}</span> - <span class="text-lowercase" v-for="component in product.components" :key="component.id">{{component.title}}, </span> 
+                                <span class="font-weight-bold" style="color: #e16729">{{product.weight}}</span> - <span class="text-lowercase" v-for="(component, index) in product.components" :key="component.id">{{component.title}}<span v-if="!(index == product.components.length - 1)">, </span></span>
                             </p>
                         </div>
                         <div class="card-footer">

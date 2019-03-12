@@ -12,7 +12,7 @@
                             <div class="card-body">
                                 <h4 class="text-center p-2 card-title"><a class="text-white card-link" :href="'/product/' + product.id">{{product.title}}</a></h4>
                                 <p class="text-white card-text">
-                                    <span class="font-weight-bold" style="color: #e16729">{{product.weight}}</span> - <span class="text-lowercase" v-for="component in product.components" :key="component.id">{{component.title}}, </span> 
+                                    <span class="font-weight-bold" style="color: #e16729">{{product.weight}}</span> - <span class="text-lowercase" v-for="(component, index) in product.components" :key="component.id">{{component.title}}<span v-if="!(index == product.components.length - 1)">, </span></span> 
                                 </p>
                             </div>
                             <div class="card-footer">

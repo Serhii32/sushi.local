@@ -7,12 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ isset($pageTitle) ? 'SushiWin | ' . $pageTitle : 'SushiWin' }}</title>
+    <title>{{ isset($pageTitle) ? $pageTitle : 'SushiWin' }}</title>
 
     <meta name="description" content="{{ isset($pageDescription) ? $pageDescription : 'Замовити суші' }}"/>
-    <meta name="author" content="serhii.bondarenko.ria@gmail.com">
     <meta name="keywords" content="{{ isset($pageKeywords) ? $pageKeywords : 'Замовити суші' }}">
     <link rel="canonical" href="{{ URL::current() }}"/>
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async 
@@ -79,7 +79,7 @@
                 </div>
 
 
-                <div id="header-phone-number-mobile" class="p-1" style="cursor: pointer">
+                <div id="header-phone-number-mobile" style="cursor: pointer; padding-left: 20px">
                     {{-- <a href="tel:+380962092020" class="nav-link p-1"> --}}<img width=30 src="/img/front/icons/phone.svg">{{-- </a> --}}
                 </div>
 
@@ -92,7 +92,9 @@
                     <a href="https://www.facebook.com/sushi.win.bar" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/facebook.svg"></a>
                     <a href="https://www.instagram.com/sushi.win.bar" class="nav-link p-1" target="_blanc"><img width=30 src="/img/front/icons/instagram.svg"></a>
                 </div>
-                <a id="header-cart-icon" href="javascript:void(0)" onclick="showMobileCart()" class="nav-link"><img width=40 src="/img/front/icons/cart.svg"></a>
+                <a id="header-cart-icon" href="javascript:void(0)" onclick="showMobileCart()" class="nav-link">
+                    <img width=40 src="/img/front/icons/cart.svg"><cart-header-counter-component></cart-header-counter-component>
+                </a>
                 {{-- <a href="javascript:void(0)" class="nav-link"><img width=30 src="/img/front/icons/favorite.svg"></a> --}}
                 
                 <ul class="navbar-nav ml-auto">

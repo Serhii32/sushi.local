@@ -4,7 +4,7 @@
 
     <section id="main-section">
         <div class="container p-4">
-            <div>
+            <div class="text-center">
                 <img class="img-fluid" src="{{$promotion->photo?asset($promotion->photo):asset('img/default.png')}}">
             </div>
             <div class="mt-4">

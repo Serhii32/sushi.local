@@ -4,7 +4,7 @@
 
 	<section id="main-section">
         <div class="container-fluid p-3">
-  			<h3 class="text-white text-center">Наші клієнти</h3>      	
+  			<h3 class="text-white text-center">Наші клієнти</h3>
 			<div class="row justify-content-center">
 				@foreach($galleries as $gallery)
 					<div style="background-color: black;" class="p-3 card col-12 col-sm-6 col-md-4">
