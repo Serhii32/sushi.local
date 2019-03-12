@@ -48,6 +48,15 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4" v-for="photo in photos" :key="photo.id">
+                    <b-card bg-variant="light" border-variant="light" class="shadow h-100" align="center" :img-src="'/'+photo.url" img-top>
+                        <div slot="footer">
+                            <b-button variant="danger" class="text-uppercase font-weight-bold my-2 w-100" @click="deletePhoto(photo.id)">Видалити</b-button>
+                        </div>
+                    </b-card>
+                </div>
+            </div>
         </div>
         <div v-if="!loaded" style="height: 100%; width: 100%; position: fixed; z-index: 1; top: 0; background-color: rgba(0, 0, 0, 0.2); left: 0;">
             <img style="position: relative; top: 30%; left: 50%; transform: translateX(-50%);" src="/gif/sushi.gif" alt="Завантаження">
@@ -63,6 +72,7 @@ export default {
     data() {
         return {
             errors: {},
+            photos: {},
             success: false,
             loaded: true,
             fields: {...this.gallery},
@@ -74,6 +84,7 @@ export default {
         this.fields.photo = null;
         this.old_datas.title = this.gallery.title;
         this.old_datas.photo = this.gallery.photo;
+        this.getPhotos(this.gallery.id);
     },
     methods: {
         submit() {
@@ -85,13 +96,18 @@ export default {
                 formData.set('title', this.fields.title == null?"":this.fields.title);
                 formData.append('photo', this.fields.photo == null?"":this.fields.photo);
 
-                formData.append('photos', this.fields.photos == null?"":this.fields.photos);
+                if (typeof this.fields.photos != 'undefined') {
+                    for (let i = 0; i < this.fields.photos.length; i++) {
+                        formData.set('photos_'+i, this.fields.photos[i]==null?"":this.fields.photos[i]);
+                    }
+                }
 
                 axios.post('/admin/galleries/'+this.gallery.id, formData, {'Content-Type': 'multipart/form-data'}).then(response => {
                     this.loaded = true;
                     this.success = true;
                     this.old_datas.name = this.fields.name;
                     this.old_datas.photo = response.data.newPhoto;
+                    this.getPhotos(this.gallery.id);
                 }).catch(error => {
                     this.loaded = true;
                     if (error.response.status === 422) {
@@ -116,6 +132,34 @@ export default {
             this.uploadedImageData = null;
             this.fields.photo = null;
             this.$refs.fileinput.reset();
+        },
+
+        getPhotos(galleryId) {
+            if (this.loaded) {
+                this.loaded = false;
+                axios.get('/admin/galleries/getPhotos/'+galleryId).then(response => {
+                    this.loaded = true;
+                    this.photos = response.data;
+                }).catch(error => {
+                    this.loaded = true;
+                    console.log(error);
+                });
+            }
+        },
+
+        deletePhoto(id) {
+            if (this.loaded) {
+                this.loaded = false;
+
+                axios.post('/admin/galleries/deletePhoto/'+id).then(() => {
+                    this.loaded = true;
+                    this.getPhotos(this.gallery.id);
+                }).catch(error => {
+                    this.loaded = true;
+                    console.log(error);
+                });
+
+            }
         }
     }
 }

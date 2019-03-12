@@ -15,6 +15,7 @@ use LiqPay;
 use Auth;
 use Carbon\Carbon;
 use DateTime;
+use App\Gallery;
 
 class PagesController extends Controller
 {
@@ -103,6 +104,14 @@ class PagesController extends Controller
     	return view('category-page', compact('category', 'tabs', 'checkboxes', 'products', 'pageTitle', 'pageDescription', 'pageKeywords'), ['categories' => $this->categories]);
     }
 
+    public function gallery(int $id)
+    {
+        $gallery = Gallery::findOrFail($id);
+        $photos = $gallery->photos()->get();
+
+        return view('gallery-page', compact('gallery', 'photos'), ['categories' => $this->categories]);
+    }
+
     public function promotions()
     {
     	$promotions = Promotion::paginate(12);
@@ -142,7 +151,8 @@ class PagesController extends Controller
 
     public function clients()
     {
-    	return view('clients-page', ['categories' => $this->categories]);
+        $galleries = Gallery::all();
+    	return view('clients-page', compact('galleries'), ['categories' => $this->categories]);
     }
 
     public function agreement()
@@ -202,6 +212,9 @@ class PagesController extends Controller
 
         $discounts = Discount::all();
 
+        $date = new Carbon();
+        $date->setTimezone('Europe/Kiev');
+
         $mailDiscount = null;
 
         foreach ($discounts as $discount) {
@@ -211,17 +224,17 @@ class PagesController extends Controller
 
                 if (in_array($date->dayOfWeekIso, $dayOfWeek)||in_array('0', $dayOfWeek)) {
 
-                    $dateChecker = $discount->startDate==null || $discount->endDate==null || Carbon::parse($discount->startDate)->format('Y-m-d') >= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') <= $date->format('Y-m-d');
+                    $dateChecker = $discount->startDate==null || $discount->endDate==null || Carbon::parse($discount->startDate)->format('Y-m-d') <= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') >= $date->format('Y-m-d');
 
                     if ($dateChecker) {
-                        $timeChecker = $discount->startTime==null || $discount->endTime==null || Carbon::parse($discount->startTime)->format('H:i') >= $date->format('H:i') && Carbon::parse($discount->endTime)->format('H:i') <= $date->format('H:i');
+                        $timeChecker = $discount->startTime==null || $discount->endTime==null || Carbon::parse($discount->startDate. ' ' .$discount->startTime) <= $date && Carbon::parse($discount->endDate. ' ' .$discount->endTime) >= $date;
                         if ($timeChecker) {
 
                             $mailDiscount = $discount->percent;
                             $discountSum = ($order->totalSum * $discount->percent)/100;
                             $order->totalSum -= $discountSum;
-
                             break;
+
                         }
                     }
                 }
@@ -365,10 +378,10 @@ class PagesController extends Controller
 
                 if (in_array($date->dayOfWeekIso, $dayOfWeek)||in_array('0', $dayOfWeek)) {
 
-                    $dateChecker = $discount->startDate==null || $discount->endDate==null || Carbon::parse($discount->startDate)->format('Y-m-d') >= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') <= $date->format('Y-m-d');
+                    $dateChecker = $discount->startDate==null || $discount->endDate==null || Carbon::parse($discount->startDate)->format('Y-m-d') <= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') >= $date->format('Y-m-d');
 
                     if ($dateChecker) {
-                        $timeChecker = $discount->startTime==null || $discount->endTime==null || Carbon::parse($discount->startTime)->format('H:i') >= $date->format('H:i') && Carbon::parse($discount->endTime)->format('H:i') <= $date->format('H:i');
+                        $timeChecker = $discount->startTime==null || $discount->endTime==null || Carbon::parse($discount->startDate. ' ' .$discount->startTime) <= $date && Carbon::parse($discount->endDate. ' ' .$discount->endTime) >= $date;
                         if ($timeChecker) {
                             $cartDiscount = $discount;
                             break;

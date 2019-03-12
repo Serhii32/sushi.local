@@ -22,6 +22,7 @@ Route::get('menu', ['as' => 'page.menu', 'uses' => 'PagesController@menu']);
 Route::get('delivery', ['as' => 'page.delivery', 'uses' => 'PagesController@delivery']);
 Route::get('agreement', ['as' => 'page.agreement', 'uses' => 'PagesController@agreement']);
 Route::get('clients', ['as' => 'page.clients', 'uses' => 'PagesController@clients']);
+Route::get('gallery/{id}', ['as' => 'page.gallery', 'uses' => 'PagesController@gallery']);
 Route::get('getCategories', ['as' => 'page.getCategories', 'uses' => 'PagesController@getCategories']);
 Route::get('category/{id}', ['as' => 'page.category', 'uses' => 'PagesController@category']);
 Route::get('product/{id}', ['as' => 'page.product', 'uses' => 'PagesController@product']);
@@ -84,6 +85,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 	Route::post('galleries/delete/{gallery}', ['as' => 'galleries.destroy', 'uses' => 'GalleryController@destroy']);
 	Route::get('galleries/getGalleries', ['as' => 'galleries.getGalleries', 'uses' => 'GalleryController@getGalleries']);
+	Route::get('galleries/getPhotos/{gallery}', ['as' => 'galleries.getPhotos', 'uses' => 'GalleryController@getPhotos']);
+	Route::post('galleries/deletePhoto/{photo}', ['as' => 'galleries.deletePhoto', 'uses' => 'GalleryController@deletePhoto']);
 
 
 	Route::get('attributes', ['as' => 'attributes.index', 'uses' => 'AttributeController@index']);

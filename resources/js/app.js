@@ -17,10 +17,6 @@ import VueCarousel from 'vue-carousel';
 
 Vue.use(VueCarousel);
 
-import VueGallery from 'vue-gallery';
-
-Vue.use(VueGallery);
-
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -56,6 +52,7 @@ Vue.component('index-page-component', require('./components/IndexPageComponent.v
 Vue.component('category-page-component', require('./components/CategoryPageComponent.vue').default);
 Vue.component('product-page-component', require('./components/ProductPageComponent.vue').default);
 Vue.component('cart-component', require('./components/CartComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
