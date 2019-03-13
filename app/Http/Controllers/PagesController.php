@@ -287,7 +287,7 @@ class PagesController extends Controller
 				'order_id'=>strval($order->id),
 				'language'=>'uk',
 				'description'=>'Оплата замовлення',
-				'result_url'=>'http://sushiwin.vn.ua/thank_you',
+				'result_url'=>'https://sushiwin.vn.ua/thank_you',
 			];
 
 			$data = base64_encode(json_encode($params));
@@ -307,7 +307,7 @@ class PagesController extends Controller
         $sentMailProducts = "";
 
         foreach ($orderedProducts as $orderedProduct) {
-            $sentMailProducts .= "<h4>" . $orderedProduct->name . "</h4>";
+            $sentMailProducts .= "<h4>" . $orderedProduct->name . " Кількість: " . $orderedProduct->qty . "</h4>";
         }
 
         $messageAdmin = "Клієнт " . $order->name . " зробив замовлення на сайті sushiwin.vn.ua</h4>
