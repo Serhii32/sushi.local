@@ -311,6 +311,7 @@ class PagesController extends Controller
         }
 
         $messageAdmin = "Клієнт " . $order->name . " зробив замовлення на сайті sushiwin.vn.ua</h4>
+        <h4>Номер замовлення: " . $order->id . "</h4>
         <h4>Вулиця: " . $order->street . "</h4>
         <h4>Будинок: " . $order->building . "</h4>
         <h4>Під'їзд: " . $order->entrance . "</h4>
@@ -347,6 +348,9 @@ class PagesController extends Controller
     		$order->paid = 1;
     		$order->save();
     		Cart::destroy();
+            $messageAdmin = "Клієнт " . $order->name . " оплатив замовлення номер ". $order->id ."</h4>";
+            $headersAdmin = "Content-type:text/html;charset=UTF-8";
+            mail("sushiwin18@gmail.com ", "Замовлення було оплачено онлайн картою", $messageAdmin, $headersAdmin);
     		return view('thank-you-page', ['categories' => $this->categories]);
     	} elseif ($params->public_key == $order->public_key) {
             $order->paid = 0;
