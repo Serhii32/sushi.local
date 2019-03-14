@@ -122,6 +122,7 @@ export default {
     },
     created() {
         this.getDiscounts();
+        this.fields.dayOfWeek = [];
     },
     methods: {
         getDiscounts() {

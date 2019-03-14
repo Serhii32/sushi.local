@@ -4245,6 +4245,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getDiscounts();
+    this.fields.dayOfWeek = [];
   },
   methods: {
     getDiscounts: function getDiscounts() {

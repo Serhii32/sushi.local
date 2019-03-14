@@ -239,10 +239,20 @@ class PagesController extends Controller
 
                 if (in_array($date->dayOfWeekIso, $dayOfWeek)||in_array('0', $dayOfWeek)) {
 
-                    $dateChecker = $discount->startDate==null || $discount->endDate==null || Carbon::parse($discount->startDate)->format('Y-m-d') <= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') >= $date->format('Y-m-d');
+                    $startDateChecker = Carbon::createFromFormat('Y-m-d', $discount->startDate, 'Europe/Kiev');
+                    $endDateChecker = Carbon::createFromFormat('Y-m-d', $discount->endDate, 'Europe/Kiev');
+
+                    $dateChecker = $discount->startDate==null || $discount->endDate==null || $startDateChecker <= $date->format('Y-m-d') && $endDateChecker >= $date->format('Y-m-d');
 
                     if ($dateChecker) {
-                        $timeChecker = $discount->startTime==null || $discount->endTime==null || Carbon::parse($discount->startDate. ' ' .$discount->startTime) <= $date && Carbon::parse($discount->endDate. ' ' .$discount->endTime) >= $date;
+                        // $startTimeChecker = Carbon::parse($date->format('Y-m-d'). ' ' .$discount->startTime);
+                        // $endTimeChecker = Carbon::parse($date->format('Y-m-d'). ' ' .$discount->endTime); 
+
+                        $startTimeChecker = Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d'). ' ' .$discount->startTime, 'Europe/Kiev');
+                        $endTimeChecker = Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d'). ' ' .$discount->endTime, 'Europe/Kiev');
+
+                        $timeChecker = $discount->startTime==null || $discount->endTime==null || $startTimeChecker <= $date && $endTimeChecker >= $date;
+                        
                         if ($timeChecker) {
 
                             $mailDiscount = $discount->percent;
@@ -282,7 +292,7 @@ class PagesController extends Controller
                 'public_key'=> $public_key,
 				'version'=>'3',
 				'action'=>'pay',
-				'amount'=> strval(Cart::subtotal()), 
+				'amount'=> $order->totalSum,
 				'currency'=>'UAH',
 				'order_id'=>strval($order->id),
 				'language'=>'uk',
@@ -397,10 +407,20 @@ class PagesController extends Controller
 
                 if (in_array($date->dayOfWeekIso, $dayOfWeek)||in_array('0', $dayOfWeek)) {
 
-                    $dateChecker = $discount->startDate==null || $discount->endDate==null || Carbon::parse($discount->startDate)->format('Y-m-d') <= $date->format('Y-m-d') && Carbon::parse($discount->endDate)->format('Y-m-d') >= $date->format('Y-m-d');
+                    $startDateChecker = Carbon::createFromFormat('Y-m-d', $discount->startDate, 'Europe/Kiev');
+                    $endDateChecker = Carbon::createFromFormat('Y-m-d', $discount->endDate, 'Europe/Kiev');
+
+                    $dateChecker = $discount->startDate==null || $discount->endDate==null || $startDateChecker <= $date->format('Y-m-d') && $endDateChecker >= $date->format('Y-m-d');
 
                     if ($dateChecker) {
-                        $timeChecker = $discount->startTime==null || $discount->endTime==null || Carbon::parse($discount->startDate. ' ' .$discount->startTime) <= $date && Carbon::parse($discount->endDate. ' ' .$discount->endTime) >= $date;
+                        // $startTimeChecker = Carbon::parse($date->format('Y-m-d'). ' ' .$discount->startTime);
+                        // $endTimeChecker = Carbon::parse($date->format('Y-m-d'). ' ' .$discount->endTime); 
+
+                        $startTimeChecker = Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d'). ' ' .$discount->startTime, 'Europe/Kiev');
+                        $endTimeChecker = Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d'). ' ' .$discount->endTime, 'Europe/Kiev');
+
+                        $timeChecker = $discount->startTime==null || $discount->endTime==null || $startTimeChecker <= $date && $endTimeChecker >= $date;
+
                         if ($timeChecker) {
                             $cartDiscount = $discount;
                             break;

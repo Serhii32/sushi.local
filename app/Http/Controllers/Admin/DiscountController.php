@@ -33,6 +33,9 @@ class DiscountController extends Controller
         {
             $discounts = Discount::all();
             foreach ($discounts as $iterableDiscount) {
+                if ($discount->id == $iterableDiscount->id) {
+                    continue;
+                }
                 $iterableDiscount->status = 0;
                 $iterableDiscount->save();
             }
@@ -63,16 +66,18 @@ class DiscountController extends Controller
         {
             $discounts = Discount::all();
             foreach ($discounts as $iterableDiscount) {
+                if ($discount->id == $iterableDiscount->id) {
+                    continue;
+                }
                 $iterableDiscount->status = 0;
                 $iterableDiscount->save();
             }
         }
-        $discount->status = $request->status;
         $discount->dayOfWeek = $request->dayOfWeek;
         $discount->save();
 
        
-        return response()->json(null, 200);
+        return response()->json($request->status, 200);
     }
 
     public function destroy(int $id)
