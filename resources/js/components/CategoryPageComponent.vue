@@ -18,7 +18,7 @@
                             <div class="card-footer">
                                 <div>
                                     <img id="favorite-button" style="position: absolute; width: 30px; top: 0px; left: 0px;" :src="product.isFavorite?'/img/front/icons/favorite-filled.svg':'/img/front/icons/favorite.svg'" @click="addToFavorites(product)">
-                                    <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id)">В корзину</b-button>
+                                    <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id, product.title, product.price)">В корзину</b-button>
                                 </div>
                                 <div class="p-2">
                                     <h5 class="text-white text-center card-text font-weight-bold" style="color: #e16729">{{product.price}} грн.</h5>                                
@@ -43,7 +43,7 @@
                             <div class="card-footer">
                                 <div>
                                     <img id="favorite-button" style="position: absolute; width: 30px; top: 0px; left: 0px;" :src="product.isFavorite?'/img/front/icons/favorite-filled.svg':'/img/front/icons/favorite.svg'" @click="addToFavorites(product)">
-                                    <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id)">В корзину</b-button>
+                                    <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id, product.title, product.price)">В корзину</b-button>
                                 </div>
                                 <div class="p-2">
                                     <h5 class="text-white text-center card-text font-weight-bold" style="color: #e16729">{{product.price}} грн.</h5>                                
@@ -74,12 +74,21 @@ export default {
         }
     },
     methods: {
-        addToCart(id){
+        addToCart(id, title, price){
             if (this.loaded) {
                 this.loaded = false;
     
                 axios.post('/addToCart', {id:id}).then(response => {
                     this.loaded = true;
+                    gtag('event', 'add_to_cart', {
+                      "items": [
+                        {
+                          "id": id,
+                          "name": title,
+                          "price": price
+                        }
+                      ]
+                    });
 
                     this.$root.$emit('cartUpdated');
 

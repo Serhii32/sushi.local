@@ -2187,20 +2187,28 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
     },
-    removeItemFromCart: function removeItemFromCart(id) {
+    removeItemFromCart: function removeItemFromCart(rowId, id, title, price) {
       var _this4 = this;
 
       if (this.loaded) {
         this.loaded = false;
-        Vue.delete(this.cart, id);
+        Vue.delete(this.cart, rowId);
         axios.post('/removeItemFromCart', {
-          id: id
+          id: rowId
         }).then(function (response) {
           _this4.loaded = true;
 
           _this4.getTotalSum();
 
           _this4.$root.$emit('removedItemFromCart');
+
+          gtag('event', 'remove_from_cart', {
+            "items": [{
+              "id": id,
+              "name": title,
+              "price": price
+            }]
+          });
         }).catch(function (error) {
           _this4.loaded = true;
           console.log(error);
@@ -2246,11 +2254,26 @@ __webpack_require__.r(__webpack_exports__);
           _this5.loaded = true;
 
           if (typeof response.data.data !== 'undefined' && typeof response.data.signature !== 'undefined') {
-            // axios.post('https://www.liqpay.com/api/3/checkout', {data: response.data.data, signature: response.data.signature});
+            var gtagInfo = {};
+            gtagInfo.items = [];
+
+            if (_this5.cartDiscount) {
+              gtagInfo.coupon = _this5.cartDiscount.title;
+            }
+
+            for (var key in _this5.cart) {
+              gtagInfo.items.push({
+                id: _this5.cart[key].id,
+                name: _this5.cart[key].name,
+                price: _this5.cart[key].price,
+                quantity: _this5.cart[key].qty
+              });
+            }
+
+            gtag('event', 'begin_checkout', gtagInfo);
             var form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("action", "https://www.liqpay.com/api/3/checkout"); //https://www.liqpay.ua/uk/checkout/i94485343771
-
+            form.setAttribute("action", "https://www.liqpay.com/api/3/checkout");
             var data = document.createElement("input");
             data.setAttribute("type", "hidden");
             data.setAttribute("name", "data");
@@ -2271,7 +2294,7 @@ __webpack_require__.r(__webpack_exports__);
         }).catch(function (error) {
           _this5.loaded = true;
 
-          if (error.response.status === 422) {
+          if (error.response && error.response.status === 422) {
             _this5.errors = error.response.data.errors || {};
           }
         });
@@ -2416,7 +2439,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    addToCart: function addToCart(id) {
+    addToCart: function addToCart(id, title, price) {
       var _this = this;
 
       if (this.loaded) {
@@ -2425,6 +2448,13 @@ __webpack_require__.r(__webpack_exports__);
           id: id
         }).then(function (response) {
           _this.loaded = true;
+          gtag('event', 'add_to_cart', {
+            "items": [{
+              "id": id,
+              "name": title,
+              "price": price
+            }]
+          });
 
           _this.$root.$emit('cartUpdated');
         }).catch(function (error) {
@@ -2603,6 +2633,13 @@ __webpack_require__.r(__webpack_exports__);
           id: id
         }).then(function (response) {
           _this2.loaded = true;
+          gtag('event', 'add_to_cart', {
+            "items": [{
+              "id": id,
+              "name": title,
+              "price": price
+            }]
+          });
 
           _this2.$root.$emit('cartUpdated');
         }).catch(function (error) {
@@ -2690,6 +2727,15 @@ __webpack_require__.r(__webpack_exports__);
       reactiveProduct: this.product
     };
   },
+  mounted: function mounted() {
+    gtag('event', 'view_item', {
+      "items": [{
+        "id": this.product.id,
+        "name": this.product.title,
+        "price": this.product.price
+      }]
+    });
+  },
   methods: {
     addToCart: function addToCart(id) {
       var _this = this;
@@ -2700,6 +2746,13 @@ __webpack_require__.r(__webpack_exports__);
           id: id
         }).then(function (response) {
           _this.loaded = true;
+          gtag('event', 'add_to_cart', {
+            "items": [{
+              "id": id,
+              "name": title,
+              "price": price
+            }]
+          });
 
           _this.$root.$emit('cartUpdated');
         }).catch(function (error) {
@@ -59174,7 +59227,12 @@ var render = function() {
                     attrs: { width: "15", src: "/img/front/icons/close.svg" },
                     on: {
                       click: function($event) {
-                        _vm.removeItemFromCart(item.rowId)
+                        _vm.removeItemFromCart(
+                          item.rowId,
+                          item.id,
+                          item.name,
+                          item.price
+                        )
                       }
                     }
                   })
@@ -60492,7 +60550,11 @@ var render = function() {
                                   },
                                   on: {
                                     click: function($event) {
-                                      _vm.addToCart(product.id)
+                                      _vm.addToCart(
+                                        product.id,
+                                        product.title,
+                                        product.price
+                                      )
                                     }
                                   }
                                 },
@@ -60649,7 +60711,11 @@ var render = function() {
                                         },
                                         on: {
                                           click: function($event) {
-                                            _vm.addToCart(product.id)
+                                            _vm.addToCart(
+                                              product.id,
+                                              product.title,
+                                              product.price
+                                            )
                                           }
                                         }
                                       },
@@ -60896,7 +60962,11 @@ var render = function() {
                                 },
                                 on: {
                                   click: function($event) {
-                                    _vm.addToCart(product.id)
+                                    _vm.addToCart(
+                                      product.id,
+                                      product.title,
+                                      product.price
+                                    )
                                   }
                                 }
                               },
@@ -61198,7 +61268,11 @@ var render = function() {
                         },
                         on: {
                           click: function($event) {
-                            _vm.addToCart(_vm.product.id)
+                            _vm.addToCart(
+                              _vm.product.id,
+                              _vm.product.title,
+                              _vm.product.price
+                            )
                           }
                         }
                       },

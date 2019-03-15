@@ -23,7 +23,15 @@
        gtag('js', new Date());
 
        gtag('config', 'UA-134456724-1');
+       @isset ($gtagResponceChecker)
+            @if($gtagResponceChecker == 1)
+                gtag('event', 'purchase', {!!$gtagResponce!!});
+            @elseif($gtagResponceChecker == 0)
+                gtag('event', 'refund', {!!$gtagResponce!!});
+            @endif
+       @endisset
     </script>
+    {{-- <script async src='https://www.google-analytics.com/analytics_debug.js'></script> --}}
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -46,7 +54,7 @@
 		<nav class="navbar navbar-expand-md navbar-light navbar-laravel sticky-top" style="background-color: black; border-bottom: 3px solid #e16729;">
             <div class="container-fluid">
                 <a href="{{ route('page.index') }}">
-                    <img id="logo" style="filter: brightness(4);" width="150" src="{{asset('img/logo.svg')}}">
+                    <img id="logo" width="150" src="{{asset('img/logo.svg')}}">
                 </a>
                 
                 <button style="background-color: #e16729; margin-left: auto;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -73,19 +81,19 @@
                     </ul>
                 </div>
                 <div id="header-phone-number">
-                    <a href="tel:+380962092020" class="nav-link text-center p-0"><p class="text-white font-weight-bold m-0">096 20 920 20</p></a>
-                    <a href="tel:+380932092020" class="nav-link text-center p-0"><p class="text-white font-weight-bold m-0">093 20 920 20</p></a>
+                    <a href="tel:+380962092020" class="nav-link text-center p-0"><p class="text-white font-weight-bold m-0" onclick="gtag('send', 'event', 'phone', 'click' ,'kievstar')">096 20 920 20</p></a>
+                    <a href="tel:+380932092020" class="nav-link text-center p-0"><p class="text-white font-weight-bold m-0" onclick="gtag('send', 'event', 'phone', 'click' ,'life')">093 20 920 20</p></a>
                     <p class="text-white font-weight-bold m-0 text-center">Прийом замовлень:<br>11.00-22.30</p>
                 </div>
 
 
                 <div id="header-phone-number-mobile" style="cursor: pointer; padding-left: 20px">
-                    {{-- <a href="tel:+380962092020" class="nav-link p-1"> --}}<img width=30 src="/img/front/icons/phone.svg">{{-- </a> --}}
+                    <img width=30 src="/img/front/icons/phone.svg">
                 </div>
 
                 <b-popover ref="popover" target="header-phone-number-mobile" placement="bottom">
-                        <a class="header-menu-link nav-link text-dark font-weight-bold" style="font-size: 1rem" href="tel:+380962092020">380962092020</a>
-                        <a class="header-menu-link nav-link text-dark font-weight-bold" style="font-size: 1rem" href="tel:+380932092020">380932092020</a>
+                        <a class="header-menu-link nav-link text-dark font-weight-bold p-0" style="font-size: 1rem" href="tel:+380962092020"><span onclick="gtag('send', 'event', 'phone', 'click' ,'kievstar')">380962092020</span></a>
+                        <a class="header-menu-link nav-link text-dark font-weight-bold p-0" style="font-size: 1rem" href="tel:+380932092020"><span onclick="gtag('send', 'event', 'phone', 'click' ,'life')">380932092020</span></a>
                 </b-popover>
 
                 <div id="header-social-icons">

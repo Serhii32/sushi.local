@@ -37,6 +37,11 @@ Route::post('removeItemFromCart', ['as' => 'removeItemFromCart', 'uses' => 'Page
 Route::post('makeOrder', ['as' => 'makeOrder', 'uses' => 'PagesController@makeOrder']);
 Route::post('thank_you', ['as' => 'page.thank_you', 'uses' => 'PagesController@thankYou']);
 
+
+// Route::get('test', ['as' => 'page.test', 'uses' => 'PagesController@test']);
+
+
+
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' => 'admin.', 'prefix'=>'admin'], function () {
 	Route::get('home', ['as' => 'home.index', 'uses' => 'HomeController@index']);
 	Route::get('home/edit', ['as' => 'home.edit', 'uses' => 'HomeController@edit']);

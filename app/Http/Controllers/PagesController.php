@@ -350,23 +350,81 @@ class PagesController extends Controller
 
     }
 
+    // public function test()
+    // {
+    //     $order = Order::findOrFail(11);
+
+    //     $cartItems = Cart::content();
+
+
+    //     $gtagResponceItems = [];
+
+    //     foreach ($cartItems as $cartItem) {
+    //         $gtagResponceItems[]=[
+    //             "id" => $cartItem->id,
+    //             "name" => $cartItem->name,
+    //             "quantity" => $cartItem->qty,
+    //             "price" => $cartItem->price
+    //         ];
+    //     }
+
+    //     $gtagResponce = [
+    //         "transaction_id" => $order->id,
+    //         "value" => $order->totalSum,
+    //         "currency" => "UAH",
+    //         "items" => $gtagResponceItems
+    //     ];
+
+    //     $gtagResponce = json_encode($gtagResponce);
+
+    //     $gtagResponceChecker = 1;
+
+    //     return view('thank-you-page', compact('gtagResponce', 'gtagResponceChecker'), ['categories' => $this->categories]);
+    }
+
     public function thankYou(Request $request)
     {
     	$params=json_decode(base64_decode($request->data));
     	$order = Order::findOrFail($params->order_id);
+
+        $cartItems = Cart::content();
+
+        $gtagResponceItems = [];
+
+        foreach ($cartItems as $cartItem) {
+            $gtagResponceItems[]=[
+                "id" => $cartItem->id,
+                "name" => $cartItem->name,
+                "quantity" => $cartItem->qty,
+                "price" => $cartItem->price
+            ];
+        }
+
+        $gtagResponce = [
+            "transaction_id" => $order->id,
+            "value" => $order->totalSum,
+            "currency" => "UAH",
+            "items" => $gtagResponceItems
+        ];
+
+        $gtagResponce = json_encode($gtagResponce);
+
+
     	if ($params->public_key == $order->public_key && $params->status != "failure") {
     		$order->paid = 1;
     		$order->save();
     		Cart::destroy();
             $messageAdmin = "Клієнт " . $order->name . " оплатив замовлення номер ". $order->id ."</h4>";
             $headersAdmin = "Content-type:text/html;charset=UTF-8";
+            $gtagResponceChecker = 1;
             mail("sushiwin18@gmail.com ", "Замовлення було оплачено онлайн картою", $messageAdmin, $headersAdmin);
-    		return view('thank-you-page', ['categories' => $this->categories]);
+    		return view('thank-you-page', compact($gtagResponce), ['categories' => $this->categories]);
     	} elseif ($params->public_key == $order->public_key) {
             $order->paid = 0;
             $order->save();
             Cart::destroy();
-            return view('thank-you-page', ['categories' => $this->categories]);
+            $gtagResponceChecker = 0;
+            return view('thank-you-page', compact('gtagResponce', 'gtagResponceChecker'), ['categories' => $this->categories]);
         }
     	return abort(403);
     }

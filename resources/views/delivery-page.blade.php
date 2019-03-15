@@ -63,6 +63,14 @@
                         </p>
                     </div>
                     <div class="col-12 col-md-4 text-center">
+                        <div>
+                            <img src="/img/front/icons/deliveryicon9.svg">
+                        </div>
+                        <p class="text-white text-center">
+                            Картою Paypass кур'єру
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-4 text-center">
                          <div class="img">
                             <img src="/img/front/icons/deliveryicon6.svg">
                         </div>

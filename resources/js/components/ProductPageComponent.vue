@@ -25,7 +25,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id)">В корзину</b-button>
+                                <b-button class="text-uppercase font-weight-bold w-100" style="border-radius: 20px; background: #e16729; border-color: #e16729;" @click="addToCart(product.id, product.title, product.price)">В корзину</b-button>
                             </div>
                             <div class="col-12 col-md-6">
                                 <h3 class="text-white font-weight-bold">{{product.price}} грн.</h3>
@@ -49,6 +49,17 @@ export default {
             reactiveProduct: this.product
         }
     },
+    mounted() {
+        gtag('event', 'view_item', {
+          "items": [
+            {
+              "id": this.product.id,
+              "name": this.product.title,
+              "price": this.product.price
+            }
+          ]
+        });
+    },
     methods: {
         addToCart(id){
             if (this.loaded) {
@@ -56,7 +67,15 @@ export default {
     
                 axios.post('/addToCart', {id:id}).then(response => {
                     this.loaded = true;
-
+                    gtag('event', 'add_to_cart', {
+                      "items": [
+                        {
+                          "id": id,
+                          "name": title,
+                          "price": price
+                        }
+                      ]
+                    });
                     this.$root.$emit('cartUpdated');
 
                 }).catch(error => {

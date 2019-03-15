@@ -4,7 +4,7 @@
             <h5 class="text-white">Ваше замовлення:</h5>
             <div v-for="item in cart" :key="item.rowId" class="container-fluid my-2" style="border-bottom: 3px solid #e16729;">
                 <div>
-                    <img width=15 class="d-inline float-right" src="/img/front/icons/close.svg" @click="removeItemFromCart(item.rowId)">
+                    <img width=15 class="d-inline float-right" src="/img/front/icons/close.svg" @click="removeItemFromCart(item.rowId, item.id, item.name, item.price)">
                 </div>
                 <div class="row m-0">
                     <div class="col-12 col-md-6">
@@ -291,14 +291,23 @@ export default {
                 });
             }
         },
-        removeItemFromCart(id){
+        removeItemFromCart(rowId, id, title, price){
             if (this.loaded) {
                 this.loaded = false;
-                Vue.delete(this.cart, id);
-                axios.post('/removeItemFromCart', {id:id}).then(response => {
+                Vue.delete(this.cart, rowId);
+                axios.post('/removeItemFromCart', {id:rowId}).then(response => {
                     this.loaded = true;
                     this.getTotalSum();
                     this.$root.$emit('removedItemFromCart');
+                    gtag('event', 'remove_from_cart', {
+                      "items": [
+                        {
+                          "id": id,
+                          "name": title,
+                          "price": price
+                        }
+                      ]
+                    });
                 }).catch(error => {
                     this.loaded = true;
                     console.log(error);
@@ -341,11 +350,24 @@ export default {
                 axios.post('/makeOrder', formData).then(response => {
                     this.loaded = true;
                     if (typeof response.data.data !== 'undefined' && typeof response.data.signature !== 'undefined') {
-                        // axios.post('https://www.liqpay.com/api/3/checkout', {data: response.data.data, signature: response.data.signature});
+                        let gtagInfo = {};
+                        gtagInfo.items = [];
+                        if (this.cartDiscount) {
+                            gtagInfo.coupon = this.cartDiscount.title;
+                        }
+                        for(let key in this.cart) {
+                            gtagInfo.items.push({
+                                id: this.cart[key].id,
+                                name: this.cart[key].name,
+                                price: this.cart[key].price,
+                                quantity: this.cart[key].qty
+                            });
+                        }
+                        gtag('event', 'begin_checkout', gtagInfo);
 
                         let form = document.createElement("form");
                         form.setAttribute("method", "post");
-                        form.setAttribute("action", "https://www.liqpay.com/api/3/checkout");//https://www.liqpay.ua/uk/checkout/i94485343771
+                        form.setAttribute("action", "https://www.liqpay.com/api/3/checkout");
 
                         let data = document.createElement("input");
                         data.setAttribute("type", "hidden");
@@ -367,7 +389,7 @@ export default {
 
                 }).catch(error => {
                     this.loaded = true;
-                    if (error.response.status === 422) {
+                    if (error.response && error.response.status === 422) {
                         this.errors = error.response.data.errors || {};
                     }
                 });
