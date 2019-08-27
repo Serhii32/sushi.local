@@ -1,7 +1,7 @@
 <div class="col-12 col-md-3 ">
-    <div class="m-2 bg-white border border-light shadow rounded">
+    <div class="m-2 border border-light shadow rounded" style="background: #6c757d47;">
         <a href="{{route('page.index')}}">
-            <img class="img-fluid py-3 px-5" src="{{asset('img/logo.svg')}}" alt="Garazo">
+            <img class="img-fluid py-3 px-5" src="{{asset('img/logo.svg')}}" alt="SushiWin">
         </a>
     </div>
     <div class="m-2 bg-white border border-light shadow rounded">
@@ -38,6 +38,9 @@
             </li>
             <li class="list-group-item list-group-item-action p-0">
                 <a class="nav-link text-dark font-weight-bold text-uppercase text-center" href="{{route('admin.galleries.index')}}">Галереї</a>
+            </li>
+            <li class="list-group-item list-group-item-action p-0">
+                <a class="nav-link text-dark font-weight-bold text-uppercase text-center" href="{{route('admin.users.index')}}">Користувачі</a>
             </li>
             <li class="list-group-item list-group-item-action p-0">
                 <a class="nav-link text-dark font-weight-bold text-uppercase text-center" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Вийти</a>

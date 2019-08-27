@@ -2217,13 +2217,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     getTotalSum: function getTotalSum() {
       this.totalSum = 0;
+      var noDiscountItemsSum = 0;
 
       for (var index in this.cart) {
         this.totalSum += parseInt(this.cart[index].qty) * parseFloat(this.cart[index].price);
+
+        if (this.cart[index].options.isDiscount == 0) {
+          noDiscountItemsSum += parseInt(this.cart[index].qty) * parseFloat(this.cart[index].price);
+        }
       }
 
       if (this.cartDiscount) {
-        var discountSum = this.totalSum * parseInt(this.cartDiscount.percent) / 100;
+        var discountSum = (this.totalSum - noDiscountItemsSum) * parseInt(this.cartDiscount.percent) / 100;
         this.totalSum -= discountSum;
       }
     },
@@ -2252,28 +2257,27 @@ __webpack_require__.r(__webpack_exports__);
         formData.set('comment', this.fields.comment == null ? "" : this.fields.comment);
         axios.post('/makeOrder', formData).then(function (response) {
           _this5.loaded = true;
+          var gtagInfo = {};
+          gtagInfo.items = [];
+
+          if (_this5.cartDiscount) {
+            gtagInfo.coupon = _this5.cartDiscount.title;
+          }
+
+          for (var key in _this5.cart) {
+            gtagInfo.items.push({
+              id: _this5.cart[key].id,
+              name: _this5.cart[key].name,
+              price: _this5.cart[key].price,
+              quantity: _this5.cart[key].qty
+            });
+          }
 
           if (typeof response.data.data !== 'undefined' && typeof response.data.signature !== 'undefined') {
-            var gtagInfo = {};
-            gtagInfo.items = [];
-
-            if (_this5.cartDiscount) {
-              gtagInfo.coupon = _this5.cartDiscount.title;
-            }
-
-            for (var key in _this5.cart) {
-              gtagInfo.items.push({
-                id: _this5.cart[key].id,
-                name: _this5.cart[key].name,
-                price: _this5.cart[key].price,
-                quantity: _this5.cart[key].qty
-              });
-            }
-
             gtag('event', 'begin_checkout', gtagInfo);
             var form = document.createElement("form");
             form.setAttribute("method", "post");
-            form.setAttribute("action", "https://www.liqpay.com/api/3/checkout");
+            form.setAttribute("action", "https://www.liqpay.ua/api/3/checkout");
             var data = document.createElement("input");
             data.setAttribute("type", "hidden");
             data.setAttribute("name", "data");
@@ -2286,6 +2290,8 @@ __webpack_require__.r(__webpack_exports__);
             form.appendChild(signature);
             document.body.appendChild(form);
             form.submit();
+          } else {
+            gtag('event', 'paid_cash', gtagInfo);
           }
 
           _this5.showThankYouModal();
@@ -2448,6 +2454,9 @@ __webpack_require__.r(__webpack_exports__);
           id: id
         }).then(function (response) {
           _this.loaded = true;
+
+          _this.$root.$emit('cartUpdated');
+
           gtag('event', 'add_to_cart', {
             "items": [{
               "id": id,
@@ -2455,8 +2464,6 @@ __webpack_require__.r(__webpack_exports__);
               "price": price
             }]
           });
-
-          _this.$root.$emit('cartUpdated');
         }).catch(function (error) {
           _this.loaded = true;
         });
@@ -2633,6 +2640,9 @@ __webpack_require__.r(__webpack_exports__);
           id: id
         }).then(function (response) {
           _this2.loaded = true;
+
+          _this2.$root.$emit('cartUpdated');
+
           gtag('event', 'add_to_cart', {
             "items": [{
               "id": id,
@@ -2640,8 +2650,6 @@ __webpack_require__.r(__webpack_exports__);
               "price": price
             }]
           });
-
-          _this2.$root.$emit('cartUpdated');
         }).catch(function (error) {
           _this2.loaded = true;
         });
@@ -2746,6 +2754,9 @@ __webpack_require__.r(__webpack_exports__);
           id: id
         }).then(function (response) {
           _this.loaded = true;
+
+          _this.$root.$emit('cartUpdated');
+
           gtag('event', 'add_to_cart', {
             "items": [{
               "id": id,
@@ -2753,8 +2764,6 @@ __webpack_require__.r(__webpack_exports__);
               "price": price
             }]
           });
-
-          _this.$root.$emit('cartUpdated');
         }).catch(function (error) {
           _this.loaded = true;
         });
@@ -5216,6 +5225,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['product'],
   data: function data() {
@@ -5260,6 +5275,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.set('titleSEO', this.fields.titleSEO == null ? "" : this.fields.titleSEO);
         formData.set('descriptionSEO', this.fields.descriptionSEO == null ? "" : this.fields.descriptionSEO);
         formData.set('keywordsSEO', this.fields.keywordsSEO == null ? "" : this.fields.keywordsSEO);
+        formData.set('isDiscount', this.fields.isDiscount == null ? "" : this.fields.isDiscount);
         formData.append('photo', this.fields.photo == null ? "" : this.fields.photo);
         axios.post('/admin/products/' + this.product.id, formData, {
           'Content-Type': 'multipart/form-data'
@@ -5381,6 +5397,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5615,6 +5637,7 @@ __webpack_require__.r(__webpack_exports__);
         formData.set('titleSEO', this.fields.titleSEO == null ? "" : this.fields.titleSEO);
         formData.set('descriptionSEO', this.fields.descriptionSEO == null ? "" : this.fields.descriptionSEO);
         formData.set('keywordsSEO', this.fields.keywordsSEO == null ? "" : this.fields.keywordsSEO);
+        formData.set('isDiscount', this.fields.isDiscount == null ? "" : this.fields.isDiscount);
         formData.append('photo', this.fields.photo == null ? "" : this.fields.photo);
         axios.post('/admin/products', formData, {
           'Content-Type': 'multipart/form-data'
@@ -68398,6 +68421,64 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "b-form-group",
+                {
+                  attrs: {
+                    "label-class": "text-uppercase font-weight-bold",
+                    description: "Чи розповсюджуються знижки на продукт",
+                    label: "Знижка:",
+                    "label-for": "isDiscount"
+                  }
+                },
+                [
+                  _c("b-form-radio-group", {
+                    staticClass: "d-flex",
+                    attrs: {
+                      id: "isDiscount",
+                      name: "isDiscount",
+                      buttons: "",
+                      "button-variant": "outline-secondary",
+                      stacked: "",
+                      options: [
+                        { text: "Так", value: "1" },
+                        { text: "Ні", value: "0" }
+                      ]
+                    },
+                    model: {
+                      value: _vm.fields.isDiscount,
+                      callback: function($$v) {
+                        _vm.$set(_vm.fields, "isDiscount", $$v)
+                      },
+                      expression: "fields.isDiscount"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.errors && _vm.errors.type
+                    ? _c(
+                        "div",
+                        [
+                          _c(
+                            "b-alert",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                variant: "danger",
+                                dismissible: "",
+                                fade: "",
+                                show: true
+                              }
+                            },
+                            [_vm._v(_vm._s(_vm.errors.isDiscount[0]))]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
                 [
                   _c(
                     "b-button",
@@ -69276,6 +69357,65 @@ var render = function() {
                                       }
                                     },
                                     [_vm._v(_vm._s(_vm.errors.keywordsSEO[0]))]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            "label-class": "text-uppercase font-weight-bold",
+                            description:
+                              "Чи розповсюджуються знижки на продукт",
+                            label: "Знижка:",
+                            "label-for": "isDiscount"
+                          }
+                        },
+                        [
+                          _c("b-form-radio-group", {
+                            staticClass: "d-flex",
+                            attrs: {
+                              id: "isDiscount",
+                              name: "isDiscount",
+                              buttons: "",
+                              "button-variant": "outline-secondary",
+                              stacked: "",
+                              options: [
+                                { text: "Так", value: "1" },
+                                { text: "Ні", value: "0" }
+                              ]
+                            },
+                            model: {
+                              value: _vm.fields.isDiscount,
+                              callback: function($$v) {
+                                _vm.$set(_vm.fields, "isDiscount", $$v)
+                              },
+                              expression: "fields.isDiscount"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.errors && _vm.errors.isDiscount
+                            ? _c(
+                                "div",
+                                [
+                                  _c(
+                                    "b-alert",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: {
+                                        variant: "danger",
+                                        dismissible: "",
+                                        fade: "",
+                                        show: true
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.errors.isDiscount[0]))]
                                   )
                                 ],
                                 1
@@ -84936,8 +85076,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/sushi.local/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /var/www/sushi.local/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/sushi.local/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -183,7 +183,7 @@ class PagesController extends Controller
     public function addToCart(Request $request)
     {
     	$product = Product::findOrFail($request->id);
-    	Cart::add($product->id, $product->title, 1, $product->price, ['photo' => $product->photo]);
+    	Cart::add($product->id, $product->title, 1, $product->price, ['photo' => $product->photo, 'weight' => $product->weight, 'isDiscount' => $product->isDiscount]);
     	return response()->json(null, 200);
     }
 
@@ -224,6 +224,8 @@ class PagesController extends Controller
     	$order->comment = $request->comment;
     	$order->status = 1;
     	$order->totalSum = Cart::subtotal();
+        
+        $order->save();
 
         $discounts = Discount::all();
 
@@ -231,6 +233,16 @@ class PagesController extends Controller
         $date->setTimezone('Europe/Kiev');
 
         $mailDiscount = null;
+
+        $noDiscountItemsSum = 0;
+
+        $orderedProducts = Cart::content();
+        foreach ($orderedProducts as $orderedProduct) {
+            $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->qty]);
+            if ($orderedProduct->isDiscount == 0) {
+                $noDiscountItemsSum += $orderedProduct->price * $orderedProduct->qty;
+            }
+        }
 
         foreach ($discounts as $discount) {
             if ($discount->status == 1) {
@@ -242,12 +254,10 @@ class PagesController extends Controller
                     $startDateChecker = Carbon::createFromFormat('Y-m-d', $discount->startDate, 'Europe/Kiev');
                     $endDateChecker = Carbon::createFromFormat('Y-m-d', $discount->endDate, 'Europe/Kiev');
 
-                    $dateChecker = $discount->startDate==null || $discount->endDate==null || $startDateChecker <= $date->format('Y-m-d') && $endDateChecker >= $date->format('Y-m-d');
+                    $dateChecker = $discount->startDate==null || $discount->endDate==null || $startDateChecker->format('Y-m-d') <= $date->format('Y-m-d') && $endDateChecker->format('Y-m-d') >= $date->format('Y-m-d');
 
                     if ($dateChecker) {
-                        // $startTimeChecker = Carbon::parse($date->format('Y-m-d'). ' ' .$discount->startTime);
-                        // $endTimeChecker = Carbon::parse($date->format('Y-m-d'). ' ' .$discount->endTime); 
-
+                        
                         $startTimeChecker = Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d'). ' ' .$discount->startTime, 'Europe/Kiev');
                         $endTimeChecker = Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d'). ' ' .$discount->endTime, 'Europe/Kiev');
 
@@ -256,7 +266,7 @@ class PagesController extends Controller
                         if ($timeChecker) {
 
                             $mailDiscount = $discount->percent;
-                            $discountSum = ($order->totalSum * $discount->percent)/100;
+                            $discountSum = (($order->totalSum - $noDiscountItemsSum) * $discount->percent)/100;
                             $order->totalSum -= $discountSum;
                             break;
 
@@ -275,10 +285,6 @@ class PagesController extends Controller
             $user->save();
         }
         $order->save();
-        $orderedProducts = Cart::content();
-        foreach ($orderedProducts as $orderedProduct) {
-            $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->qty]);
-        }
 
     	$response = null;
 
@@ -317,7 +323,7 @@ class PagesController extends Controller
         $sentMailProducts = "";
 
         foreach ($orderedProducts as $orderedProduct) {
-            $sentMailProducts .= "<h4>" . $orderedProduct->name . " Кількість: " . $orderedProduct->qty . "</h4>";
+            $sentMailProducts .= "<h4>" . $orderedProduct->name . " Вага: " . $orderedProduct->options->weight . " Кількість: " . $orderedProduct->qty . "</h4>";
         }
 
         $messageAdmin = "Клієнт " . $order->name . " зробив замовлення на сайті sushiwin.vn.ua</h4>
@@ -344,7 +350,7 @@ class PagesController extends Controller
 
         "<h4>Телефон: " . $order->phone . "</h4>";
         $headersAdmin = "Content-type:text/html;charset=UTF-8";
-        mail("sushiwin18@gmail.com ", "Зроблено нове замовлення на сайте sushiwin.vn.ua", $messageAdmin, $headersAdmin);
+        mail("sushiwin18@gmail.com", "Зроблено нове замовлення на сайте sushiwin.vn.ua", $messageAdmin, $headersAdmin);
 
 		return response()->json($response, 200);
 
@@ -380,7 +386,7 @@ class PagesController extends Controller
     //     $gtagResponceChecker = 1;
 
     //     return view('thank-you-page', compact('gtagResponce', 'gtagResponceChecker'), ['categories' => $this->categories]);
-    }
+    // }
 
     public function thankYou(Request $request)
     {
@@ -410,7 +416,7 @@ class PagesController extends Controller
         $gtagResponce = json_encode($gtagResponce);
 
 
-    	if ($params->public_key == $order->public_key && $params->status != "failure") {
+    	if ($params->public_key == $order->public_key && $params->status == "success") {
     		$order->paid = 1;
     		$order->save();
     		Cart::destroy();
@@ -468,11 +474,9 @@ class PagesController extends Controller
                     $startDateChecker = Carbon::createFromFormat('Y-m-d', $discount->startDate, 'Europe/Kiev');
                     $endDateChecker = Carbon::createFromFormat('Y-m-d', $discount->endDate, 'Europe/Kiev');
 
-                    $dateChecker = $discount->startDate==null || $discount->endDate==null || $startDateChecker <= $date->format('Y-m-d') && $endDateChecker >= $date->format('Y-m-d');
+                    $dateChecker = $discount->startDate==null || $discount->endDate==null || $startDateChecker->format('Y-m-d') <= $date->format('Y-m-d') && $endDateChecker->format('Y-m-d') >= $date->format('Y-m-d');
 
                     if ($dateChecker) {
-                        // $startTimeChecker = Carbon::parse($date->format('Y-m-d'). ' ' .$discount->startTime);
-                        // $endTimeChecker = Carbon::parse($date->format('Y-m-d'). ' ' .$discount->endTime); 
 
                         $startTimeChecker = Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d'). ' ' .$discount->startTime, 'Europe/Kiev');
                         $endTimeChecker = Carbon::createFromFormat('Y-m-d H:i', $date->format('Y-m-d'). ' ' .$discount->endTime, 'Europe/Kiev');

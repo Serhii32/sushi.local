@@ -316,11 +316,15 @@ export default {
         },
         getTotalSum(){
             this.totalSum = 0;
+            let noDiscountItemsSum = 0;
             for(var index in this.cart){
                 this.totalSum += parseInt(this.cart[index].qty) * parseFloat(this.cart[index].price);
+                if (this.cart[index].options.isDiscount == 0) {
+                    noDiscountItemsSum += parseInt(this.cart[index].qty) * parseFloat(this.cart[index].price);
+                }
             }
             if (this.cartDiscount) {
-                let discountSum = (this.totalSum * parseInt(this.cartDiscount.percent))/100;
+                let discountSum = ((this.totalSum - noDiscountItemsSum) * parseInt(this.cartDiscount.percent))/100;
                 this.totalSum -= discountSum;
             }
         },
@@ -349,25 +353,28 @@ export default {
 
                 axios.post('/makeOrder', formData).then(response => {
                     this.loaded = true;
+
+                    var gtagInfo = {};
+                    gtagInfo.items = [];
+                    if (this.cartDiscount) {
+                        gtagInfo.coupon = this.cartDiscount.title;
+                    }
+                    for(let key in this.cart) {
+                        gtagInfo.items.push({
+                            id: this.cart[key].id,
+                            name: this.cart[key].name,
+                            price: this.cart[key].price,
+                            quantity: this.cart[key].qty
+                        });
+                    }
+
                     if (typeof response.data.data !== 'undefined' && typeof response.data.signature !== 'undefined') {
-                        let gtagInfo = {};
-                        gtagInfo.items = [];
-                        if (this.cartDiscount) {
-                            gtagInfo.coupon = this.cartDiscount.title;
-                        }
-                        for(let key in this.cart) {
-                            gtagInfo.items.push({
-                                id: this.cart[key].id,
-                                name: this.cart[key].name,
-                                price: this.cart[key].price,
-                                quantity: this.cart[key].qty
-                            });
-                        }
+                        
                         gtag('event', 'begin_checkout', gtagInfo);
 
                         let form = document.createElement("form");
                         form.setAttribute("method", "post");
-                        form.setAttribute("action", "https://www.liqpay.com/api/3/checkout");
+                        form.setAttribute("action", "https://www.liqpay.ua/api/3/checkout");
 
                         let data = document.createElement("input");
                         data.setAttribute("type", "hidden");
@@ -383,6 +390,8 @@ export default {
 
                         document.body.appendChild(form);
                         form.submit();
+                    } else {
+                        gtag('event', 'paid_cash', gtagInfo);
                     }
                     this.showThankYouModal();
                     this.getCartContent();

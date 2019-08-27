@@ -120,6 +120,8 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'as' 
 
 	Route::post('promotions/delete/{promotion}', ['as' => 'promotions.destroy', 'uses' => 'PromotionController@destroy']);
 	Route::get('promotions/getPromotions', ['as' => 'promotions.getPromotions', 'uses' => 'PromotionController@getPromotions']);
+
+	Route::get('users', ['as' => 'users.index', 'uses' => 'UserController@index']);
 });
 
 Route::group(['namespace' => 'User', 'middleware' => ['auth', 'isUser'], 'as' => 'user.', 'prefix'=>'user'], function () {

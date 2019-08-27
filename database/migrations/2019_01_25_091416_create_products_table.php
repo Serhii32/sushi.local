@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('titleSEO')->nullable();
             $table->text('descriptionSEO')->nullable();
             $table->string('keywordsSEO')->nullable();
+            $table->boolean('isDiscount')->default(1);
             $table->foreign('category')->references('id')->on('categories');
             $table->timestamps();
         });

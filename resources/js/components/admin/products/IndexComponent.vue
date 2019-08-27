@@ -93,6 +93,12 @@
                                     <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.keywordsSEO[0] }}</b-alert>
                                 </div>
                             </b-form-group>
+                            <b-form-group label-class="text-uppercase font-weight-bold" description="Чи розповсюджуються знижки на продукт" label="Знижка:" label-for="isDiscount">
+                                <b-form-radio-group id="isDiscount" name="isDiscount" buttons button-variant="outline-secondary" class="d-flex" v-model="fields.isDiscount" stacked :options="[{ text: 'Так', value: '1' },{ text: 'Ні', value: '0' }]" />
+                                <div v-if="errors && errors.isDiscount">
+                                    <b-alert class="text-center" variant="danger" dismissible fade :show="true">{{ errors.isDiscount[0] }}</b-alert>
+                                </div>
+                            </b-form-group>
                             <b-form-group>
                                 <b-button type="submit" class="btn btn-success w-100 text-uppercase font-weight-bold">Зберегти</b-button>
                             </b-form-group>
@@ -202,6 +208,7 @@ export default {
                 formData.set('titleSEO', this.fields.titleSEO == null?"":this.fields.titleSEO);
                 formData.set('descriptionSEO', this.fields.descriptionSEO == null?"":this.fields.descriptionSEO);
                 formData.set('keywordsSEO', this.fields.keywordsSEO == null?"":this.fields.keywordsSEO);
+                formData.set('isDiscount', this.fields.isDiscount == null?"":this.fields.isDiscount);
                 formData.append('photo', this.fields.photo == null?"":this.fields.photo);
                 axios.post('/admin/products', formData, {'Content-Type': 'multipart/form-data'}).then(response => {
                     this.loaded = true;

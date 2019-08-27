@@ -41,6 +41,7 @@ class ProductController extends Controller
         $product->titleSEO = $request->titleSEO;
         $product->descriptionSEO = $request->descriptionSEO;
         $product->keywordsSEO = $request->keywordsSEO;
+        $product->isDiscount = $request->isDiscount === null ? 1 : $request->isDiscount;
         $product->save();
         $last_insereted_id = $product->id;
 
@@ -88,7 +89,7 @@ class ProductController extends Controller
     }
 
     public function update(StoreProductRequest $request, int $id)
-    {
+    {       
         $product = Product::findOrFail($id);
         $product->title = $request->title;
         $product->price = $request->price;
@@ -101,6 +102,7 @@ class ProductController extends Controller
         $product->titleSEO = $request->titleSEO;
         $product->descriptionSEO = $request->descriptionSEO;
         $product->keywordsSEO = $request->keywordsSEO;
+        $product->isDiscount = $request->isDiscount === null ? 1 : $request->isDiscount;
         $product->save();
         $last_insereted_id = $product->id;
         if ($request->photo != null) {

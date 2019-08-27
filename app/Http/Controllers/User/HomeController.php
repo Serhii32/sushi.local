@@ -42,8 +42,8 @@ class HomeController extends Controller
     public function update(StoreUserRequest $request)
     {
         $user =  Auth::user();
-        $user->name = $request->name;
-        $user->phone = $request->phone;
+        $user->name = $request->userName;
+        $user->phone = $request->userPhone;
         $user->gender = $request->gender;
 
         $user->street = $request->userStreet;

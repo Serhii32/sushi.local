@@ -67,6 +67,7 @@ export default {
     
                 axios.post('/addToCart', {id:id}).then(response => {
                     this.loaded = true;
+                    this.$root.$emit('cartUpdated');
                     gtag('event', 'add_to_cart', {
                       "items": [
                         {
@@ -76,8 +77,6 @@ export default {
                         }
                       ]
                     });
-                    this.$root.$emit('cartUpdated');
-
                 }).catch(error => {
                     this.loaded = true;
                 });
