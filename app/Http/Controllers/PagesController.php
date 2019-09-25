@@ -223,9 +223,9 @@ class PagesController extends Controller
     	$order->sticks = $request->sticks;
     	$order->comment = $request->comment;
     	$order->status = 1;
-    	$order->totalSum = Cart::subtotal();
+        $order->totalSum = str_replace(',', '', Cart::subtotal());
         
-        $order->save();
+        // $order->save();
 
         $discounts = Discount::all();
 
@@ -238,8 +238,7 @@ class PagesController extends Controller
 
         $orderedProducts = Cart::content();
         foreach ($orderedProducts as $orderedProduct) {
-            $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->qty]);
-            if ($orderedProduct->isDiscount == 0) {
+            if ($orderedProduct->options->isDiscount == 0) {
                 $noDiscountItemsSum += $orderedProduct->price * $orderedProduct->qty;
             }
         }
@@ -266,7 +265,7 @@ class PagesController extends Controller
                         if ($timeChecker) {
 
                             $mailDiscount = $discount->percent;
-                            $discountSum = (($order->totalSum - $noDiscountItemsSum) * $discount->percent)/100;
+                            $discountSum = ((floatval($order->totalSum) - $noDiscountItemsSum) * $discount->percent)/100;
                             $order->totalSum -= $discountSum;
                             break;
 
@@ -285,6 +284,10 @@ class PagesController extends Controller
             $user->save();
         }
         $order->save();
+
+        foreach ($orderedProducts as $orderedProduct) {
+            $order->products()->attach($orderedProduct->id, ['order_id' => $order->id, 'price' => $orderedProduct->price, 'quantity' => $orderedProduct->qty]);
+        }
 
     	$response = null;
 
